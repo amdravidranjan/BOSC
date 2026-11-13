@@ -66,17 +66,21 @@ import time
 import zipfile
 from pathlib import Path
 
+import warnings
+
 import numpy as np
 
+warnings.filterwarnings("ignore", message="X does not have valid feature names")
 ON_KAGGLE = Path("/kaggle/working").exists()
 LOCAL_TEST = os.environ.get("BOSC_LOCAL_TEST") == "1"   # CPU-only check of the plumbing (fake teacher, no Stage 1/4)
 if LOCAL_TEST:
     QUICK = True
     CFG.update(MAX_CALLS=300, HF_SYNC=False, LIBRARY_K=20)
 WORK = Path("/kaggle/working") if ON_KAGGLE else Path(os.environ.get("BOSC_WORK", "kaggle_work")).resolve()
-RUN = WORK / "bosc_run"          # checkpoints, predictions, stage markers
-OUT = WORK / "bosc_out"          # deliverables, laid out like the repo
-ZIP = WORK / "bosc_latest.zip"
+_SFX = "_quick" if QUICK else ""   # quick runs never mix with (or get resumed into) the full run
+RUN = WORK / f"bosc_run{_SFX}"   # checkpoints, predictions, stage markers
+OUT = WORK / f"bosc_out{_SFX}"   # deliverables, laid out like the repo
+ZIP = WORK / f"bosc_latest{_SFX}.zip"
 REPO_DIR = Path(os.environ["BOSC_REPO"]) if os.environ.get("BOSC_REPO") else Path("/tmp/BOSC")
 for d in (WORK, RUN, OUT):
     d.mkdir(parents=True, exist_ok=True)
@@ -142,7 +146,7 @@ def sync(msg="sync"):
         from huggingface_hub import HfApi
         api = HfApi(token=HF_TOKEN)
         ignore = [] if CFG["HF_SYNC_OPTIMIZER"] else ["**/last_optim.pt"]
-        for sub in ("bosc_run", "bosc_out"):
+        for sub in (RUN.name, OUT.name):
             if (WORK / sub).exists():
                 api.upload_folder(folder_path=str(WORK / sub), path_in_repo=sub, repo_id=repo,
                                   commit_message=msg, ignore_patterns=ignore + ["**/__pycache__/**"])
@@ -156,10 +160,10 @@ def restore():
     if any((RUN / "done").glob("*.json")) or any(RUN.glob("*/last_state.json")):
         print("Resuming from", RUN)
         return
-    for prev in sorted(glob.glob("/kaggle/input/*/bosc_run")) + sorted(glob.glob("/kaggle/input/*/*/bosc_run")):
+    for prev in sorted(glob.glob(f"/kaggle/input/*/{RUN.name}")) + sorted(glob.glob(f"/kaggle/input/*/*/{RUN.name}")):
         print("Restoring from attached output:", prev)
         shutil.copytree(prev, RUN, dirs_exist_ok=True)
-        out_prev = Path(prev).parent / "bosc_out"
+        out_prev = Path(prev).parent / OUT.name
         if out_prev.exists():
             shutil.copytree(out_prev, OUT, dirs_exist_ok=True)
         return
@@ -168,7 +172,7 @@ def restore():
         try:
             from huggingface_hub import snapshot_download
             snapshot_download(repo_id=repo, local_dir=str(WORK), token=HF_TOKEN,
-                              allow_patterns=["bosc_run/**", "bosc_out/**"])
+                              allow_patterns=[f"{RUN.name}/**", f"{OUT.name}/**"])
             print("Restored from HF backup:", repo)
         except Exception as e:
             print("Nothing restored from HF:", e)
@@ -289,8 +293,10 @@ for name, pat in (("lockbox_human", "lockbox*.jsonl"), ("redteam", "redteam*.jso
     if cs:
         SPLIT_CALLS[name] = cs
 if CFG.get("MAX_CALLS"):
-    for k in SPLIT_CALLS:
-        SPLIT_CALLS[k] = SPLIT_CALLS[k][:CFG["MAX_CALLS"]]
+    for k in SPLIT_CALLS:   # random sample, not a prefix: a prefix of dev is all template calls and no HF calls
+        cs = SPLIT_CALLS[k]
+        if len(cs) > CFG["MAX_CALLS"]:
+            SPLIT_CALLS[k] = [cs[i] for i in sorted(random.Random(5).sample(range(len(cs)), CFG["MAX_CALLS"]))]
 TEST_SPLITS = [k for k in SPLIT_CALLS if k not in ("teacher_train", "calib", "dev")]
 EVAL_SPLITS = ["dev"] + TEST_SPLITS
 
@@ -369,7 +375,7 @@ def window_scores(probs, split):
 def tactic_macro_f1(probs, split):
     M, Y = S[split]["M"], S[split]["Y"]
     rows = M[:, 1] > 0
-    if not rows.any():
+    if not rows.any() or not np.any(probs[:, 1:]):   # model has no tactic outputs (rows C/D)
         return None
     return float(f1_score(Y[rows, 1:], (probs[rows, 1:] > 0.5).astype(int), average="macro", zero_division=0))
 
@@ -871,7 +877,9 @@ if not is_done("stage3"):
 STU_DIR = OUT / "frontend/model/student"
 
 
-def export_onnx(best_dir, path):
+def export_onnx(best_dir, path, check_texts):
+    """Export with both ONNX exporters, check each against PyTorch on several window lengths, keep the closer one.
+    (Quick run on transformers v5: the legacy TorchScript export differed from PyTorch by 0.04 in logits.)"""
     from transformers import AutoModelForSequenceClassification
     m = AutoModelForSequenceClassification.from_pretrained(best_dir, attn_implementation="eager").float().eval().cpu()
     tok = load_tokenizer(str(best_dir))
@@ -884,19 +892,44 @@ def export_onnx(best_dir, path):
         def forward(self, input_ids, attention_mask, token_type_ids):
             return self.m(input_ids=input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids).logits
 
+    w = Wrap(m).eval()
     enc = tok(["hello sir | this is from the bank, kindly share the otp"], return_tensors="pt")
-    tti = enc.get("token_type_ids", torch.zeros_like(enc["input_ids"]))
     names = ["input_ids", "attention_mask", "token_type_ids"]
-    kw = dict(input_names=names, output_names=["logits"], opset_version=17, do_constant_folding=True,
-              dynamic_axes={**{k: {0: "batch", 1: "sequence"} for k in names}, "logits": {0: "batch"}})
-    args = (enc["input_ids"], enc["attention_mask"], tti)
-    try:
-        torch.onnx.export(Wrap(m), args, str(path), dynamo=False, **kw)
-    except TypeError:
-        torch.onnx.export(Wrap(m), args, str(path), **kw)
+    args = (enc["input_ids"], torch.ones_like(enc["input_ids"]), torch.zeros_like(enc["input_ids"]))
+    dyn = {**{k: {0: "batch", 1: "sequence"} for k in names}, "logits": {0: "batch"}}
+    ids_list = [encode_ids(tok, t, CFG["STUDENT_MAXLEN"]) for t in check_texts]
     with torch.no_grad():
-        ref = Wrap(m)(*args).numpy()
-    return ref, {k: v.numpy() for k, v in zip(names, args)}
+        refs = [w(torch.tensor([ids]), torch.ones(1, len(ids), dtype=torch.long),
+                  torch.zeros(1, len(ids), dtype=torch.long))[0].numpy() for ids in ids_list]
+    results = {}
+    for name in ("dynamo", "legacy"):
+        out = Path(str(path) + f".{name}")
+        try:
+            if name == "dynamo":
+                torch.onnx.export(w, args, str(out), input_names=names, output_names=["logits"], opset_version=18,
+                                  dynamic_axes=dyn, dynamo=True, external_data=False)
+            else:
+                try:
+                    torch.onnx.export(w, args, str(out), input_names=names, output_names=["logits"], opset_version=17,
+                                      do_constant_folding=True, dynamic_axes=dyn, dynamo=False)
+                except TypeError:
+                    torch.onnx.export(w, args, str(out), input_names=names, output_names=["logits"], opset_version=17,
+                                      do_constant_folding=True, dynamic_axes=dyn)
+            sess = ort_session(out)
+            results[name] = float(max(np.abs(ort_logits(sess, ids) - r).max() for ids, r in zip(ids_list, refs)))
+        except Exception as e:
+            print(f"ONNX export via {name} failed: {str(e)[:300]}")
+    if not results:
+        raise RuntimeError("Both ONNX exporters failed")
+    best = min(results, key=results.get)
+    os.replace(str(path) + f".{best}", path)
+    for name in results:
+        Path(str(path) + f".{name}").unlink(missing_ok=True)
+    print(f"ONNX exporters, max |logit diff| vs PyTorch over {len(ids_list)} windows: {results} -> using {best}")
+    if results[best] > 1e-3:
+        print("WARNING: the ONNX model still differs from PyTorch by more than 1e-3. The browser results will follow "
+              "the ONNX model (Stage 3 is trained on int8 ONNX outputs), so this is a fidelity note, not a failure.")
+    return {"exporter": best, "torch_vs_onnx_fp32_max_abs": results[best], "all": results}, ids_list
 
 
 def ort_session(path, threads=None):
@@ -933,12 +966,13 @@ if not is_done("stage4") and not LOCAL_TEST:
     # ONNX export + int8 dynamic quantisation
     onnx_dir = RUN / "student_onnx"
     onnx_dir.mkdir(exist_ok=True)
-    ref, feed = export_onnx(best_dir, onnx_dir / "model.onnx")
+    chk = texts("dev")
+    chk = [chk[i] for i in np.random.default_rng(3).choice(len(chk), min(20, len(chk)), replace=False)]
+    chk += ["OTP", " | ".join(["please stay on the line sir, do not disconnect"] * 30)]
+    onnx_check, chk_ids = export_onnx(best_dir, onnx_dir / "model.onnx", chk)
     quantize_dynamic(str(onnx_dir / "model.onnx"), str(onnx_dir / "model_quantized.onnx"), weight_type=QuantType.QInt8)
     s32, s8 = ort_session(onnx_dir / "model.onnx"), ort_session(onnx_dir / "model_quantized.onnx")
-    ids0 = feed["input_ids"][0].tolist()
-    onnx_check = {"torch_vs_onnx_fp32_max_abs": float(np.abs(ort_logits(s32, ids0) - ref[0]).max()),
-                  "fp32_vs_int8_max_abs": float(np.abs(ort_logits(s32, ids0) - ort_logits(s8, ids0)).max())}
+    onnx_check["fp32_vs_int8_max_abs"] = float(max(np.abs(ort_logits(s32, i) - ort_logits(s8, i)).max() for i in chk_ids))
     print("ONNX check:", onnx_check)
 
     # int8 predictions exactly as the browser computes them (one window at a time, no padding)
