@@ -23,7 +23,7 @@
 #
 # **Download.** *Output* tab → `bosc_latest.zip`. It's rebuilt after every stage, so it always holds the newest results.
 # Unzip it at the repo root; the paths inside match the repo (`frontend/model/...`, `data-eval/results/...`, `backend/...`).
-# The large teacher checkpoint is in `bosc_run/teacher_*/best/` (Output tab and the HF backup), not in the zip.
+# The large teacher checkpoint is in `bosc_run_<run id>/teacher_*/best/` (Output tab and the HF backup), not in the zip.
 #
 # **Resume.** Re-run the notebook. Finished stages are skipped, and an interrupted training continues from `last_*.pt`.
 # Checkpoints are restored from, in order:
@@ -1146,5 +1146,5 @@ write_report()
 save_json(OUT / "data-eval/results/metrics_v2.json", RES)
 make_zip()
 sync("final")
-print("\nDONE. Download bosc_latest.zip from the Output tab and unzip it at the repo root.")
+print(f"\nDONE ({RUN_ID}). Download {ZIP.name} from the Output tab and unzip it at the repo root.")
 print("Then: npm run parity && node backend/parity_stream.mjs && (npm i -D @huggingface/transformers@3.0.2; node backend/parity_onnx.mjs)")
