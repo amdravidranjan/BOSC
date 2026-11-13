@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f4e5f">
+  <title>BOSC · Bane of Scam Calls</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z' fill='%231f4e5f'/%3E%3Cpath d='m11 16 3.5 3.5L21 13' stroke='%23fff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+<body>
+<div id="app">
+
+  <!-- ================= HOME ================= -->
+  <section id="v-home" class="stack">
+    <div class="hero">
+      <div class="logo"><svg viewBox="0 0 32 32"><path d="M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z" fill="var(--brand)"/><path d="m11 16 3.5 3.5L21 13" stroke="var(--brand-ink)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>BOSC</div>
+      <h1 style="margin-top:14px">Bane of Scam Calls</h1>
+      <p>Listens for the pressure tactics scammers use on a call, and pauses a payment made under that pressure.</p>
+    </div>
+    <button class="role" data-go="bosc">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg></div>
+      <div><strong>Protected phone (BOSC)</strong><span>Receives the call, listens on-device, warns and guards payments.</span></div>
+    </button>
+    <button class="role" data-go="caller">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+      <div><strong>Caller (Phone A)</strong><span>Places the call. Use the script prompts to play a scammer or a genuine caller.</span></div>
+    </button>
+    <div class="card privacy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <p>Speech-to-text and scam detection run inside this browser. Call audio is never uploaded, recorded or stored. The call itself is a direct WebRTC connection between the two phones.</p>
+    </div>
+    <p class="small">Hackathon prototype · English only · Payments are simulated (no real UPI).</p>
+  </section>
+
+  <!-- ================= CALLER (Phone A) ================= -->
+  <section id="v-caller" class="stack" hidden>
+    <div class="topbar"><button class="btn-sm btn-ghost" data-go="home">← Back</button><div class="spacer"></div><span class="pill" id="c-state"><span class="dot"></span>Idle</span></div>
+    <h2>Call the protected phone</h2>
+    <div class="card stack" id="c-dial">
+      <div class="field"><label for="c-code">BOSC phone's 4-digit code</label><input id="c-code" inputmode="numeric" maxlength="4" placeholder="e.g. 4821" autocomplete="off"></div>
+      <button class="btn-primary btn-block" id="c-call">Call</button>
+    </div>
+    <div class="card stack" id="c-incall" hidden>
+      <div class="row"><strong id="c-timer">00:00</strong><div class="spacer"></div><button class="btn-sm" id="c-mute">Mute</button><button class="btn-sm btn-danger" id="c-hang">Hang up</button></div>
+    </div>
+    <div class="card stack">
+      <div class="row"><h3>Script prompts</h3><div class="spacer"></div><select id="c-script" style="width:auto;min-height:36px;padding:6px 10px"></select></div>
+      <div class="prompter" id="c-prompter"></div>
+      <div class="row"><button class="btn-sm" id="c-prev">Previous</button><div class="spacer"></div><button class="btn-sm btn-primary" id="c-next">Next line</button></div>
+      <p class="small">Read each line naturally, with a short pause between lines.</p>
+    </div>
+    <audio id="c-remote" autoplay playsinline></audio>
+  </section>
+
+  <!-- ================= BOSC (Phone B) ================= -->
+  <section id="v-bosc" class="stack" hidden>
+    <div class="topbar">
+      <button class="btn-sm btn-ghost" data-go="home">←</button>
+      <div class="logo" style="font-size:18px">BOSC</div>
+      <div class="spacer"></div>
+      <span class="pill" id="b-state"><span class="dot"></span>Starting</span>
+      <button class="btn-sm btn-ghost" id="b-settings-btn" aria-label="Settings">⚙</button>
+    </div>
+
+    <!-- idle panel -->
+    <div class="card stack" id="b-idle">
+      <div class="seg" id="b-src">
+        <button data-src="call" class="on">Call</button>
+        <button data-src="mic">This mic</button>
+        <button data-src="script">Demo script</button>
+      </div>
+      <div id="b-src-call" class="stack">
+        <p class="muted" style="text-align:center">Your code: tell the caller to enter it</p>
+        <div class="code" id="b-code">····</div>
+        <p class="small" style="text-align:center" id="b-peer-status">Connecting to signalling…</p>
+      </div>
+      <div id="b-src-mic" class="stack" hidden>
+        <p class="muted">Listens through this phone's microphone. Use it when a call is on speaker on another phone, or to replay a recording from a laptop.</p>
+        <button class="btn-primary btn-block" id="b-mic-start">Start listening</button>
+        <label class="btn btn-ghost btn-block" style="margin:0">Replay an audio file<input type="file" id="b-file" accept="audio/*" hidden></label>
+      </div>
+      <div id="b-src-script" class="stack" hidden>
+        <p class="muted">No second phone? Play a scripted call straight into the detector (text only, no speech-to-text).</p>
+        <select id="b-script"></select>
+        <button class="btn-primary btn-block" id="b-script-start">Play script</button>
+      </div>
+      <div class="status" id="b-asr-status"><span id="b-asr-text">Speech model not loaded</span></div>
+      <div class="progress" id="b-asr-prog" hidden><i></i></div>
+    </div>
+
+    <!-- live panel -->
+    <div class="risk" id="b-risk" data-level="SAFE">
+      <div class="risk-head"><span class="risk-word" id="b-word">Safe</span><div class="spacer"></div><span class="small" id="b-score">risk 0%</span></div>
+      <div class="meter" id="b-meter"></div>
+      <p class="warning" id="b-warning">No pressure tactics detected.</p>
+      <div class="chips" id="b-chips"></div>
+    </div>
+
+    <div class="card stack" id="b-live">
+      <div class="row"><h3>Caller said</h3><div class="spacer"></div>
+        <div class="status"><span id="b-listen">idle</span><div class="level-bar"><i id="b-level"></i></div></div></div>
+      <div class="transcript" id="b-transcript"><div class="empty">The caller's words will appear here as they speak.</div></div>
+      <form class="row" id="b-type-form" autocomplete="off"><input id="b-type" placeholder="Type a caller line (testing)"><button class="btn-sm">Add</button></form>
+    </div>
+
+    <div class="card privacy" style="box-shadow:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <p id="b-privacy">Listening only while a call is active. Audio is processed on this phone and discarded.</p>
+    </div>
+
+    <div class="actionbar"><div class="inner">
+      <button class="btn-danger" id="b-hang">Hang up</button>
+      <a class="btn btn-safe" id="b-trusted" href="tel:">Call family</a>
+      <button class="btn-primary" data-go="pay">Pay</button>
+    </div></div>
+    <audio id="b-remote" autoplay playsinline></audio>
+  </section>
+
+  <!-- ================= PAY (Shield) ================= -->
+  <section id="v-pay" class="stack" hidden>
+    <div class="topbar"><button class="btn-sm btn-ghost" data-go="bosc">←</button><div class="logo" style="font-size:18px">PayFast</div><div class="spacer"></div><span class="pill">BOSC Shield</span></div>
+    <div class="callbar" id="p-callbar" data-level="SAFE"><span>📞</span><span id="p-calltext">Not on a call</span></div>
+    <div class="card stack" id="p-form">
+      <div class="field"><label for="p-payee">Pay to</label><input id="p-payee" value="RBI Verification A/c" autocomplete="off"></div>
+      <div class="field"><label for="p-upi">UPI ID</label><input id="p-upi" value="rbi.safeaccount@okaxis" autocomplete="off"></div>
+      <div class="field"><label for="p-amt">Amount (₹)</label><input id="p-amt" class="amount" inputmode="numeric" value="50000"></div>
+      <div id="p-inline" class="inline-warn" hidden></div>
+      <button class="btn-primary btn-block" id="p-pay">Pay ₹50,000</button>
+    </div>
+    <div class="card success" id="p-done" hidden><div class="tick">✓</div><h2>Payment sent</h2><p class="muted" style="margin-top:6px">(Simulated. No money moved.)</p><button class="btn-ghost" style="margin-top:16px" id="p-again">New payment</button></div>
+    <details class="card">
+      <summary>Shield signals (what BOSC Shield checks)</summary>
+      <div class="signals" style="margin-top:10px">
+        <div class="small" id="p-sig-list"></div>
+        <label class="toggle"><input type="checkbox" id="p-screenshare"> Simulate: screen sharing / remote app active</label>
+        <label class="toggle"><input type="checkbox" id="p-newpayee" checked> Payee is new (never paid before)</label>
+        <p class="small">In a native app these come from the OS (call state, MediaProjection/accessibility services, payee history). A browser can't read them, so the screen-share signal is simulated here.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ================= SUMMARY ================= -->
+  <section id="v-summary" class="stack" hidden>
+    <div class="topbar"><button class="btn-sm btn-ghost" data-go="bosc">←</button><h2>Call summary</h2></div>
+    <div class="card stack">
+      <div class="row"><strong id="s-verdict">—</strong><div class="spacer"></div><span class="small" id="s-meta"></span></div>
+      <div class="graph" id="s-graph"></div>
+      <div class="chips" id="s-chips"></div>
+    </div>
+    <div class="card stack">
+      <h3>If this was a scam</h3>
+      <a class="btn btn-danger btn-block" href="tel:1930">Call 1930 cybercrime helpline</a>
+      <a class="btn btn-ghost btn-block" href="https://cybercrime.gov.in" target="_blank" rel="noopener">Report at cybercrime.gov.in</a>
+    </div>
+    <button class="btn-ghost" id="s-download">Download session log (text and scores only)</button>
+  </section>
+</div>
+
+<!-- incoming call -->
+<div class="overlay" id="incoming" hidden>
+  <div class="sheet" style="text-align:center">
+    <p class="muted">Incoming call</p>
+    <h2 style="margin-top:6px" id="in-from">Unknown number</h2>
+    <p class="small" style="margin-top:6px">BOSC will listen to the caller's side on this phone.</p>
+    <div class="actions" style="grid-template-columns:1fr 1fr">
+      <button class="btn-danger" id="in-reject">Decline</button>
+      <button class="btn-safe" id="in-accept">Answer</button>
+    </div>
+  </div>
+</div>
+
+<!-- payment pause -->
+<div class="overlay" id="pause" hidden>
+  <div class="sheet pause">
+    <h2>Payment paused</h2>
+    <p class="big">Is someone on a call telling you to send this money?</p>
+    <ul class="reasons" id="pause-reasons"></ul>
+    <p class="muted" style="margin-top:12px" id="pause-advice"></p>
+    <div class="actions">
+      <button class="btn-primary" id="pause-cancel">Cancel payment</button>
+      <a class="btn btn-safe" id="pause-family" href="tel:">Call my trusted contact</a>
+      <button class="btn-ghost" id="pause-wait">Wait 60 seconds</button>
+      <button class="linkish" id="pause-override">I trust this call, pay anyway</button>
+    </div>
+  </div>
+</div>
+
+<!-- settings -->
+<div class="overlay" id="settings" hidden>
+  <div class="sheet stack">
+    <h2>Settings</h2>
+    <div class="field"><label for="set-model">Speech model</label>
+      <select id="set-model">
+        <option value="onnx-community/whisper-tiny.en">Whisper tiny (English): fastest, ~40 MB</option>
+        <option value="onnx-community/whisper-base.en">Whisper base (English): more accurate, ~80 MB</option>
+      </select></div>
+    <label class="toggle"><input type="checkbox" id="set-wasm"> Force CPU (disable WebGPU)</label>
+    <div class="field"><label for="set-tname">Trusted contact name</label><input id="set-tname" placeholder="Daughter"></div>
+    <div class="field"><label for="set-tnum">Trusted contact number</label><input id="set-tnum" inputmode="tel" placeholder="+91…"></div>
+    <div class="field"><label for="set-avg">Your usual payment size (₹)</label><input id="set-avg" inputmode="numeric" value="1500"></div>
+    <div class="field"><label for="set-sens">Mic sensitivity</label>
+      <select id="set-sens"><option value="0.004">High (quiet room)</option><option value="0.008" selected>Normal</option><option value="0.015">Low (noisy room)</option></select></div>
+    <label class="toggle"><input type="checkbox" id="set-speak" checked> Read warnings aloud</label>
+    <div class="row"><div class="spacer"></div><button class="btn-primary" id="set-close">Done</button></div>
+  </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

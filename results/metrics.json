@@ -1,0 +1,1313 @@
+{
+ "model_sha256_16": "373d97e902713b8f",
+ "chosen": {
+  "W": 4,
+  "C": 0.5,
+  "tactic_weight": 0.3
+ },
+ "final": {
+  "thresholds": {
+   "warn": 0.3411496416328407,
+   "pause": 0.3796221838330618
+  },
+  "dev": {
+   "n_scam": 395,
+   "n_genuine": 397,
+   "recall_pause": 0.9721518987341772,
+   "recall_pause_ci": [
+    0.9569620253164557,
+    0.9873417721518988
+   ],
+   "recall_warn": 0.9822784810126582,
+   "recall_warn_ci": [
+    0.9670886075949368,
+    0.9949367088607595
+   ],
+   "false_alarm_pause": 0.017632241813602016,
+   "false_alarm_pause_ci": [
+    0.005037783375314861,
+    0.0327455919395466
+   ],
+   "false_alarm_warn": 0.04785894206549118,
+   "false_alarm_warn_ci": [
+    0.030163727959697736,
+    0.07052896725440806
+   ],
+   "median_earliness_turns": 1.0,
+   "pause_by_first_ask_turn": 0.8193979933110368
+  },
+  "test_gen_heldout_phrasing": {
+   "n_scam": 300,
+   "n_genuine": 300,
+   "recall_pause": 0.98,
+   "recall_pause_ci": [
+    0.9633333333333334,
+    0.9933333333333333
+   ],
+   "recall_warn": 0.98,
+   "recall_warn_ci": [
+    0.9633333333333334,
+    0.9933333333333333
+   ],
+   "false_alarm_pause": 0.09,
+   "false_alarm_pause_ci": [
+    0.056666666666666664,
+    0.12333333333333334
+   ],
+   "false_alarm_warn": 0.13,
+   "false_alarm_warn_ci": [
+    0.09333333333333334,
+    0.17
+   ],
+   "median_earliness_turns": 1.0,
+   "pause_by_first_ask_turn": 0.8963210702341137,
+   "window_roc_auc": 0.9577132872358158,
+   "window_pr_auc": 0.956376913632265,
+   "per_type": {
+    "G1_delivery_otp": {
+     "n": 34,
+     "flag_rate_pause": 0.0
+    },
+    "G2_bank_emi_reminder": {
+     "n": 34,
+     "flag_rate_pause": 0.0
+    },
+    "G3_bank_fraud_check": {
+     "n": 34,
+     "flag_rate_pause": 0.0
+    },
+    "G4_police_verification": {
+     "n": 33,
+     "flag_rate_pause": 0.0
+    },
+    "G5_family_money": {
+     "n": 33,
+     "flag_rate_pause": 0.09090909090909091
+    },
+    "G6_telemarketing": {
+     "n": 33,
+     "flag_rate_pause": 0.0
+    },
+    "G7_everyday": {
+     "n": 33,
+     "flag_rate_pause": 0.0
+    },
+    "G8_scam_aware": {
+     "n": 33,
+     "flag_rate_pause": 0.0
+    },
+    "G9_support_genuine": {
+     "n": 33,
+     "flag_rate_pause": 0.7272727272727273
+    },
+    "S10_family_emergency": {
+     "n": 30,
+     "flag_rate_pause": 0.9666666666666667
+    },
+    "S1_bank_kyc": {
+     "n": 30,
+     "flag_rate_pause": 0.8666666666666667
+    },
+    "S2_digital_arrest": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S3_remote_refund": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S4_utility": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S5_sim_aadhaar": {
+     "n": 30,
+     "flag_rate_pause": 0.9666666666666667
+    },
+    "S6_card_loan": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S7_task_investment": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S8_prize_lottery": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S9_tech_support": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    }
+   }
+  },
+  "test_hf": {
+   "n_scam": 160,
+   "n_genuine": 160,
+   "recall_pause": 1.0,
+   "recall_pause_ci": [
+    1.0,
+    1.0
+   ],
+   "recall_warn": 1.0,
+   "recall_warn_ci": [
+    1.0,
+    1.0
+   ],
+   "false_alarm_pause": 0.0125,
+   "false_alarm_pause_ci": [
+    0.0,
+    0.03125
+   ],
+   "false_alarm_warn": 0.01875,
+   "false_alarm_warn_ci": [
+    0.0,
+    0.04375
+   ],
+   "median_earliness_turns": 0.0,
+   "pause_by_first_ask_turn": null,
+   "window_roc_auc": 0.9988225461020284,
+   "window_pr_auc": 0.9989946397638171,
+   "per_type": {
+    "hf_delivery": {
+     "n": 40,
+     "flag_rate_pause": 0.025
+    },
+    "hf_insurance": {
+     "n": 40,
+     "flag_rate_pause": 0.0
+    },
+    "hf_refund": {
+     "n": 40,
+     "flag_rate_pause": 1.0
+    },
+    "hf_reward": {
+     "n": 40,
+     "flag_rate_pause": 1.0
+    },
+    "hf_ssn": {
+     "n": 40,
+     "flag_rate_pause": 1.0
+    },
+    "hf_support": {
+     "n": 40,
+     "flag_rate_pause": 1.0
+    },
+    "hf_telemarketing": {
+     "n": 40,
+     "flag_rate_pause": 0.025
+    },
+    "hf_wrong": {
+     "n": 40,
+     "flag_rate_pause": 0.0
+    }
+   }
+  }
+ },
+ "ablations": {
+  "A_rules_only": {
+   "thresholds": {
+    "warn": 0.42000099999999996,
+    "pause": 0.618001
+   },
+   "dev": {
+    "n_scam": 395,
+    "n_genuine": 397,
+    "recall_pause": 0.4481012658227848,
+    "recall_pause_ci": [
+     0.39746835443037976,
+     0.49873417721518987
+    ],
+    "recall_warn": 0.6759493670886076,
+    "recall_warn_ci": [
+     0.6303797468354431,
+     0.7240506329113924
+    ],
+    "false_alarm_pause": 0.0,
+    "false_alarm_pause_ci": [
+     0.0,
+     0.0
+    ],
+    "false_alarm_warn": 0.04785894206549118,
+    "false_alarm_warn_ci": [
+     0.027707808564231738,
+     0.06807304785894201
+    ],
+    "median_earliness_turns": 3.0,
+    "pause_by_first_ask_turn": 0.11705685618729098
+   },
+   "test_gen_heldout_phrasing": {
+    "n_scam": 300,
+    "n_genuine": 300,
+    "recall_pause": 0.45666666666666667,
+    "recall_pause_ci": [
+     0.4,
+     0.5133333333333333
+    ],
+    "recall_warn": 0.8066666666666666,
+    "recall_warn_ci": [
+     0.76,
+     0.8500833333333332
+    ],
+    "false_alarm_pause": 0.0,
+    "false_alarm_pause_ci": [
+     0.0,
+     0.0
+    ],
+    "false_alarm_warn": 0.05,
+    "false_alarm_warn_ci": [
+     0.02666666666666667,
+     0.07666666666666666
+    ],
+    "median_earliness_turns": 3.0,
+    "pause_by_first_ask_turn": 0.10033444816053512,
+    "window_roc_auc": null,
+    "window_pr_auc": null,
+    "per_type": {
+     "G1_delivery_otp": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G2_bank_emi_reminder": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G3_bank_fraud_check": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G4_police_verification": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G5_family_money": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G6_telemarketing": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G7_everyday": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G8_scam_aware": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G9_support_genuine": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "S10_family_emergency": {
+      "n": 30,
+      "flag_rate_pause": 0.0
+     },
+     "S1_bank_kyc": {
+      "n": 30,
+      "flag_rate_pause": 0.6666666666666666
+     },
+     "S2_digital_arrest": {
+      "n": 30,
+      "flag_rate_pause": 0.7333333333333333
+     },
+     "S3_remote_refund": {
+      "n": 30,
+      "flag_rate_pause": 0.5333333333333333
+     },
+     "S4_utility": {
+      "n": 30,
+      "flag_rate_pause": 0.6
+     },
+     "S5_sim_aadhaar": {
+      "n": 30,
+      "flag_rate_pause": 0.7
+     },
+     "S6_card_loan": {
+      "n": 30,
+      "flag_rate_pause": 0.5333333333333333
+     },
+     "S7_task_investment": {
+      "n": 30,
+      "flag_rate_pause": 0.0
+     },
+     "S8_prize_lottery": {
+      "n": 30,
+      "flag_rate_pause": 0.4666666666666667
+     },
+     "S9_tech_support": {
+      "n": 30,
+      "flag_rate_pause": 0.3333333333333333
+     }
+    }
+   },
+   "test_hf": {
+    "n_scam": 160,
+    "n_genuine": 160,
+    "recall_pause": 0.0,
+    "recall_pause_ci": [
+     0.0,
+     0.0
+    ],
+    "recall_warn": 0.15625,
+    "recall_warn_ci": [
+     0.1,
+     0.2125
+    ],
+    "false_alarm_pause": 0.0,
+    "false_alarm_pause_ci": [
+     0.0,
+     0.0
+    ],
+    "false_alarm_warn": 0.0,
+    "false_alarm_warn_ci": [
+     0.0,
+     0.0
+    ],
+    "median_earliness_turns": 5.0,
+    "pause_by_first_ask_turn": null,
+    "window_roc_auc": null,
+    "window_pr_auc": null,
+    "per_type": {
+     "hf_delivery": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_insurance": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_refund": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_reward": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_ssn": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_support": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_telemarketing": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_wrong": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     }
+    }
+   }
+  },
+  "B_tfidf_lr_only": {
+   "thresholds": {
+    "warn": 0.47854082302722345,
+    "pause": 0.5140144830282779
+   },
+   "dev": {
+    "n_scam": 395,
+    "n_genuine": 397,
+    "recall_pause": 0.9265822784810127,
+    "recall_pause_ci": [
+     0.9012658227848102,
+     0.9518987341772152
+    ],
+    "recall_warn": 0.9392405063291139,
+    "recall_warn_ci": [
+     0.9139240506329114,
+     0.9620253164556962
+    ],
+    "false_alarm_pause": 0.017632241813602016,
+    "false_alarm_pause_ci": [
+     0.005037783375314861,
+     0.0327455919395466
+    ],
+    "false_alarm_warn": 0.04785894206549118,
+    "false_alarm_warn_ci": [
+     0.027707808564231738,
+     0.07059193954659944
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.7324414715719063
+   },
+   "test_gen_heldout_phrasing": {
+    "n_scam": 300,
+    "n_genuine": 300,
+    "recall_pause": 0.9733333333333334,
+    "recall_pause_ci": [
+     0.9533333333333334,
+     0.99
+    ],
+    "recall_warn": 0.9766666666666667,
+    "recall_warn_ci": [
+     0.96,
+     0.99
+    ],
+    "false_alarm_pause": 0.09333333333333334,
+    "false_alarm_pause_ci": [
+     0.06,
+     0.13
+    ],
+    "false_alarm_warn": 0.10666666666666667,
+    "false_alarm_warn_ci": [
+     0.07333333333333333,
+     0.14333333333333334
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.842809364548495,
+    "window_roc_auc": 0.9577132872358158,
+    "window_pr_auc": 0.956376913632265,
+    "per_type": {
+     "G1_delivery_otp": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G2_bank_emi_reminder": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G3_bank_fraud_check": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G4_police_verification": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G5_family_money": {
+      "n": 33,
+      "flag_rate_pause": 0.030303030303030304
+     },
+     "G6_telemarketing": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G7_everyday": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G8_scam_aware": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G9_support_genuine": {
+      "n": 33,
+      "flag_rate_pause": 0.8181818181818182
+     },
+     "S10_family_emergency": {
+      "n": 30,
+      "flag_rate_pause": 0.9666666666666667
+     },
+     "S1_bank_kyc": {
+      "n": 30,
+      "flag_rate_pause": 0.8333333333333334
+     },
+     "S2_digital_arrest": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S3_remote_refund": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S4_utility": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S5_sim_aadhaar": {
+      "n": 30,
+      "flag_rate_pause": 0.9333333333333333
+     },
+     "S6_card_loan": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S7_task_investment": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S8_prize_lottery": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S9_tech_support": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     }
+    }
+   },
+   "test_hf": {
+    "n_scam": 160,
+    "n_genuine": 160,
+    "recall_pause": 1.0,
+    "recall_pause_ci": [
+     1.0,
+     1.0
+    ],
+    "recall_warn": 1.0,
+    "recall_warn_ci": [
+     1.0,
+     1.0
+    ],
+    "false_alarm_pause": 0.0125,
+    "false_alarm_pause_ci": [
+     0.0,
+     0.03125
+    ],
+    "false_alarm_warn": 0.01875,
+    "false_alarm_warn_ci": [
+     0.0,
+     0.04375
+    ],
+    "median_earliness_turns": 0.0,
+    "pause_by_first_ask_turn": null,
+    "window_roc_auc": 0.9988225461020284,
+    "window_pr_auc": 0.9989946397638171,
+    "per_type": {
+     "hf_delivery": {
+      "n": 40,
+      "flag_rate_pause": 0.025
+     },
+     "hf_insurance": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_refund": {
+      "n": 40,
+      "flag_rate_pause": 1.0
+     },
+     "hf_reward": {
+      "n": 40,
+      "flag_rate_pause": 1.0
+     },
+     "hf_ssn": {
+      "n": 40,
+      "flag_rate_pause": 1.0
+     },
+     "hf_support": {
+      "n": 40,
+      "flag_rate_pause": 1.0
+     },
+     "hf_telemarketing": {
+      "n": 40,
+      "flag_rate_pause": 0.025
+     },
+     "hf_wrong": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     }
+    }
+   }
+  },
+  "C_tfidf_lr_plus_tactics": {
+   "thresholds": {
+    "warn": 0.3411496416328407,
+    "pause": 0.3796221838330618
+   },
+   "dev": {
+    "n_scam": 395,
+    "n_genuine": 397,
+    "recall_pause": 0.9721518987341772,
+    "recall_pause_ci": [
+     0.9569620253164557,
+     0.9873417721518988
+    ],
+    "recall_warn": 0.9822784810126582,
+    "recall_warn_ci": [
+     0.9670886075949368,
+     0.9949367088607595
+    ],
+    "false_alarm_pause": 0.017632241813602016,
+    "false_alarm_pause_ci": [
+     0.005037783375314861,
+     0.0327455919395466
+    ],
+    "false_alarm_warn": 0.04785894206549118,
+    "false_alarm_warn_ci": [
+     0.030163727959697736,
+     0.07052896725440806
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.8193979933110368
+   },
+   "test_gen_heldout_phrasing": {
+    "n_scam": 300,
+    "n_genuine": 300,
+    "recall_pause": 0.98,
+    "recall_pause_ci": [
+     0.9633333333333334,
+     0.9933333333333333
+    ],
+    "recall_warn": 0.98,
+    "recall_warn_ci": [
+     0.9633333333333334,
+     0.9933333333333333
+    ],
+    "false_alarm_pause": 0.09,
+    "false_alarm_pause_ci": [
+     0.056666666666666664,
+     0.12333333333333334
+    ],
+    "false_alarm_warn": 0.13,
+    "false_alarm_warn_ci": [
+     0.09333333333333334,
+     0.17
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.8963210702341137,
+    "window_roc_auc": 0.9577132872358158,
+    "window_pr_auc": 0.956376913632265,
+    "per_type": {
+     "G1_delivery_otp": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G2_bank_emi_reminder": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G3_bank_fraud_check": {
+      "n": 34,
+      "flag_rate_pause": 0.0
+     },
+     "G4_police_verification": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G5_family_money": {
+      "n": 33,
+      "flag_rate_pause": 0.09090909090909091
+     },
+     "G6_telemarketing": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G7_everyday": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G8_scam_aware": {
+      "n": 33,
+      "flag_rate_pause": 0.0
+     },
+     "G9_support_genuine": {
+      "n": 33,
+      "flag_rate_pause": 0.7272727272727273
+     },
+     "S10_family_emergency": {
+      "n": 30,
+      "flag_rate_pause": 0.9666666666666667
+     },
+     "S1_bank_kyc": {
+      "n": 30,
+      "flag_rate_pause": 0.8666666666666667
+     },
+     "S2_digital_arrest": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S3_remote_refund": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S4_utility": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S5_sim_aadhaar": {
+      "n": 30,
+      "flag_rate_pause": 0.9666666666666667
+     },
+     "S6_card_loan": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S7_task_investment": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S8_prize_lottery": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     },
+     "S9_tech_support": {
+      "n": 30,
+      "flag_rate_pause": 1.0
+     }
+    }
+   },
+   "test_hf": {
+    "n_scam": 160,
+    "n_genuine": 160,
+    "recall_pause": 1.0,
+    "recall_pause_ci": [
+     1.0,
+     1.0
+    ],
+    "recall_warn": 1.0,
+    "recall_warn_ci": [
+     1.0,
+     1.0
+    ],
+    "false_alarm_pause": 0.0125,
+    "false_alarm_pause_ci": [
+     0.0,
+     0.03125
+    ],
+    "false_alarm_warn": 0.01875,
+    "false_alarm_warn_ci": [
+     0.0,
+     0.04375
+    ],
+    "median_earliness_turns": 0.0,
+    "pause_by_first_ask_turn": null,
+    "window_roc_auc": 0.9988225461020284,
+    "window_pr_auc": 0.9989946397638171,
+    "per_type": {
+     "hf_delivery": {
+      "n": 40,
+      "flag_rate_pause": 0.025
+     },
+     "hf_insurance": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     },
+     "hf_refund": {
+      "n": 40,
+      "flag_rate_pause": 1.0
+     },
+     "hf_reward": {
+      "n": 40,
+      "flag_rate_pause": 1.0
+     },
+     "hf_ssn": {
+      "n": 40,
+      "flag_rate_pause": 1.0
+     },
+     "hf_support": {
+      "n": 40,
+      "flag_rate_pause": 1.0
+     },
+     "hf_telemarketing": {
+      "n": 40,
+      "flag_rate_pause": 0.025
+     },
+     "hf_wrong": {
+      "n": 40,
+      "flag_rate_pause": 0.0
+     }
+    }
+   }
+  }
+ },
+ "cross_source": {
+  "train_gen_test_hf": {
+   "n_scam": 160,
+   "n_genuine": 160,
+   "recall_pause": 0.9,
+   "recall_pause_ci": [
+    0.85609375,
+    0.9375
+   ],
+   "recall_warn": 0.93125,
+   "recall_warn_ci": [
+    0.89375,
+    0.96875
+   ],
+   "false_alarm_pause": 0.2625,
+   "false_alarm_pause_ci": [
+    0.19375,
+    0.33125
+   ],
+   "false_alarm_warn": 0.3375,
+   "false_alarm_warn_ci": [
+    0.26875,
+    0.40625
+   ],
+   "median_earliness_turns": 3.0,
+   "pause_by_first_ask_turn": null,
+   "window_roc_auc": 0.8042617138374569,
+   "window_pr_auc": 0.8291749688576258,
+   "per_type": {
+    "hf_delivery": {
+     "n": 40,
+     "flag_rate_pause": 0.2
+    },
+    "hf_insurance": {
+     "n": 40,
+     "flag_rate_pause": 0.375
+    },
+    "hf_refund": {
+     "n": 40,
+     "flag_rate_pause": 0.925
+    },
+    "hf_reward": {
+     "n": 40,
+     "flag_rate_pause": 0.725
+    },
+    "hf_ssn": {
+     "n": 40,
+     "flag_rate_pause": 1.0
+    },
+    "hf_support": {
+     "n": 40,
+     "flag_rate_pause": 0.95
+    },
+    "hf_telemarketing": {
+     "n": 40,
+     "flag_rate_pause": 0.475
+    },
+    "hf_wrong": {
+     "n": 40,
+     "flag_rate_pause": 0.0
+    }
+   }
+  },
+  "train_hf_test_gen": {
+   "n_scam": 300,
+   "n_genuine": 300,
+   "recall_pause": 1.0,
+   "recall_pause_ci": [
+    1.0,
+    1.0
+   ],
+   "recall_warn": 1.0,
+   "recall_warn_ci": [
+    1.0,
+    1.0
+   ],
+   "false_alarm_pause": 0.5333333333333333,
+   "false_alarm_pause_ci": [
+    0.48,
+    0.5933333333333334
+   ],
+   "false_alarm_warn": 0.77,
+   "false_alarm_warn_ci": [
+    0.72,
+    0.8166666666666667
+   ],
+   "median_earliness_turns": -1.0,
+   "pause_by_first_ask_turn": 0.9832775919732442,
+   "window_roc_auc": 0.8755211014794068,
+   "window_pr_auc": 0.8636067253926463,
+   "per_type": {
+    "G1_delivery_otp": {
+     "n": 34,
+     "flag_rate_pause": 0.0
+    },
+    "G2_bank_emi_reminder": {
+     "n": 34,
+     "flag_rate_pause": 0.8235294117647058
+    },
+    "G3_bank_fraud_check": {
+     "n": 34,
+     "flag_rate_pause": 0.9705882352941176
+    },
+    "G4_police_verification": {
+     "n": 33,
+     "flag_rate_pause": 0.15151515151515152
+    },
+    "G5_family_money": {
+     "n": 33,
+     "flag_rate_pause": 1.0
+    },
+    "G6_telemarketing": {
+     "n": 33,
+     "flag_rate_pause": 0.0
+    },
+    "G7_everyday": {
+     "n": 33,
+     "flag_rate_pause": 0.0
+    },
+    "G8_scam_aware": {
+     "n": 33,
+     "flag_rate_pause": 0.8787878787878788
+    },
+    "G9_support_genuine": {
+     "n": 33,
+     "flag_rate_pause": 0.9696969696969697
+    },
+    "S10_family_emergency": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S1_bank_kyc": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S2_digital_arrest": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S3_remote_refund": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S4_utility": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S5_sim_aadhaar": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S6_card_loan": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S7_task_investment": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S8_prize_lottery": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    },
+    "S9_tech_support": {
+     "n": 30,
+     "flag_rate_pause": 1.0
+    }
+   }
+  }
+ },
+ "leave_one_type_out": {
+  "S10_family_emergency": {
+   "recall_pause": 0.9666666666666667,
+   "recall_warn": 0.9666666666666667
+  },
+  "S1_bank_kyc": {
+   "recall_pause": 0.8666666666666667,
+   "recall_warn": 0.8666666666666667
+  },
+  "S2_digital_arrest": {
+   "recall_pause": 1.0,
+   "recall_warn": 1.0
+  },
+  "S3_remote_refund": {
+   "recall_pause": 1.0,
+   "recall_warn": 1.0
+  },
+  "S4_utility": {
+   "recall_pause": 1.0,
+   "recall_warn": 1.0
+  },
+  "S5_sim_aadhaar": {
+   "recall_pause": 0.9666666666666667,
+   "recall_warn": 0.9666666666666667
+  },
+  "S6_card_loan": {
+   "recall_pause": 1.0,
+   "recall_warn": 1.0
+  },
+  "S7_task_investment": {
+   "recall_pause": 1.0,
+   "recall_warn": 1.0
+  },
+  "S8_prize_lottery": {
+   "recall_pause": 1.0,
+   "recall_warn": 1.0
+  },
+  "S9_tech_support": {
+   "recall_pause": 1.0,
+   "recall_warn": 1.0
+  }
+ },
+ "grid": [
+  {
+   "W": 2,
+   "C": 0.5,
+   "tw": 0.0,
+   "dev_recall_pause": 0.8405063291139241,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 2,
+   "C": 0.5,
+   "tw": 0.15,
+   "dev_recall_pause": 0.9215189873417722,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 2,
+   "C": 0.5,
+   "tw": 0.3,
+   "dev_recall_pause": 0.9392405063291139,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 2,
+   "C": 2.0,
+   "tw": 0.0,
+   "dev_recall_pause": 0.8405063291139241,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 2,
+   "C": 2.0,
+   "tw": 0.15,
+   "dev_recall_pause": 0.9139240506329114,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 2,
+   "C": 2.0,
+   "tw": 0.3,
+   "dev_recall_pause": 0.9367088607594937,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 2,
+   "C": 8.0,
+   "tw": 0.0,
+   "dev_recall_pause": 0.8683544303797468,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 2,
+   "C": 8.0,
+   "tw": 0.15,
+   "dev_recall_pause": 0.9113924050632911,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 2,
+   "C": 8.0,
+   "tw": 0.3,
+   "dev_recall_pause": 0.9316455696202531,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 0.5,
+   "tw": 0.0,
+   "dev_recall_pause": 0.8177215189873418,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 0.5,
+   "tw": 0.15,
+   "dev_recall_pause": 0.8860759493670886,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 0.5,
+   "tw": 0.3,
+   "dev_recall_pause": 0.9215189873417722,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 2.0,
+   "tw": 0.0,
+   "dev_recall_pause": 0.8202531645569621,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 2.0,
+   "tw": 0.15,
+   "dev_recall_pause": 0.8708860759493671,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 2.0,
+   "tw": 0.3,
+   "dev_recall_pause": 0.8987341772151899,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 8.0,
+   "tw": 0.0,
+   "dev_recall_pause": 0.8202531645569621,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 8.0,
+   "tw": 0.15,
+   "dev_recall_pause": 0.8810126582278481,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 3,
+   "C": 8.0,
+   "tw": 0.3,
+   "dev_recall_pause": 0.9063291139240506,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 0.5,
+   "tw": 0.0,
+   "dev_recall_pause": 0.9265822784810127,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 0.5,
+   "tw": 0.15,
+   "dev_recall_pause": 0.9468354430379747,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 0.5,
+   "tw": 0.3,
+   "dev_recall_pause": 0.9721518987341772,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 2.0,
+   "tw": 0.0,
+   "dev_recall_pause": 0.9316455696202531,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 2.0,
+   "tw": 0.15,
+   "dev_recall_pause": 0.9468354430379747,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 2.0,
+   "tw": 0.3,
+   "dev_recall_pause": 0.959493670886076,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 8.0,
+   "tw": 0.0,
+   "dev_recall_pause": 0.9392405063291139,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 8.0,
+   "tw": 0.15,
+   "dev_recall_pause": 0.9443037974683545,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  },
+  {
+   "W": 4,
+   "C": 8.0,
+   "tw": 0.3,
+   "dev_recall_pause": 0.9544303797468354,
+   "dev_fa_pause": 0.017632241813602016,
+   "dev_earliness": 1.0
+  }
+ ],
+ "examples": {
+  "S2_digital_arrest": {
+   "utterances": [
+    "This call This call is from Police regarding a serious case against you.",
+    "Your SIM is to a crime under investigation.",
+    "This is This is a non bailable offence, you can go to jail for seven years.",
+    "Do it Do it quickly, the deadline is in a madam few minutes",
+    "Keep this Keep this matter if okay you tell they will also be",
+    "okay Don't end Don't end the call, okay keep the phone with you and keep talking to",
+    "uh Deposit the Deposit the money to government escrow account, after investigation you it back."
+   ],
+   "risk": [
+    0.041925716883705506,
+    0.12062256492773724,
+    0.22405052093763972,
+    0.44490802381708716,
+    0.61802040439202,
+    0.7122480543522894,
+    0.844563093456837
+   ]
+  },
+  "G1_delivery_otp": {
+   "utterances": [
+    "okay Hello, I Hello, I have madam your parcel from are at you know",
+    "uh The see needs an OTB for madam delivery, read it out.",
+    "Prepaid order, Prepaid order, just the OTP is",
+    "Please come Please come down, I have other deliveries also."
+   ],
+   "risk": [
+    0.035736742752614035,
+    0.12898580798739648,
+    0.15161727559362134,
+    0.14875110973647346
+   ]
+  },
+  "G8_scam_aware": {
+   "utterances": [
+    "um Hello, are Hello, are I have to tell you something important.",
+    "see The caller The caller asked to install RustDesk for basically a madam refund.",
+    "madam police never ask uh you to transfer sir money or stay on a actually call.",
+    "Let's tell Let's tell the group about this."
+   ],
+   "risk": [
+    0.07477154904774548,
+    0.20215215120866786,
+    0.283413621405101,
+    0.3130941054824588
+   ]
+  },
+  "S1_bank_kyc": {
+   "utterances": [
+    "actually Madam, this call is actually from SBI regarding your uh savings account.",
+    "There is There is a mismatch in your details with the bank actually records.",
+    "If you complete this the bank will suspend permanently.",
+    "Do it quickly, the you know deadline is in a few listen minutes only. listen",
+    "Deposit the Deposit the money to the government escrow after actually investigation you get it back.",
+    "Forward me Forward me the code you received, it is only for",
+    "Allow permissions Allow permissions on a screen see sharing so that I can see your screen.",
+    "Allow the Allow the permissions on AirDroid so that I see can your screen."
+   ],
+   "risk": [
+    0.05422723413433818,
+    0.05394915196261619,
+    0.1255514475783544,
+    0.3047675155069185,
+    0.5282705620793128,
+    0.7328228842540825,
+    0.7953900541135979,
+    0.8240808745471057
+   ]
+  }
+ },
+ "elapsed_s": 151.1
+}

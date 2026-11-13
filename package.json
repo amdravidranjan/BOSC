@@ -1,0 +1,9 @@
+{
+  "name": "bosc",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "parity": "node train/parity_test.mjs",
+    "serve": "npx --yes http-server@14.1.1 web -p 8080 -c-1"
+  }
+}

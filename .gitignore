@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.playwright-mcp/
+node_modules/
+data/raw/
+data/generated/
