@@ -38,9 +38,9 @@ CFG = dict(
     REPO="https://github.com/amdravidranjan/BOSC.git",
     TEACHERS=["microsoft/deberta-v3-base"],   # add "roberta-base" to compare; best dev PR-AUC wins
     TEACHER_SEEDS=[13],                      # README asks for [13, 42, 1234] for mean ± std (3x the time)
-    TEACHER_EPOCHS=4, TEACHER_LR=2e-5, TEACHER_BS=32, TEACHER_MAXLEN=192, PATIENCE=1,
+    TEACHER_EPOCHS=4, TEACHER_LR=2e-5, TEACHER_BS=32, TEACHER_MAXLEN=192, PATIENCE=2,
     STUDENT="sentence-transformers/all-MiniLM-L6-v2",
-    STUDENT_EPOCHS=6, STUDENT_LR=5e-5, STUDENT_BS=64, STUDENT_MAXLEN=128, KD_ALPHA=0.7, KD_T=2.0,
+    STUDENT_EPOCHS=8, STUDENT_LR=1e-4, STUDENT_BS=64, STUDENT_MAXLEN=128, KD_ALPHA=0.7, KD_T=2.0,
     EMBEDDER="sentence-transformers/all-MiniLM-L6-v2", LIBRARY_K=300,
     WINDOW=4, JOIN=" | ", CALIB_FRAC=0.2,
     CKPT_EVERY_STEPS=400,
@@ -789,8 +789,12 @@ def train_model(tag, model_id, split, *, epochs, lr, bs, maxlen, seed, teacher_l
         tf1 = tactic_macro_f1(sig(dl), "dev")
         state["history"].append({"epoch": ep + 1, "dev_pr_auc": pr, "dev_roc_auc": roc, "dev_tactic_macro_f1": tf1})
         print(f"[{tag}] epoch {ep + 1}: dev PR-AUC {pr:.4f} ROC-AUC {roc:.4f} tactic macro-F1 {tf1}")
-        if pr > state["best"]:
-            state["best"], state["bad"] = pr, 0
+        # select on scam PR-AUC plus a small tactic-F1 term: the tactic head learns slower, and selecting on
+        # PR-AUC alone kept an epoch-1 student that had learned no tactics (full run full_b4a87631)
+        score = pr + 0.1 * (tf1 or 0.0)
+        if score > state["best"]:
+            state["best"], state["bad"] = score, 0
+            state["best_pr"], state["best_tf1"] = pr, tf1
             model.save_pretrained(ck / "best")
             tok.save_pretrained(ck / "best")
         else:
@@ -800,7 +804,7 @@ def train_model(tag, model_id, split, *, epochs, lr, bs, maxlen, seed, teacher_l
         state["epoch"], state["step_in_epoch"] = ep + 1, 0
         save_last()
         sync(f"{tag} epoch {ep + 1}")
-    info = {"best_dev_pr_auc": state["best"], "history": state["history"], "model_id": model_id, "seed": seed,
+    info = {"best_dev_pr_auc": state.get("best_pr", state["best"]), "best_dev_tactic_f1": state.get("best_tf1"), "history": state["history"], "model_id": model_id, "seed": seed,
             "minutes": (time.time() - t_start) / 60}
     (ck / "best" / "done.json").write_text(json.dumps(info, indent=1))
     for f in ("last_optim.pt",):                      # free disk; the best weights are in best/
