@@ -4,6 +4,9 @@
   "type": "module",
   "scripts": {
     "parity": "node backend/parity_test.mjs",
-    "serve": "npx --yes http-server@14.1.1 frontend -p 8080 -c-1"
+    "serve": "npx --yes http-server@14.1.1 frontend -p 8080 -c-1",
+    "parity:stream": "node backend/parity_stream.mjs",
+    "parity:onnx": "node backend/parity_onnx.mjs",
+    "build:kaggle": "python backend/kaggle/build_notebook.py"
   }
 }

@@ -7,3 +7,5 @@ data-eval/generated/
 .env
 backend/artifacts/
 backend/runs/*/*/checkpoints/
+kaggle_work/
+bosc_latest.zip

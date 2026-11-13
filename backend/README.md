@@ -19,6 +19,46 @@ Contents
 
 ---
 
+## 0. Fast path: one Kaggle notebook runs Stages 0–4
+
+`backend/kaggle/bosc_kaggle.ipynb` runs the whole pipeline below on a free Kaggle GPU, with checkpoints. It's self-contained: it clones this repo, regenerates the data and downloads BothBosu.
+
+1. Kaggle → *New Notebook* → *File → Import Notebook* → upload `bosc_kaggle.ipynb`.
+2. *Settings*: **GPU T4 x1**, **Internet On**.
+3. *Add-ons → Secrets*: `HF_TOKEN` = a Hugging Face **write** token. It's used for the private checkpoint backup `<you>/bosc-checkpoints`.
+   - Optional, but without it a crashed session can only resume from an attached previous output.
+   - Never put tokens in the code.
+4. Run once with `QUICK = True` (~15 min, small data, numbers meaningless) to check everything works. Then set `QUICK = False` → *Save Version → Save & Run All*. That takes about 2–3 h on a T4 with one teacher seed.
+5. *Output* tab → download **`bosc_latest.zip`**. It's rebuilt after every stage. Unzip it at the repo root. It contains:
+   - `frontend/model/student/` (int8 ONNX + tokenizer) and `frontend/model/stream_model.json`. The app picks these up automatically: `js/detector-onnx.js`, with Stage 0 as the fallback.
+   - `data-eval/results/ablation.md` and `metrics_v2.json`: rows A–G, with CIs, gate and latency.
+   - `backend/stream_parity_cases.json` and `backend/student_parity_cases.json`.
+6. Verify:
+   - `npm run parity:stream`;
+   - `npm i -D @huggingface/transformers@3.0.2`, then `npm run parity:onnx`.
+   Both must say OK before you commit the model.
+
+**Resuming.** Re-run the notebook. Finished stages are skipped (`bosc_run/done/*.json`), and training resumes from `last_*.pt` mid-epoch. In a fresh session, checkpoints are restored from an attached previous version's output (*Add Input* → your notebook), else from the HF backup.
+
+**Optional data.** Attach a Kaggle dataset with:
+- `bosc_train_*.jsonl`: extra training calls, e.g. LLM data (§4.3);
+- `lockbox*.jsonl`, `redteam*.jsonl`, `realaudio*.jsonl`: evaluation only. They become extra columns in the ablation.
+
+**What it simplifies vs. this guide** (all written into the report):
+- text-level ASR noise instead of real TTS → Whisper copies;
+- Stage 1 uses W=4 only;
+- the stream model has no library features, so the browser needs no embedding output;
+- leave-one-type-out runs on row C only.
+
+**Editing.** The source is `backend/kaggle/bosc_kaggle.py` (`# %%` cells). Run `npm run build:kaggle` to rebuild the `.ipynb`; it inlines `backend/stream_features.py`. CPU check of the plumbing (fake teacher, no GPU stages):
+```
+BOSC_LOCAL_TEST=1 BOSC_REPO=. BOSC_WORK=kaggle_work python backend/kaggle/bosc_kaggle.py
+node backend/parity_stream.mjs kaggle_work/bosc_out/stream_model_LOCALTEST.json kaggle_work/bosc_out/backend/stream_parity_cases.json
+```
+(On Windows, `import lightgbm` before sklearn, or LightGBM crashes. `backend/test_stream_local.py` does this.)
+
+---
+
 ## 1. What already exists (don't redo it)
 
 | File | What |

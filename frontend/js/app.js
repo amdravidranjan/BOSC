@@ -1,4 +1,5 @@
 import { loadScorer, PRESSURE } from "./bosc-core.js";
+import { loadStudent } from "./detector-onnx.js";
 import { UtteranceChunker, getAudioContext } from "./audio.js";
 
 const $ = (s) => document.querySelector(s);
@@ -118,7 +119,8 @@ function callerEnd(local) {
 const fmtTime = (ms) => { const s = Math.floor(ms / 1000); return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`; };
 
 // ================================================================== BOSC
-let core = null;           // {scorer, detector, model}
+let core = null;           // {scorer, detector, model}: Stage 0 first, swapped for the student model when it loads
+let nextCore = null;       // student detector waiting for the next session
 let worker = null, asrReady = false, asrBusy = false, asrDevice = "";
 let pending = [];          // audio chunks waiting for ASR
 let chunker = null;
@@ -130,6 +132,11 @@ let wakeLock = null;
 
 async function initBosc() {
   core = await loadScorer("model/");
+  loadStudent("model/").then((s) => {
+    if (!s) return;                       // files not deployed or failed: keep the basic detector
+    nextCore = s;
+    if (!session) useNextCore();
+  }).catch((e) => console.warn("BOSC: student model not loaded", e));
   buildMeter();
   buildChips();
   renderRisk();
@@ -255,11 +262,19 @@ function onLevel(v, speech) {
 function setListen(t) { $("#b-listen").textContent = t; }
 
 // ---------------------------------------------------------------- sessions
+function useNextCore() {
+  if (!nextCore || core === nextCore) return;
+  core = nextCore;
+  document.body.dataset.detector = "student";
+  toast("Advanced scam model ready (on this phone).");
+  renderRisk();
+}
 function startSession(source, stop = () => {}) {
   if (session) endSession("replaced", true);
+  useNextCore();
   core.scorer.reset();
   spokenLevels = new Set();
-  session = { source, start: Date.now(), stop, log: [] };
+  session = { source, start: Date.now(), stop, log: [], lastLevel: "SAFE" };
   $("#b-transcript").innerHTML = `<div class="empty">Listening… the caller's words will appear here.</div>`;
   $("#b-idle").hidden = true;
   renderRisk();
@@ -456,18 +471,21 @@ function highlight(text, tactics) {
   }
   return out + esc(text.slice(i));
 }
-function addUtterance(text, meta = {}) {
+async function addUtterance(text, meta = {}) {
   if (!session) startSession("typed");
-  const prev = core.scorer.level();
-  const r = core.scorer.push(text);
-  session.log.push({ t: Date.now() - session.start, text, p: +r.p.toFixed(4), risk: +r.risk.toFixed(4), level: r.level, tactics: Object.keys(r.tactics), ...meta });
+  const s = session;
+  const r = await core.scorer.push(text);  // sync for Stage 0, async for the student model
+  if (!r || session !== s) return;          // session ended or was reset while scoring
+  const prev = s.lastLevel;
+  s.lastLevel = r.level;
+  session.log.push({ t: Date.now() - session.start, text, p: +r.p.toFixed(4), risk: +r.risk.toFixed(4), level: r.level, tactics: Object.keys(r.tactics), nlpMs: r.nlpMs, ...meta });
   const box = $("#b-transcript");
   box.querySelector(".empty")?.remove();
   const el = document.createElement("div");
   el.className = "utt";
   el.dataset.level = r.level;
   const tl = Object.keys(r.tactics).filter((t) => t !== "authority_claim" || r.level !== "SAFE").map((t) => core.detector.labels[t]);
-  const lat = meta.asrMs ? ` · speech-to-text ${meta.asrMs} ms for ${meta.dur.toFixed(1)} s` : "";
+  const lat = (meta.asrMs ? ` · speech-to-text ${meta.asrMs} ms for ${meta.dur.toFixed(1)} s` : "") + (r.nlpMs != null ? ` · model ${r.nlpMs} ms` : "");
   el.innerHTML = `${highlight(text, r.tactics)}<div class="meta">${tl.length ? esc(tl.join(" · ")) + " · " : ""}risk ${Math.round(display(r.risk) * 100)}${lat}</div>`;
   box.appendChild(el);
   box.scrollTop = box.scrollHeight;
