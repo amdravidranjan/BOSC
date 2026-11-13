@@ -4,7 +4,7 @@
 //
 // loadStudent(base) resolves to null when the model files are not deployed or fail to load;
 // the app then keeps the Stage 0 detector ("basic detector").
-import { loadScorer } from "./bosc-core.js";
+import { loadScorer as loadBasicScorer } from "./bosc-core.js";
 import { StreamModel, TACTICS, sigmoid } from "./stream-model.js";
 
 const WINDOW = 4;
@@ -82,7 +82,7 @@ export async function loadStudent(base = "model/", { timeoutMs = 90000 } = {}) {
     [sm, order] = [await a.json(), await b.json()];
   } catch { return null; }
   if (order.join() !== ["scam", ...TACTICS].join()) { console.warn("BOSC: student label order mismatch", order); return null; }
-  const basic = await loadScorer(base);
+  const basic = await loadBasicScorer(base);
   const worker = new Worker(new URL("./nlp-worker.js", import.meta.url), { type: "module" });
   const ok = await new Promise((resolve) => {
     const timer = setTimeout(() => resolve(false), timeoutMs);
@@ -94,4 +94,12 @@ export async function loadStudent(base = "model/", { timeoutMs = 90000 } = {}) {
   });
   if (!ok) { worker.terminate(); return null; }
   return { scorer: new StudentScorer(worker, sm, basic.detector), detector: basic.detector, model: sm, kind: "student" };
+}
+
+// Contract used by frontend/js/bosc.js: resolves to {scorer, detector, model, kind} or rejects,
+// in which case the app keeps the basic (Stage 0) detector.
+export async function loadScorer(base = "model/") {
+  const s = await loadStudent(base);
+  if (!s) throw new Error("student model not deployed (frontend/model/student/ + stream_model.json) or failed to load");
+  return s;
 }
