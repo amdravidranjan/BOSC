@@ -71,7 +71,7 @@ fun ContactsSection() {
 
     Spacer(Modifier.height(36.dp))
     Row(verticalAlignment = Alignment.Bottom) {
-        Label("Bosc calls on this Wi-Fi", modifier = Modifier.weight(1f))
+        Label("Connections on this Wi-Fi", modifier = Modifier.weight(1f))
         if (micOk) TextLink("Search again", { CallService.start(context, CallService.ACTION_REFRESH) }, color = Ink.Faint)
     }
     Spacer(Modifier.height(6.dp))
@@ -93,9 +93,9 @@ fun ContactsSection() {
         Text("No contacts yet. Open Bosc on the other phone. If it doesn't appear here, add it by address below.",
             fontSize = 15.sp, color = Ink.Faint, modifier = Modifier.padding(vertical = 14.dp))
     } else peers.forEach { p ->
-        Column(Modifier.fillMaxWidth().clickable { CallManager.call(p) }) {
+        Column(Modifier.fillMaxWidth().padding(vertical = 4.dp).background(Ink.Raised, RoundedCornerShape(10.dp)).clickable { CallManager.call(p) }.padding(horizontal = 14.dp)) {
             Row(Modifier.padding(vertical = 14.dp), verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(40.dp).background(Ink.Raised, CircleShape), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(40.dp).background(Ink.Line, RoundedCornerShape(10.dp)), contentAlignment = Alignment.Center) {
                     Text(p.name.take(1).uppercase(), fontFamily = Serif, fontSize = 18.sp, color = Ink.Text)
                 }
                 Column(Modifier.weight(1f).padding(start = 14.dp)) {
@@ -105,7 +105,6 @@ fun ContactsSection() {
                 }
                 Text("Call", fontSize = 15.sp, color = Ink.Safe)
             }
-            Hairline()
         }
     }
 
@@ -179,20 +178,24 @@ fun InCallScreen() {
 
         if (c.phase == CallPhase.ACTIVE && c.listening && s.active) {
             Spacer(Modifier.height(22.dp))
-            Row(verticalAlignment = Alignment.Bottom) {
-                Text(levelHeadline(s.level), fontFamily = Serif, fontSize = 22.sp, color = if (s.level == RiskLevel.LOW) Ink.Text else Ink.of(s.level), modifier = Modifier.weight(1f))
-                Text("${(s.risk * 100).toInt()}%", fontSize = 14.sp, color = Ink.Muted)
+            Column(Modifier.fillMaxWidth().background(Ink.Raised, RoundedCornerShape(10.dp)).padding(16.dp)) {
+                Row(verticalAlignment = Alignment.Bottom) {
+                    Text(levelHeadline(s.level), fontFamily = Serif, fontSize = 22.sp, color = if (s.level == RiskLevel.LOW) Ink.Text else Ink.of(s.level), modifier = Modifier.weight(1f))
+                    Text("${(s.risk * 100).toInt()}%", fontSize = 14.sp, color = Ink.Muted)
+                }
+                Spacer(Modifier.height(10.dp))
+                Meter(s.risk, s.level)
+                if (s.level != RiskLevel.LOW) {
+                    Spacer(Modifier.height(12.dp))
+                    Text(Warnings.oneLine(s.topTactics), fontSize = 16.sp, lineHeight = 23.sp, color = Ink.Text)
+                    if (!s.trusted) TextLink("I trust this caller", { GuardState.markTrusted() })
+                }
+                if (s.topTactics.isNotEmpty()) Text(tacticLine(s.topTactics), fontSize = 13.sp, color = Ink.Muted, modifier = Modifier.padding(top = 6.dp))
             }
-            Spacer(Modifier.height(10.dp))
-            Meter(s.risk, s.level)
-            if (s.level != RiskLevel.LOW) {
-                Spacer(Modifier.height(12.dp))
-                Text(Warnings.oneLine(s.topTactics), fontFamily = Serif, fontSize = 18.sp, lineHeight = 25.sp, color = Ink.Text)
-                if (!s.trusted) TextLink("I trust this caller", { GuardState.markTrusted() })
-            }
-            if (s.topTactics.isNotEmpty()) Text(tacticLine(s.topTactics), fontSize = 13.sp, color = Ink.Muted, modifier = Modifier.padding(top = 6.dp))
             Spacer(Modifier.height(14.dp))
             Hairline()
+            Spacer(Modifier.height(12.dp))
+            Label("Live transcript")
             LazyColumn(state = listState, modifier = Modifier.weight(1f).fillMaxWidth()) {
                 if (s.turns.isEmpty() && c.partial.isBlank()) item {
                     Text("Scam listening is on. Words appear here as you talk.", color = Ink.Faint, fontSize = 15.sp, modifier = Modifier.padding(top = 12.dp))

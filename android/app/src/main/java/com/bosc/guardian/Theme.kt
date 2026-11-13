@@ -21,7 +21,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
@@ -50,23 +50,23 @@ import com.bosc.core.Tactic
 
 /** One restrained palette: paper, ink, and three muted state colours. */
 object Ink {
-    val Paper = Color(0xFFF4F1EA)
-    val Raised = Color(0xFFFBF9F4)
-    val Line = Color(0xFFE2DCD0)
-    val Text = Color(0xFF1C1B19)
-    val Muted = Color(0xFF6B655C)
-    val Faint = Color(0xFFA19A8E)
-    val Safe = Color(0xFF2F5A4C)
-    val Caution = Color(0xFFA8722A)
-    val Danger = Color(0xFF9B3A2B)
+    val Paper = Color(0xFF0F1216)
+    val Raised = Color(0xFF181C21)
+    val Line = Color(0xFF343941)
+    val Text = Color(0xFFF5F5F6)
+    val Muted = Color(0xFFC0C3CB)
+    val Faint = Color(0xFF9EA3AB)
+    val Safe = Color(0xFF9EC8B5)
+    val Caution = Color(0xFFFFCC80)
+    val Danger = Color(0xFFFF7D73)
 
     fun of(level: RiskLevel) = when (level) { RiskLevel.LOW -> Safe; RiskLevel.WARN -> Caution; RiskLevel.PAUSE -> Danger }
 }
 
-val Serif = FontFamily.Serif
+val Serif = FontFamily.SansSerif
 
 @Composable
-fun BoscTheme(statusBar: Color = Ink.Paper, lightIcons: Boolean = false, content: @Composable () -> Unit) {
+fun BoscTheme(statusBar: Color = Ink.Paper, lightIcons: Boolean = true, content: @Composable () -> Unit) {
     val view = LocalView.current
     if (!view.isInEditMode) SideEffect {
         val window = (view.context as Activity).window
@@ -80,7 +80,7 @@ fun BoscTheme(statusBar: Color = Ink.Paper, lightIcons: Boolean = false, content
         }
     }
     MaterialTheme(
-        colorScheme = lightColorScheme(
+        colorScheme = darkColorScheme(
             primary = Ink.Text, onPrimary = Ink.Paper, background = Ink.Paper, onBackground = Ink.Text,
             surface = Ink.Paper, onSurface = Ink.Text, surfaceVariant = Ink.Raised, onSurfaceVariant = Ink.Muted,
             outline = Ink.Line, secondary = Ink.Muted, error = Ink.Danger,
@@ -95,7 +95,7 @@ fun BoscTheme(statusBar: Color = Ink.Paper, lightIcons: Boolean = false, content
 }
 
 @Composable
-fun Wordmark(text: String = "bosc", size: Int = 26) =
+fun Wordmark(text: String = "BOSC", size: Int = 26) =
     Text(text, fontFamily = Serif, fontSize = size.sp, fontWeight = FontWeight.Medium, color = Ink.Text, letterSpacing = (-0.5).sp)
 
 @Composable

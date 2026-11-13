@@ -148,17 +148,18 @@ fun HomeScreen(onSettings: () -> Unit, onDemo: () -> Unit) {
         }
 
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState())) {
-            Label(if (armed) "Watching for calls" else "Off")
-            Spacer(Modifier.height(10.dp))
-            Headline("Not listening")
-            Spacer(Modifier.height(12.dp))
-            Text(
-                "When a call feels wrong, put it on speaker near this phone and tap start. " +
-                    "Bosc listens for pressure tactics and warns you before you pay. Nothing leaves your phone.",
-                style = MaterialTheme.typography.bodyLarge, color = Ink.Muted,
-            )
-            Spacer(Modifier.height(28.dp))
-            PrimaryButton("Start listening", ::startListening)
+            Column(Modifier.fillMaxWidth().background(Ink.Raised, RoundedCornerShape(12.dp)).padding(20.dp)) {
+                Label(if (armed) "Watching for calls" else "Inactive · Standby")
+                Spacer(Modifier.height(16.dp))
+                Headline("A moment to think clearly.", size = 25)
+                Spacer(Modifier.height(10.dp))
+                Text(
+                    "Listen for pressure. For calls outside Bosc, put the call on speaker near this phone and tap start.",
+                    style = MaterialTheme.typography.bodyLarge, color = Ink.Muted,
+                )
+                Spacer(Modifier.height(22.dp))
+                PrimaryButton("Start listening", ::startListening)
+            }
             Spacer(Modifier.height(8.dp))
             SettingSwitch(
                 "Watch for phone calls",
