@@ -2,6 +2,10 @@
 
 On-device scam-call detection that pauses a payment made under pressure. Hackathon build: one web app, English only.
 
+On `radha-v2`, [v2 preparation and diagnosis](data-eval/results/v2_report.md)
+records the label audit, candidate loss correction and phone-ASR tooling.
+New corpus generation, review and retraining are pending; no v2 release is claimed.
+
 Stages 1–4 now have an [available-data training workflow](backend/TRAINING.md) and
 [synthetic evaluation report](data-eval/results/stages_1_4.md). The run uses
 BothBosu/scam-dialogue plus the repository's templates, rather than the full

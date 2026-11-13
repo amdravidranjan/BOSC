@@ -6,6 +6,8 @@ node_modules/
 data-eval/raw/
 data-eval/generated/
 data-eval/v1/*.jsonl
+data-eval/v2/*.jsonl
+data-eval/v2/private/
 .env
 backend/artifacts/
 backend/runs/*/*/checkpoints/

@@ -1,0 +1,62 @@
+{
+  "scope": "v1 DEV diagnosis only; not v2 results",
+  "warn": 0.9515040806358632,
+  "pause": 0.9618595538139557,
+  "gap": 0.010355473178092489,
+  "n_genuine": 355,
+  "recomputed_warn": 0.9515040806358632,
+  "recomputed_pause": 0.9618595538139557,
+  "dev_genuine_warn_rate": 0.04788732394366197,
+  "dev_genuine_pause_rate": 0.016901408450704224,
+  "genuine_peak_quantiles": {
+    "50": 0.006183062824334771,
+    "90": 0.799611326125694,
+    "95": 0.9513819307217736,
+    "98": 0.9618595538139556,
+    "100": 0.9681633566433566
+  },
+  "dev_selected_score_ece": 0.02910444590618375,
+  "calibration_curve": [
+    {
+      "count": 1982,
+      "predicted": 0.005640302305637534,
+      "observed": 0.027245206758379936
+    },
+    {
+      "count": 77,
+      "predicted": 0.26913366652808896,
+      "observed": 0.19480518996715546
+    },
+    {
+      "count": 20,
+      "predicted": 0.37093275488069405,
+      "observed": 0.550000011920929
+    },
+    {
+      "count": 2,
+      "predicted": 0.47845874306428254,
+      "observed": 0.5
+    },
+    {
+      "count": 46,
+      "predicted": 0.5814545924002684,
+      "observed": 0.45652174949645996
+    },
+    {
+      "count": 6,
+      "predicted": 0.6678451024462787,
+      "observed": 0.6666666865348816
+    },
+    {
+      "count": 8,
+      "predicted": 0.717741935483871,
+      "observed": 0.5
+    },
+    {
+      "count": 2144,
+      "predicted": 0.9972238639783815,
+      "observed": 0.9668843150138855
+    }
+  ],
+  "explanation": "Both thresholds select nearby order statistics of high genuine DEV peaks. This is not a threshold serialization bug. Improve hard-negative/noisy-data discrimination and refit calibration; do not widen the band by hand."
+}

@@ -54,10 +54,16 @@ def windows(cs, width=4):
         turns = [t for t in c['turns'] if t['speaker'] == 'caller']
         fs = c['first_suspicious_caller_turn']
         for i, turn in enumerate(turns):
+            known = turn.get('tactics_known', c['source'] != 'hf')
+            tactics = turn.get('tactics')
+            if known and not isinstance(tactics, list):
+                raise ValueError('Annotated caller turn must have a tactics list')
+            if tactics is not None and set(tactics) - set(LABELS[1:]):
+                raise ValueError('Unknown tactic label: ' + str(tactics))
             texts.append(' | '.join(t['text'] for t in turns[max(0, i-width+1):i+1]))
             ys.append([int(c['label'] == 1 and fs is not None and i >= fs)] +
-                      [int(k in turn.get('tactics', [])) for k in LABELS[1:]])
-            masks.append([1] + [int(c['source'] != 'hf')] * 8)
+                      [int(k in (tactics or [])) for k in LABELS[1:]])
+            masks.append([int(turn.get('scam_label_known', True))] + [int(known)] * 8)
             groups.append(ci)
     return texts, np.asarray(ys, np.float32), np.asarray(masks, np.float32), np.asarray(groups)
 

@@ -5,7 +5,7 @@ import json
 import numpy as np
 from lightgbm import LGBMClassifier
 from sklearn.isotonic import IsotonicRegression
-from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold, StratifiedGroupKFold
 
 from bosc_core import TacticDetector
 from common import ART, LABELS, ROOT, SPLITS, calls, evaluate_probs, record, windows, write_json
@@ -63,6 +63,15 @@ def ece(y,p):
     return float(total)
 
 
+def call_folds(cs):
+    """Keep clean/ASR/text-noise siblings in the same calibration fold."""
+    labels=[c['label'] for c in cs]
+    parents=[c.get('parent_id',c.get('scenario_seed',c['id'])) for c in cs]
+    if len(set(parents))==len(parents):
+        return list(StratifiedKFold(5,shuffle=True,random_state=13).split(cs,labels))
+    return list(StratifiedGroupKFold(5,shuffle=True,random_state=13).split(cs,labels,parents))
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--preds',default='teacher_preds')
@@ -75,8 +84,7 @@ def main():
     xx,weight=fw['calib']
     yy=ds['calib'][1][:,0]
     groups=ds['calib'][3]
-    folds=list(StratifiedKFold(5,shuffle=True,random_state=13).split(
-        cs['calib'],[c['label'] for c in cs['calib']]))
+    folds=call_folds(cs['calib'])
     oof=np.zeros(len(yy))
     for train_calls,valid_calls in folds:
         tr=np.isin(groups,train_calls)

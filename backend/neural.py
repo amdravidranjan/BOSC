@@ -9,6 +9,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, get_linear_schedule_with_warmup
 
 from common import ART, LABELS, SPLITS, calls, window_metrics, windows, write_json
+from loss_v2 import loss_v2, positive_weights
 
 
 class LengthBatches:
@@ -77,7 +78,10 @@ def checkpoint_predictions(output, device, splits, batch=32):
     return results
 
 
-def train_one(base, output, seed, device, epochs, lr, max_length, batch=16, teacher=None):
+def train_one(base, output, seed, device, epochs, lr, max_length, batch=16, teacher=None,
+              loss_version='v1', patience=1):
+    if loss_version not in ('v1','v2') or patience<1:
+        raise ValueError('Invalid training configuration')
     seed_all(seed)
     tokenizer = AutoTokenizer.from_pretrained(base, local_files_only=True)
     tokenizer.truncation_side = 'left'
@@ -100,6 +104,9 @@ def train_one(base, output, seed, device, epochs, lr, max_length, batch=16, teac
     opt = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=.01)
     sched = get_linear_schedule_with_warmup(opt, int(.06*len(loader)*epochs),len(loader)*epochs)
     pos_weight = ((len(y)-y[:,0].sum())/y[:,0].sum()).to(device)
+    head_weights=positive_weights(y,mask).to(device)
+    write_json(output/'loss_config.json',{'version':loss_version,'positive_weights':head_weights.tolist(),
+               'patience':patience,'v2_scam_distillation_alpha':.3,'v2_tactic_distillation':False})
     best, history, stale = -1., [], 0
     output.mkdir(parents=True,exist_ok=True)
     for epoch in range(epochs):
@@ -113,13 +120,17 @@ def train_one(base, output, seed, device, epochs, lr, max_length, batch=16, teac
             opt.zero_grad(set_to_none=True)
             with torch.autocast(device_type=device, dtype=torch.bfloat16, enabled=device=='mps'):
                 logits=model(**inputs).logits.float()
-            scam=F.binary_cross_entropy_with_logits(logits[:,0],labels[:,0],pos_weight=pos_weight)
-            tactics=F.binary_cross_entropy_with_logits(logits[:,1:],labels[:,1:],reduction='none')
-            hard=scam+(tactics*masks[:,1:]).sum()/masks[:,1:].sum().clamp(min=1)
-            loss=hard
-            if teacher is not None:
-                soft_loss=F.binary_cross_entropy_with_logits(logits/2,torch.sigmoid(targets/2))*4
-                loss=.7*soft_loss+.3*hard
+            if loss_version=='v2':
+                loss=loss_v2(logits,labels,masks,head_weights,
+                             teacher=targets if teacher is not None else None)
+            else:
+                scam=F.binary_cross_entropy_with_logits(logits[:,0],labels[:,0],pos_weight=pos_weight)
+                tactics=F.binary_cross_entropy_with_logits(logits[:,1:],labels[:,1:],reduction='none')
+                hard=scam+(tactics*masks[:,1:]).sum()/masks[:,1:].sum().clamp(min=1)
+                loss=hard
+                if teacher is not None:
+                    soft_loss=F.binary_cross_entropy_with_logits(logits/2,torch.sigmoid(targets/2))*4
+                    loss=.7*soft_loss+.3*hard
             if not torch.isfinite(loss):
                 raise RuntimeError('Nonfinite training loss')
             loss.backward()
@@ -142,7 +153,7 @@ def train_one(base, output, seed, device, epochs, lr, max_length, batch=16, teac
             write_json(output/'label_order.json',LABELS)
         else:
             stale+=1
-            if stale>=1:
+            if stale>=patience:
                 break
     write_json(output/'history.json',history)
     del model, opt, sched, loader

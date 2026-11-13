@@ -1,0 +1,143 @@
+{
+  "status": "planned, not generated",
+  "scale": 1.0,
+  "sha256": "afa7ce239880eba0272d20906d152e2a9e846fe457d8358677efad96cd7ad430",
+  "counts": {
+    "train": {
+      "planned_calls": 6000,
+      "labels": {
+        "0": 3000,
+        "1": 3000
+      },
+      "types": {
+        "G6": 333,
+        "G4": 333,
+        "G7": 333,
+        "G2": 334,
+        "G1": 334,
+        "G5": 333,
+        "G8": 333,
+        "G3": 334,
+        "G9": 333,
+        "S9": 272,
+        "S2": 273,
+        "S1": 409,
+        "S10": 408,
+        "S4": 273,
+        "S5": 273,
+        "S6": 273,
+        "S3": 273,
+        "S8": 273,
+        "S7": 273
+      },
+      "languages": {
+        "hinglish": 900,
+        "en": 5100
+      },
+      "polite_scam_fraction": 0.25,
+      "hard_negative_fraction": 0.778
+    },
+    "calib": {
+      "planned_calls": 1200,
+      "labels": {
+        "0": 600,
+        "1": 600
+      },
+      "types": {
+        "G1": 67,
+        "G3": 67,
+        "G7": 66,
+        "G2": 67,
+        "G5": 67,
+        "G6": 67,
+        "G4": 67,
+        "G9": 66,
+        "G8": 66,
+        "S10": 81,
+        "S9": 54,
+        "S5": 55,
+        "S4": 55,
+        "S3": 55,
+        "S8": 54,
+        "S1": 82,
+        "S2": 55,
+        "S7": 54,
+        "S6": 55
+      },
+      "languages": {
+        "hinglish": 180,
+        "en": 1020
+      },
+      "polite_scam_fraction": 0.25,
+      "hard_negative_fraction": 0.7783333333333333
+    },
+    "dev": {
+      "planned_calls": 600,
+      "labels": {
+        "0": 300,
+        "1": 300
+      },
+      "types": {
+        "G2": 34,
+        "G5": 33,
+        "G8": 33,
+        "G4": 33,
+        "G9": 33,
+        "G6": 33,
+        "G7": 33,
+        "G1": 34,
+        "G3": 34,
+        "S4": 28,
+        "S10": 40,
+        "S3": 28,
+        "S2": 28,
+        "S5": 27,
+        "S7": 27,
+        "S8": 27,
+        "S1": 41,
+        "S6": 27,
+        "S9": 27
+      },
+      "languages": {
+        "en": 510,
+        "hinglish": 90
+      },
+      "polite_scam_fraction": 0.25,
+      "hard_negative_fraction": 0.78
+    },
+    "test_synth": {
+      "planned_calls": 600,
+      "labels": {
+        "0": 300,
+        "1": 300
+      },
+      "types": {
+        "G9": 33,
+        "G5": 33,
+        "G4": 33,
+        "G2": 34,
+        "G6": 33,
+        "G3": 34,
+        "G8": 33,
+        "G1": 34,
+        "G7": 33,
+        "S8": 27,
+        "S4": 28,
+        "S10": 40,
+        "S6": 27,
+        "S9": 27,
+        "S7": 27,
+        "S1": 41,
+        "S5": 27,
+        "S3": 28,
+        "S2": 28
+      },
+      "languages": {
+        "hinglish": 90,
+        "en": 510
+      },
+      "polite_scam_fraction": 0.25,
+      "hard_negative_fraction": 0.78
+    }
+  }
+}

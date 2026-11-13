@@ -1,0 +1,49 @@
+{
+  "train": {
+    "calls": 1272,
+    "windows": 8314,
+    "labelled_tactic_windows": 2032,
+    "missing_gen_labels": 0,
+    "masked_positive_tactics": 0,
+    "positive_tactics": {
+      "urgency": 164,
+      "threat": 163,
+      "secrecy_isolation": 78,
+      "authority_claim": 206,
+      "credential_request": 116,
+      "remote_access": 125,
+      "payment_instruction": 293,
+      "stay_on_line": 30
+    }
+  },
+  "teacher_train_positive_label_mean_probability": {
+    "urgency": 0.8984328508377075,
+    "threat": 0.6877584457397461,
+    "secrecy_isolation": 0.40238478779792786,
+    "authority_claim": 0.7626410722732544,
+    "credential_request": 0.5871110558509827,
+    "remote_access": 0.683474063873291,
+    "payment_instruction": 0.9502663612365723,
+    "stay_on_line": 0.07709921151399612
+  },
+  "dev": {
+    "calls": 751,
+    "windows": 4285,
+    "labelled_tactic_windows": 2949,
+    "missing_gen_labels": 0,
+    "masked_positive_tactics": 0,
+    "positive_tactics": {
+      "urgency": 224,
+      "threat": 225,
+      "secrecy_isolation": 117,
+      "authority_claim": 300,
+      "credential_request": 188,
+      "remote_access": 162,
+      "payment_instruction": 428,
+      "stay_on_line": 55
+    }
+  },
+  "label_order_matches_config": true,
+  "label_order_matches_export": true,
+  "finding": "No dropped/misordered/masked template labels found; newest-turn labels are correct. Unmasked tactic distillation, rare labels and weak teacher supervision are confirmed risks, not a proven sole cause."
+}
