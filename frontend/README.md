@@ -31,8 +31,15 @@ Contents
 |---|---|---|
 | `index.html` | Frontend | Every screen in one page. Views: `#home`, `#caller`, `#bosc`, `#pay`, `#summary`. Overlays: incoming call, payment paused, settings. Loads PeerJS 1.5.4 from jsDelivr. |
 | `css/app.css` | Frontend | Mobile-first styles, max width 520 px. Colour tokens on `:root`, dark mode via `prefers-color-scheme`. Risk colours: safe green, warn amber, danger red. |
-| `js/app.js` | Frontend | Hash routing, settings, caller (Phone A), BOSC (Phone B), sessions, risk UI, Shield payment logic, call summary. |
-| `js/audio.js` | Frontend | `UtteranceChunker`: any audio node → 16 kHz mono → energy voice-activity detection → utterance chunks (`Float32Array`). |
+| `js/app.js` | Frontend | Entry point: registers each screen with the router, boots, registers the service worker. |
+| `js/router.js` | Frontend | Hash routing: `show(view)`, `go(view)`, `onView(view, {init, enter})`. |
+| `js/util.js`, `js/settings.js`, `js/state.js` | Frontend | DOM helpers; settings (`localStorage`); shared state (`core`, `session`, `lastSession`), `display()`, `logEvent()`. |
+| `js/caller.js` | Frontend | Caller (Phone A): dialler, optional caller name, teleprompter. |
+| `js/bosc.js` | Frontend | BOSC (Phone B): call, sources, Whisper queue, in-order scoring queue, detector basic → advanced, risk UI, alerts, wake lock, first-run setup, settings sheet. |
+| `js/shield.js` | Frontend | PayFast screen + Shield decision and Payment paused flow. |
+| `js/summary.js` | Frontend | Call summary: verdict, risk chart with the "Pay tapped" marker, log download. |
+| `js/audio.js` | Frontend | `UtteranceChunker`: any audio node → 16 kHz mono → energy voice-activity detection → utterance chunks (`Float32Array`). `attach()` is async: AudioWorklet (`js/chunk-worklet.js`), ScriptProcessor as fallback. |
+| `sw.js`, `manifest.json`, `icon.svg` | Frontend | Installable app: own files network-first (3.5 s timeout → cache), pinned jsDelivr files cache-first. Never touches Hugging Face or `transformers-cache`. Bump `CACHE` in `sw.js` if the file list changes. |
 | `js/asr-worker.js` | Frontend | Whisper in a module Web Worker (Transformers.js **3.0.2**): WebGPU if available, else CPU (wasm). |
 | `demo/scripts.json` | **Data & Evaluation** | Six scripts (3 scam, 3 genuine) for the caller's teleprompter and the text-only demo. |
 | `js/bosc-core.js` | **Backend**, don't edit | The Stage 0 detector: `loadScorer`, `StreamingScorer`, `TacticDetector`, `Model`. |
@@ -82,6 +89,7 @@ Contents
 git clone https://github.com/amdravidranjan/BOSC && cd BOSC && git checkout -b frontend
 npm run serve            # http://localhost:8080, serving frontend/ with caching off
 ```
+- If `localhost:8080` shows some other page (e.g. an Oracle Database listener owns 127.0.0.1:8080), serve on another port: `npx --yes http-server@14.1.1 frontend -p 8090 -a 127.0.0.1 -c-1` and open http://127.0.0.1:8090.
 - Use **Chrome** (desktop and Android). Microphone access needs `localhost` or HTTPS.
 - The first visit to the BOSC screen downloads Whisper (~40 MB tiny, ~80 MB base). The browser caches it, so later loads are fast.
 - No build tools, so keep it that way. Load external scripts only from jsDelivr with exact versions (as now: `peerjs@1.5.4`, `@huggingface/transformers@3.0.2`).
@@ -175,6 +183,21 @@ PeerJS cloud: signalling only (sets up the call; no audio passes through it)
 
 ## 7. Work items (in priority order)
 
+Status (code done, verified in desktop Chrome; **still needs the real-phone runs in §5**): 3, 4, 6 (first pass, needs Data & Evaluation review), 7, 8, 9, 10, 11, 12, 13 (needs testing with seniors), 14, and §8. Still to do by people: 1 (deploy + T1–T9), 2 (echo test T16), 5 (backup video).
+
+What was built:
+- **3 Screen-off:** wake lock requested at session start and again on `visibilitychange`; a "Keep this screen on" banner shows if it is refused or unsupported. `screen_hidden` / `screen_visible` events go in the session log, so T10 can be read from the log.
+- **4 First-run setup:** 2-step sheet (trusted contact, usual payment) on the first BOSC visit; skipped if a trusted number is already set.
+- **6 Copy:** advice sentences trimmed to ≤ 15 words; spoken PAUSE warning is "Careful. This call has signs of a scam…" (no accusation).
+- **7 Large text:** Settings → Large text (`html.large`, body 18 px, bigger meter/word/buttons). Applied before first paint.
+- **8 Status:** "Detector: basic / advanced" line under the speech-model line.
+- **9 Pay marker:** each Pay tap during a call logs `pay_attempt` with the turn; the summary chart draws a dashed "Pay tapped" line.
+- **10 AudioWorklet:** done, with automatic ScriptProcessor fallback.
+- **11 PWA:** see `sw.js` above.
+- **12 Caller ID:** Phone A's optional name travels in the PeerJS call `metadata`; Phone B shows it with "not verified".
+- **13 Alerts:** WARN = 2 short buzzes + rising 2-note tone; PAUSE = 3 long buzzes + falling 3-note tone; voice follows. Settings → "Play a tone with warnings".
+- **14 Split:** done (see §1).
+
 **P0, needed for the demo**
 1. Deploy (§4); run T1–T9 on the real phones; fix whatever fails.
 2. **Echo:** if T16 fails, test `echoCancellation: true` on both sides (already set for calls) plus earphones. Document what works.
@@ -198,6 +221,10 @@ PeerJS cloud: signalling only (sets up the call; no audio passes through it)
 ---
 
 ## 8. Integrating Backend's new detector (async)
+
+**Status: the frontend side is ready.** `bosc.js` starts with Stage 0 (`bosc-core.js`), then tries `import("./detector-onnx.js")` → `loadScorer("model/")` (30 s timeout). If it arrives during a call, it switches in after the call. All lines (Whisper, typed, demo script) go through one in-order queue and `await scorer.push()`. `libMax ≥ LIB_MATCH` (placeholder 0.8 in `bosc.js`; Backend to confirm) shows "Matches a known scam script (N%)". A 404 for `detector-onnx.js` in the console is expected until Backend delivers it. Tested with a mock async detector (random delays): order kept, swap and libMax line work.
+
+Original plan, for reference:
 
 When Backend delivers `js/detector-onnx.js` (their guide, §9):
 - `loadScorer()` returns the same object, **but `scorer.push(text)` returns a Promise**.

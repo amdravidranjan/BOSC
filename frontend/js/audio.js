@@ -3,6 +3,7 @@
 
 const SR = 16000;
 const FRAME = 480; // 30 ms at 16 kHz
+const workletReady = new WeakMap(); // AudioContext -> addModule() promise
 
 export class UtteranceChunker {
   constructor({ onChunk, onLevel, minRms = 0.008, silenceMs = 650, maxMs = 8000, minMs = 400 }) {
@@ -25,23 +26,53 @@ export class UtteranceChunker {
     this.voiced = 0;
     this.silent = 0;
   }
-  attach(ctx, node) {
+  // Uses an AudioWorklet where available, else the deprecated ScriptProcessor.
+  // Async (the worklet module loads once per AudioContext); a detach() during loading cancels it.
+  async attach(ctx, node) {
     this.detach();
+    const gen = this.gen;
     this.ctx = ctx;
     this.ratio = ctx.sampleRate / SR;
-    this.proc = ctx.createScriptProcessor(4096, 1, 1);
-    this.proc.onaudioprocess = (e) => this.feed(e.inputBuffer.getChannelData(0));
-    node.connect(this.proc);
-    // a ScriptProcessor only runs when connected; its output buffer is left silent
+    let proc = null;
+    if (ctx.audioWorklet && typeof AudioWorkletNode !== "undefined") {
+      try {
+        if (!workletReady.has(ctx)) workletReady.set(ctx, ctx.audioWorklet.addModule(new URL("./chunk-worklet.js", import.meta.url)));
+        await workletReady.get(ctx);
+        if (gen !== this.gen) return;   // detached while the module loaded
+        proc = new AudioWorkletNode(ctx, "bosc-chunk-tap", {
+          numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [1],
+          channelCount: 1, channelCountMode: "explicit", channelInterpretation: "speakers",
+        });
+        proc.port.onmessage = (e) => this.feed(e.data);
+        this.mode = "worklet";
+      } catch (err) {
+        workletReady.delete(ctx);
+        console.warn("AudioWorklet unavailable, using ScriptProcessor.", err);
+        proc = null;
+      }
+    }
+    if (!proc) {
+      proc = ctx.createScriptProcessor(4096, 1, 1);
+      proc.onaudioprocess = (e) => this.feed(e.inputBuffer.getChannelData(0));
+      this.mode = "script";
+    }
+    this.proc = proc;
+    node.connect(proc);
+    // keep the tap pulled by the graph; its output is silent
     this.sink = ctx.createGain();
     this.sink.gain.value = 0;
-    this.proc.connect(this.sink).connect(ctx.destination);
+    proc.connect(this.sink).connect(ctx.destination);
     this.node = node;
   }
   detach() {
+    this.gen = (this.gen || 0) + 1;
     try { this.node && this.proc && this.node.disconnect(this.proc); } catch {}
     try { this.proc && this.proc.disconnect(); } catch {}
+    try { this.sink && this.sink.disconnect(); } catch {}
+    if (this.proc && this.proc.port) this.proc.port.onmessage = null;
     this.proc = null;
+    this.sink = null;
+    this.node = null;
     this.flush();
     this.reset();
   }
