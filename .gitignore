@@ -2,5 +2,8 @@ __pycache__/
 *.pyc
 .playwright-mcp/
 node_modules/
-data/raw/
-data/generated/
+data-eval/raw/
+data-eval/generated/
+.env
+backend/artifacts/
+backend/runs/*/*/checkpoints/

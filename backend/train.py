@@ -3,13 +3,13 @@
 Data
   gen   : template calls from gen_calls.py (train/dev/test; test uses held-out phrasings)
   hf    : BothBosu/scam-dialogue (Apache-2.0, synthetic, US-flavoured). Its own train/test split.
-  lockbox (optional): data/lockbox/*.jsonl human-written calls -> evaluated only, never trained on.
+  lockbox (optional): data-eval/lockbox/*.jsonl human-written calls -> evaluated only, never trained on.
 
 Outputs
-  web/model/model.json       weights + scorer config used by the browser
-  results/metrics.json       all numbers
-  results/report.md          human-readable results
-  train/parity_cases.json    inputs + Python outputs for the JS parity test
+  frontend/model/model.json     weights + scorer config used by the browser
+  data-eval/results/metrics.json       all numbers
+  data-eval/results/report.md         human-readable results
+  backend/parity_cases.json    inputs + Python outputs for the JS parity test
 """
 import csv
 import hashlib
@@ -29,12 +29,12 @@ sys.path.insert(0, str(Path(__file__).parent))
 from bosc_core import Model, StreamingScorer, TacticDetector, analyzer  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-GEN = ROOT / "data" / "generated"
-RAW = ROOT / "data" / "raw"
-LOCK = ROOT / "data" / "lockbox"
-OUT_MODEL = ROOT / "web" / "model" / "model.json"
-TACTICS = ROOT / "web" / "model" / "tactics.json"
-RES = ROOT / "results"
+GEN = ROOT / "data-eval" / "generated"
+RAW = ROOT / "data-eval" / "raw"
+LOCK = ROOT / "data-eval" / "lockbox"
+OUT_MODEL = ROOT / "frontend" / "model" / "model.json"
+TACTICS = ROOT / "frontend" / "model" / "tactics.json"
+RES = ROOT / "data-eval" / "results"
 FA_PAUSE, FA_WARN = 0.02, 0.05
 ALPHA_UP, ALPHA_DOWN = 0.6, 0.15
 MAX_FEATURES = 6000
@@ -300,7 +300,7 @@ def main():
     stream_call = caller_utts(next(c for c in gen_test if c["type"] == "S2_digital_arrest"))
     sc_exp.reset()
     stream_out = [sc_exp.push(u)["risk"] for u in stream_call]
-    (ROOT / "train" / "parity_cases.json").write_text(json.dumps({
+    (ROOT / "backend" / "parity_cases.json").write_text(json.dumps({
         "proba": [{"text": t, "p": m_exp.proba(t)} for t in cases],
         "tactics": [{"text": t, "found": sorted(det.detect(t))} for t in cases],
         "stream": {"utterances": stream_call, "risk": stream_out},

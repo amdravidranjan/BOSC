@@ -1,0 +1,26 @@
+# Backend / ML environment (Python 3.10/3.11). Install torch separately with CUDA if you have a GPU.
+torch>=2.3
+transformers>=4.44,<5
+sentence-transformers>=3.0
+datasets>=2.20
+accelerate>=0.33
+scikit-learn>=1.4
+lightgbm>=4.3
+numpy>=1.26,<2.1
+pandas>=2.2
+scipy>=1.12
+matplotlib>=3.8
+tqdm
+python-dotenv
+# export
+onnx>=1.16
+onnxruntime>=1.18
+optimum[onnxruntime]>=1.21
+# audio augmentation
+edge-tts>=6.1
+soundfile
+faster-whisper>=1.0
+# data quality
+cleanlab>=2.6
+# LLM data generation: the SDK of the provider you use, e.g.
+# anthropic

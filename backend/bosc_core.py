@@ -1,4 +1,4 @@
-"""BOSC scoring core (Python reference). web/js/bosc-core.js must match this exactly.
+"""BOSC scoring core (Python reference). frontend/js/bosc-core.js must match this exactly.
 
 Pipeline per caller utterance:
   window text (last W caller utterances) -> tokens -> TF-IDF (sublinear, l2) -> logistic regression p

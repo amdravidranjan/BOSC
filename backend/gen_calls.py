@@ -6,7 +6,7 @@ Scam types follow the plan's taxonomy S1-S10; genuine types include hard negativ
 Honesty mechanism: every phrase bank is split by index. Items with index % 4 == 3
 are reserved for the TEST split, so test calls use phrasings never seen in training.
 This is still synthetic data -- the headline number must come from the human-written
-lockbox (data/lockbox) and real recordings.
+lockbox (data-eval/lockbox) and real recordings.
 
 Usage: python gen_calls.py OUT_DIR
 """
@@ -712,7 +712,7 @@ def generate(split, n_scam, n_genuine, seed):
 
 
 def main():
-    out = Path(sys.argv[1] if len(sys.argv) > 1 else "../data/generated")
+    out = Path(sys.argv[1] if len(sys.argv) > 1 else "../data-eval/generated")
     out.mkdir(parents=True, exist_ok=True)
     plan = {"train": (2000, 2000, 1), "dev": (300, 300, 2), "test": (300, 300, 3)}
     for split, (ns, ng, seed) in plan.items():

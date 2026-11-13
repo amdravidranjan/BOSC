@@ -1,13 +1,13 @@
-// Checks that web/js/bosc-core.js gives the same outputs as train/bosc_core.py.
-// Run: node train/parity_test.mjs   (after python train/train.py)
+// Checks that frontend/js/bosc-core.js gives the same outputs as backend/bosc_core.py.
+// Run: node backend/parity_test.mjs   (after python backend/train.py)
 import { readFileSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const core = await import(pathToFileURL(join(here, "..", "web", "js", "bosc-core.js")).href);
-const mj = JSON.parse(readFileSync(join(here, "..", "web", "model", "model.json"), "utf8"));
-const tj = JSON.parse(readFileSync(join(here, "..", "web", "model", "tactics.json"), "utf8"));
+const core = await import(pathToFileURL(join(here, "..", "frontend", "js", "bosc-core.js")).href);
+const mj = JSON.parse(readFileSync(join(here, "..", "frontend", "model", "model.json"), "utf8"));
+const tj = JSON.parse(readFileSync(join(here, "..", "frontend", "model", "tactics.json"), "utf8"));
 const cases = JSON.parse(readFileSync(join(here, "parity_cases.json"), "utf8"));
 
 const model = new core.Model(mj);
