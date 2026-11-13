@@ -88,6 +88,22 @@ export class Model {
   }
 }
 
+const ASKS = new Set(["credential_request", "payment_instruction", "remote_access"]);
+const PRESSURE_ONLY = new Set(["threat", "secrecy_isolation", "urgency", "stay_on_line"]);
+
+// Minimum level from the combination of regex tactics seen so far in the call. Same as rule_floor() in
+// backend/bosc_core.py. Catches the textbook pattern even when the model scores the wording low.
+export function ruleFloor(seen) {
+  let asks = 0;
+  for (const t of seen) if (ASKS.has(t)) asks++;
+  let pressure = false;
+  for (const t of seen) if (PRESSURE_ONLY.has(t)) pressure = true;
+  const auth = seen.has("authority_claim");
+  if ((auth && asks > 0 && pressure) || (seen.has("threat") && seen.has("payment_instruction"))) return "PAUSE";
+  if ((auth && asks > 0) || asks >= 2) return "WARN";
+  return null;
+}
+
 export class StreamingScorer {
   constructor(model, detector, cfg) {
     this.model = model;
@@ -120,7 +136,10 @@ export class StreamingScorer {
     const raw = (1 - this.tw) * p + this.tw * Math.min(1, n / 4);
     const a = raw > this.risk ? this.up : this.down;
     this.risk = this.risk + a * (raw - this.risk);
-    const out = { p, raw, risk: this.risk, tactics, level: this.level() };
+    const floor = ruleFloor(this.seen);
+    if (floor === "PAUSE") this.risk = Math.max(this.risk, this.pause);
+    else if (floor === "WARN") this.risk = Math.max(this.risk, this.warn);
+    const out = { p, raw, risk: this.risk, tactics, level: this.level(), floor };
     this.history.push({ t: Date.now(), text, ...out });
     return out;
   }

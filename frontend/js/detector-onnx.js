@@ -4,7 +4,7 @@
 //
 // loadStudent(base) resolves to null when the model files are not deployed or fail to load;
 // the app then keeps the Stage 0 detector ("basic detector").
-import { loadScorer as loadBasicScorer } from "./bosc-core.js";
+import { loadScorer as loadBasicScorer, ruleFloor } from "./bosc-core.js";
 import { StreamModel, TACTICS, sigmoid } from "./stream-model.js";
 
 const WINDOW = 4;
@@ -66,8 +66,14 @@ class StudentScorer {
     for (const t of regex) this.seen.add(t);
     TACTICS.forEach((t, k) => { if (probs[k + 1] > 0.5) this.seen.add(t); });
     const o = this.sm.push(probs, regex);
+    // rule floor (see bosc-core.js ruleFloor): applied to the scorer state so the meter, Shield and summary agree
+    const floor = ruleFloor(this.sm.fs.regexSeen);
+    if (floor === "PAUSE") { this.sm.risk = Math.max(this.sm.risk, this.sm.pause); this.sm.latched = true; }
+    else if (floor === "WARN") this.sm.risk = Math.max(this.sm.risk, this.sm.warn);
+    o.risk = this.sm.risk;
+    o.level = this.sm.level();
     const tacticProbs = Object.fromEntries(TACTICS.map((t, k) => [t, probs[k + 1]]));
-    const out = { p: probs[0], raw: o.q, risk: o.risk, tactics, level: o.level, tacticProbs, nlpMs: Math.round(ms) };
+    const out = { p: probs[0], raw: o.q, risk: o.risk, tactics, level: o.level, tacticProbs, floor, nlpMs: Math.round(ms) };
     this.history.push({ t: Date.now(), text, ...out });
     return out;
   }

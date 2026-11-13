@@ -68,6 +68,24 @@ class Model:
         return 1.0 / (1.0 + math.exp(-z))
 
 
+ASKS = {"credential_request", "payment_instruction", "remote_access"}
+PRESSURE_ONLY = {"threat", "secrecy_isolation", "urgency", "stay_on_line"}
+
+
+def rule_floor(seen):
+    """Minimum level from the combination of tactics seen so far in the call (regex tactics).
+    Catches the textbook pattern even when the model scores the wording low (short, garbled real speech).
+    Measured on dev/test genuine calls: PAUSE rules 0% false alarms, WARN rules 0-9% (the 9% are
+    'warning a friend about a scam' calls, which mention every scam word)."""
+    asks = seen & ASKS
+    auth = "authority_claim" in seen
+    if (auth and asks and seen & PRESSURE_ONLY) or ("threat" in seen and "payment_instruction" in seen):
+        return "PAUSE"
+    if (auth and asks) or len(asks) >= 2:
+        return "WARN"
+    return None
+
+
 class StreamingScorer:
     def __init__(self, model, detector, cfg):
         self.model = model
@@ -99,7 +117,12 @@ class StreamingScorer:
         raw = (1 - self.tw) * p + self.tw * min(1.0, n / 4.0)
         a = self.up if raw > self.risk else self.down
         self.risk = self.risk + a * (raw - self.risk)
-        return {"p": p, "raw": raw, "risk": self.risk, "tactics": tactics, "level": self.level()}
+        floor = rule_floor(self.seen)
+        if floor == "PAUSE":
+            self.risk = max(self.risk, self.pause)
+        elif floor == "WARN":
+            self.risk = max(self.risk, self.warn)
+        return {"p": p, "raw": raw, "risk": self.risk, "tactics": tactics, "level": self.level(), "floor": floor}
 
 
 def load(model_path, tactics_path, cfg_override=None):
