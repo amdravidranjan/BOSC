@@ -1,6 +1,6 @@
 # BOSC detector — results
 
-Model hash `373d97e902713b8f` · window=4 caller utterances · C=0.5 · tactic weight=0.3
+Model hash `149a802e5a947291` · window=4 caller utterances · C=0.5 · tactic weight=0.3
 Thresholds (picked on dev so genuine-call false alarms ≤2% PAUSE / ≤5% WARN): WARN=0.341, PAUSE=0.380
 
 > **Read this first.** Every set below is synthetic (template-generated or LLM-generated). Do not headline these numbers. The headline must come from the human-written lockbox and real recordings.

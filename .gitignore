@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .playwright-mcp/
 node_modules/
+.venv/
 data-eval/raw/
 data-eval/generated/
 .env

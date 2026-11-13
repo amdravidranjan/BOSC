@@ -1,0 +1,55 @@
+{
+  "stage": "Stage 0: TF-IDF + logistic regression + regex tactics",
+  "branch": "radha",
+  "git_commit": "a8a255f93e5e8774d922122d4e3c7b9f65bd8341",
+  "python": "3.12.13",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "scope": "README Stage 0 reproduction; original training scripts unchanged",
+  "dataset_urls": [
+    "https://huggingface.co/datasets/BothBosu/scam-dialogue/resolve/main/scam-dialogue_train.csv",
+    "https://huggingface.co/datasets/BothBosu/scam-dialogue/resolve/main/scam-dialogue_test.csv"
+  ],
+  "sha256": {
+    "data-eval/raw/scam-dialogue_test.csv": "17a9e52e90d893541d76dbb4588cb75b1a66ef2474ef2619d56feff5b8d5aec0",
+    "data-eval/raw/scam-dialogue_train.csv": "cda5d42d15fd341208a25466d9ea279de905a640bd153f67b5c29743520f96f8",
+    "data-eval/generated/dev.jsonl": "79c33715d340a251f63a80a3f9a65d23dca3102a56ab42d67ec400f8cb080d5f",
+    "data-eval/generated/test.jsonl": "bde7e5d725ba77f293f22b02c62dfd53a4e51b95ce4da555c6925ff11d7fad22",
+    "data-eval/generated/train.jsonl": "653383f21d1bc8323fd89d0e9adee022ef60cf3b612aeacf2117d45fac0e8ec1"
+  },
+  "counts": {
+    "train": 5088,
+    "dev": 792,
+    "template_test": 600,
+    "hf_test": 320,
+    "lockbox": 0
+  },
+  "chosen": {
+    "W": 4,
+    "C": 0.5,
+    "tactic_weight": 0.3
+  },
+  "thresholds": {
+    "warn": 0.34114964163284245,
+    "pause": 0.3796221838330613
+  },
+  "model_sha256": "149a802e5a947291ed7be940b4bf2dc66983b49cfcf907c3c9413d72ab6ca691",
+  "commands": [
+    ".venv/bin/python backend/gen_calls.py data-eval/generated",
+    ".venv/bin/python -u backend/train.py",
+    "node backend/parity_test.mjs",
+    ".venv/bin/python backend/check_scripts.py"
+  ],
+  "validation": {
+    "finite_exported_weights": true,
+    "finite_utterance_scores_checked": 38222,
+    "parity": "PARITY OK; 204 probability cases, 204 tactic cases, 7 streamed turns",
+    "demo": "3 scam scripts reach PAUSE; 3 genuine scripts remain SAFE"
+  },
+  "warnings": [
+    "NumPy matmul emitted divide-by-zero/overflow/invalid warnings during sklearn optimization. The same warnings reproduced on np.ones(6000) @ np.ones(6000), returning the correct result 6000. Exported weights and all checked utterance scores are finite; parity passed."
+  ],
+  "limits": [
+    "All evaluated data is synthetic. No human lockbox or real-audio set is present.",
+    "Generated held-out test false alarms are 9%, exceeding the 2% dev calibration target."
+  ]
+}
