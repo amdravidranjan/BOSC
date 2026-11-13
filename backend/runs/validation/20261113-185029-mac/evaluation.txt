@@ -1,0 +1,2 @@
+Matplotlib is building the font cache; this may take a moment.
+Wrote stages_1_4.md and metrics/figure/checkpoint manifest

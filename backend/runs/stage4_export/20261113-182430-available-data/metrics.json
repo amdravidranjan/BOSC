@@ -1,0 +1,97 @@
+{
+  "train": {
+    "pr_auc": 0.999770446749478,
+    "roc_auc": 0.9997294523125294,
+    "f1": 0.991894051832401,
+    "n_windows": 8314,
+    "tactic_macro_f1": 0.0,
+    "tactic_f1": {
+      "urgency": 0.0,
+      "threat": 0.0,
+      "secrecy_isolation": 0.0,
+      "authority_claim": 0.0,
+      "credential_request": 0.0,
+      "remote_access": 0.0,
+      "payment_instruction": 0.0,
+      "stay_on_line": 0.0
+    }
+  },
+  "calib": {
+    "pr_auc": 0.9988779834359606,
+    "roc_auc": 0.9988156771853605,
+    "f1": 0.9808799815710666,
+    "n_windows": 4450,
+    "tactic_macro_f1": 0.0,
+    "tactic_f1": {
+      "urgency": 0.0,
+      "threat": 0.0,
+      "secrecy_isolation": 0.0,
+      "authority_claim": 0.0,
+      "credential_request": 0.0,
+      "remote_access": 0.0,
+      "payment_instruction": 0.0,
+      "stay_on_line": 0.0
+    }
+  },
+  "dev": {
+    "pr_auc": 0.9909421551114573,
+    "roc_auc": 0.990534503927721,
+    "f1": 0.9508423724901915,
+    "n_windows": 4285,
+    "tactic_macro_f1": 0.0,
+    "tactic_f1": {
+      "urgency": 0.0,
+      "threat": 0.0,
+      "secrecy_isolation": 0.0,
+      "authority_claim": 0.0,
+      "credential_request": 0.0,
+      "remote_access": 0.0,
+      "payment_instruction": 0.0,
+      "stay_on_line": 0.0
+    }
+  },
+  "fp32_dev": {
+    "pr_auc": 0.9923049160883921,
+    "roc_auc": 0.9916971511981914,
+    "f1": 0.9531642677633082,
+    "n_windows": 4285,
+    "tactic_macro_f1": 0.0,
+    "tactic_f1": {
+      "urgency": 0.0,
+      "threat": 0.0,
+      "secrecy_isolation": 0.0,
+      "authority_claim": 0.0,
+      "credential_request": 0.0,
+      "remote_access": 0.0,
+      "payment_instruction": 0.0,
+      "stay_on_line": 0.0
+    }
+  },
+  "int8_max_logit_error": 3.1540534496307373,
+  "quantization_f1_drop": 0.0023218952731166587,
+  "quantization_gate_passed": true,
+  "torch_onnx_max_logit_error": 4.827976226806641e-06,
+  "cpu_ms_window": {
+    "median": 11.972604494076222,
+    "p95": 12.179558002389967
+  },
+  "test_synth": {
+    "pr_auc": 0.9874660130708957,
+    "roc_auc": 0.9878477580257865,
+    "f1": 0.9437831898919612,
+    "n_windows": 5259,
+    "tactic_macro_f1": 0.0,
+    "tactic_f1": {
+      "urgency": 0.0,
+      "threat": 0.0,
+      "secrecy_isolation": 0.0,
+      "authority_claim": 0.0,
+      "credential_request": 0.0,
+      "remote_access": 0.0,
+      "payment_instruction": 0.0,
+      "stay_on_line": 0.0
+    }
+  },
+  "onnx_bytes": 23012274,
+  "onnx_sha256": "8912db55f3d2cbde9f754be40f2d56ff6d59c0a0b6ec189884e7e4ef71870ae0"
+}

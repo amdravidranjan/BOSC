@@ -1,4 +1,5 @@
-import { loadScorer, PRESSURE } from "./bosc-core.js";
+import { PRESSURE } from "./bosc-core.js";
+import { loadScorer } from "./detector-onnx.js";
 import { UtteranceChunker, getAudioContext } from "./audio.js";
 
 const $ = (s) => document.querySelector(s);
@@ -130,6 +131,7 @@ let wakeLock = null;
 
 async function initBosc() {
   core = await loadScorer("model/");
+  $("#b-detector-status").textContent = core.kind;
   buildMeter();
   buildChips();
   renderRisk();
@@ -281,6 +283,7 @@ function endSession(reason, silent = false) {
   try { wakeLock && wakeLock.release(); } catch {}
   lastSession = { ...s, end: Date.now(), history: core.scorer.history.slice(), seen: [...core.scorer.seen],
     warn: core.scorer.warn, pause: core.scorer.pause, reason };
+  core.scorer.cancelPending?.();
   $("#b-idle").hidden = false;
   setBState("Guarding");
   setListen("idle");
@@ -396,10 +399,12 @@ function startScript() {
   if (!s) return;
   let i = 0, timer = null;
   startSession("script", () => clearTimeout(timer));
-  const step = () => {
-    if (!session || session.source !== "script") return;
+  const scriptSession = session;
+  const step = async () => {
+    if (session !== scriptSession) return;
     if (i >= s.lines.length) { timer = setTimeout(() => endSession("script-ended"), 2500); return; }
-    addUtterance(s.lines[i++], { script: s.id });
+    await addUtterance(s.lines[i++], { script: s.id });
+    if (session !== scriptSession) return;
     timer = setTimeout(step, 2800);
   };
   timer = setTimeout(step, 600);
@@ -456,10 +461,17 @@ function highlight(text, tactics) {
   }
   return out + esc(text.slice(i));
 }
-function addUtterance(text, meta = {}) {
+async function addUtterance(text, meta = {}) {
   if (!session) startSession("typed");
+  const currentSession = session;
   const prev = core.scorer.level();
-  const r = core.scorer.push(text);
+  let r;
+  try { r = await core.scorer.push(text); }
+  catch (error) {
+    if (session === currentSession && error.name !== "AbortError") setListen("Detector error: " + error.message);
+    return;
+  }
+  if (session !== currentSession) return;
   session.log.push({ t: Date.now() - session.start, text, p: +r.p.toFixed(4), risk: +r.risk.toFixed(4), level: r.level, tactics: Object.keys(r.tactics), ...meta });
   const box = $("#b-transcript");
   box.querySelector(".empty")?.remove();

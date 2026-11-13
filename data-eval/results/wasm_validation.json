@@ -1,0 +1,10 @@
+{
+  "scope": "Single-thread browser WASM engine under Node on this Mac; not a phone measurement",
+  "windows": 204,
+  "stream_calls": 10,
+  "stream_turns": 70,
+  "max_logit_error": 0.000001430511474609375,
+  "max_risk_error": 0,
+  "median_ms": 88.6070409999993,
+  "p95_ms": 90.4683329999998
+}

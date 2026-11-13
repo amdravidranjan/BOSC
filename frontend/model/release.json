@@ -1,0 +1,7 @@
+{
+  "enabled": false,
+  "scope": "Synthetic available-data experiment",
+  "onnx_sha256": "d1e08cf6eab8131f17fa10ee41cae4b74564b996d9916037a2788ea37d202b2c",
+  "stream_sha256": "e7c44ed7a9e485a0f309c4d147f7d36b5ba4262efbf045eb6db753e3e5422cde",
+  "reason": "All parity checks passed; student quality gate failed; Stage 0 remains active"
+}

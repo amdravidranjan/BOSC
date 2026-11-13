@@ -4,6 +4,11 @@
   "type": "module",
   "scripts": {
     "parity": "node backend/parity_test.mjs",
+    "parity:neural": "node backend/parity_stream.mjs && node backend/parity_onnx.mjs && node backend/parity_full_stream.mjs && node backend/parity_wasm.mjs",
+    "test:pipeline": ".venv/bin/python backend/test_pipeline.py && node backend/test_neural_scorer.mjs",
     "serve": "npx --yes http-server@14.1.1 frontend -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "@huggingface/transformers": "3.0.2"
   }
 }

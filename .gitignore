@@ -5,6 +5,7 @@ node_modules/
 .venv/
 data-eval/raw/
 data-eval/generated/
+data-eval/v1/*.jsonl
 .env
 backend/artifacts/
 backend/runs/*/*/checkpoints/

@@ -1,0 +1,48 @@
+{
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "classifier_dropout": null,
+  "dtype": "float32",
+  "gradient_checkpointing": false,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 384,
+  "id2label": {
+    "0": "scam",
+    "1": "urgency",
+    "2": "threat",
+    "3": "secrecy_isolation",
+    "4": "authority_claim",
+    "5": "credential_request",
+    "6": "remote_access",
+    "7": "payment_instruction",
+    "8": "stay_on_line"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 1536,
+  "label2id": {
+    "authority_claim": 4,
+    "credential_request": 5,
+    "payment_instruction": 7,
+    "remote_access": 6,
+    "scam": 0,
+    "secrecy_isolation": 3,
+    "stay_on_line": 8,
+    "threat": 2,
+    "urgency": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 6,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "problem_type": "multi_label_classification",
+  "transformers_version": "4.57.6",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}

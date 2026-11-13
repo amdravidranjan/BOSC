@@ -1,0 +1,480 @@
+{
+  "teacher/42/history.json": [
+    {
+      "epoch": 1,
+      "loss": 0.3338379913198878,
+      "seconds": 349.02615012496244,
+      "pr_auc": 0.9960832187767532,
+      "roc_auc": 0.9955100240462043,
+      "f1": 0.9672993368396982,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.07496513249651325,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.599721059972106,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 0.08127039520012869,
+      "seconds": 361.6730752500007,
+      "pr_auc": 0.995484073882098,
+      "roc_auc": 0.9948418559991072,
+      "f1": 0.9702789208962048,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.4013795093406873,
+      "tactic_f1": {
+        "urgency": 0.4966442953020134,
+        "threat": 0.8661087866108786,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.3132530120481928,
+        "credential_request": 0.49544626593806923,
+        "remote_access": 0.7364341085271318,
+        "payment_instruction": 0.3031496062992126,
+        "stay_on_line": 0.0
+      }
+    }
+  ],
+  "teacher/1234/history.json": [
+    {
+      "epoch": 1,
+      "loss": 0.33920589866197237,
+      "seconds": 396.1631459160126,
+      "pr_auc": 0.9942231041714552,
+      "roc_auc": 0.9930404609967254,
+      "f1": 0.9583142464498396,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0350609756097561,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.2804878048780488,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 0.0819813079303388,
+      "seconds": 351.96999783295905,
+      "pr_auc": 0.9963623479105604,
+      "roc_auc": 0.9954649128962534,
+      "f1": 0.9691889442682374,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.2727704603450607,
+      "tactic_f1": {
+        "urgency": 0.5294117647058824,
+        "threat": 0.8583509513742071,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.3413654618473896,
+        "credential_request": 0.43911439114391143,
+        "remote_access": 0.0,
+        "payment_instruction": 0.013921113689095127,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 3,
+      "loss": 0.02448450084730911,
+      "seconds": 345.9532771249651,
+      "pr_auc": 0.9955074961348735,
+      "roc_auc": 0.9945971225624178,
+      "f1": 0.9674060660932549,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.4080545847781648,
+      "tactic_f1": {
+        "urgency": 0.5407166123778502,
+        "threat": 0.8668076109936576,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.5401709401709401,
+        "credential_request": 0.6268656716417911,
+        "remote_access": 0.5267857142857143,
+        "payment_instruction": 0.1630901287553648,
+        "stay_on_line": 0.0
+      }
+    }
+  ],
+  "teacher/13/history.json": [
+    {
+      "epoch": 1,
+      "loss": 0.31598591899662726,
+      "seconds": 549.2598108339589,
+      "pr_auc": 0.9908986831154567,
+      "roc_auc": 0.9900498314760761,
+      "f1": 0.9344729344729344,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.04828853283898305,
+      "tactic_f1": {
+        "urgency": 0.1015625,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.2847457627118644,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 0.07673159234098141,
+      "seconds": 543.9929990419769,
+      "pr_auc": 0.99270800600933,
+      "roc_auc": 0.9923034276192689,
+      "f1": 0.9594438006952491,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.2148782418636696,
+      "tactic_f1": {
+        "urgency": 0.2490272373540856,
+        "threat": 0.6391096979332274,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.6606334841628959,
+        "credential_request": 0.0,
+        "remote_access": 0.059880239520958084,
+        "payment_instruction": 0.11037527593818984,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 3,
+      "loss": 0.026828556680503914,
+      "seconds": 456.85180804197444,
+      "pr_auc": 0.9950725470844615,
+      "roc_auc": 0.9945303275505344,
+      "f1": 0.9712065813528337,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.3583357566786247,
+      "tactic_f1": {
+        "urgency": 0.043668122270742356,
+        "threat": 0.7600700525394045,
+        "secrecy_isolation": 0.32167832167832167,
+        "authority_claim": 0.5861513687600645,
+        "credential_request": 0.3799654576856649,
+        "remote_access": 0.4195121951219512,
+        "payment_instruction": 0.35564053537284895,
+        "stay_on_line": 0.0
+      }
+    }
+  ],
+  "student/42/history.json": [
+    {
+      "epoch": 1,
+      "loss": 1.589110752940178,
+      "seconds": 29.96651070797816,
+      "pr_auc": 0.9810946662888467,
+      "roc_auc": 0.980300810736715,
+      "f1": 0.9382492648722008,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 1.016697928080192,
+      "seconds": 29.129325499990955,
+      "pr_auc": 0.9756286055600984,
+      "roc_auc": 0.9782471637726521,
+      "f1": 0.9465895953757225,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    }
+  ],
+  "student/1234/history.json": [
+    {
+      "epoch": 1,
+      "loss": 1.592973553446623,
+      "seconds": 31.06874749995768,
+      "pr_auc": 0.9793979908884823,
+      "roc_auc": 0.9764946936647819,
+      "f1": 0.9285714285714286,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 1.019808018895296,
+      "seconds": 24.429797249962576,
+      "pr_auc": 0.9796335458043129,
+      "roc_auc": 0.9785411489962441,
+      "f1": 0.938464980980085,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 3,
+      "loss": 0.9635079615391218,
+      "seconds": 23.789345999946818,
+      "pr_auc": 0.9783627413289983,
+      "roc_auc": 0.9781408147814638,
+      "f1": 0.9477730047479087,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    }
+  ],
+  "student/13/history.json": [
+    {
+      "epoch": 1,
+      "loss": 1.5844418672414926,
+      "seconds": 33.57453029201133,
+      "pr_auc": 0.9786661553351739,
+      "roc_auc": 0.9781618448586146,
+      "f1": 0.9217962760131435,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 1.019490686058998,
+      "seconds": 30.501288792002015,
+      "pr_auc": 0.9806922224111781,
+      "roc_auc": 0.980578778233151,
+      "f1": 0.9419124218051832,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 3,
+      "loss": 0.9612531425861212,
+      "seconds": 29.26740691694431,
+      "pr_auc": 0.9816906315475489,
+      "roc_auc": 0.9808532588774166,
+      "f1": 0.94862934807648,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 4,
+      "loss": 0.9474287081223268,
+      "seconds": 28.54571604199009,
+      "pr_auc": 0.9808216050306786,
+      "roc_auc": 0.9819680708946783,
+      "f1": 0.9478651685393259,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    }
+  ],
+  "student_l6/42/history.json": [
+    {
+      "epoch": 1,
+      "loss": 1.5138084212174783,
+      "seconds": 48.49191508302465,
+      "pr_auc": 0.9923049160883922,
+      "roc_auc": 0.9916971511981914,
+      "f1": 0.9531642677633082,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 1.0000141836129701,
+      "seconds": 54.43041320896009,
+      "pr_auc": 0.9825931535390962,
+      "roc_auc": 0.9839962202522475,
+      "f1": 0.953811149032992,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    }
+  ],
+  "student_l6/1234/history.json": [
+    {
+      "epoch": 1,
+      "loss": 1.4979224507625286,
+      "seconds": 50.70991358300671,
+      "pr_auc": 0.9836914408825047,
+      "roc_auc": 0.9844983269647432,
+      "f1": 0.9455918276704419,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 0.9935719794951953,
+      "seconds": 48.01163975003874,
+      "pr_auc": 0.9597169888297881,
+      "roc_auc": 0.965198164346675,
+      "f1": 0.924161503952147,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    }
+  ],
+  "student_l6/13/history.json": [
+    {
+      "epoch": 1,
+      "loss": 1.4912758843256877,
+      "seconds": 48.84815791598521,
+      "pr_auc": 0.9884168508608988,
+      "roc_auc": 0.9880147084141665,
+      "f1": 0.9495667629415685,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "loss": 0.9939820945262909,
+      "seconds": 47.159916750038974,
+      "pr_auc": 0.9829676581363823,
+      "roc_auc": 0.9835933798624698,
+      "f1": 0.9531459170013387,
+      "n_windows": 4285,
+      "tactic_macro_f1": 0.0,
+      "tactic_f1": {
+        "urgency": 0.0,
+        "threat": 0.0,
+        "secrecy_isolation": 0.0,
+        "authority_claim": 0.0,
+        "credential_request": 0.0,
+        "remote_access": 0.0,
+        "payment_instruction": 0.0,
+        "stay_on_line": 0.0
+      }
+    }
+  ]
+}

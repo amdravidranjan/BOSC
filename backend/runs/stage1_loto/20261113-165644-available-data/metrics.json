@@ -1,0 +1,262 @@
+{
+  "S10_family_emergency": {
+    "n_scam": 29,
+    "n_genuine": 427,
+    "recall_pause": 0.8620689655172413,
+    "recall_pause_ci": [
+      0.7241379310344828,
+      0.9655172413793104
+    ],
+    "recall_warn": 0.9310344827586207,
+    "recall_warn_ci": [
+      0.8275862068965517,
+      1.0
+    ],
+    "false_alarm_pause": 0.0702576112412178,
+    "false_alarm_pause_ci": [
+      0.0468384074941452,
+      0.09601873536299765
+    ],
+    "false_alarm_warn": 0.08899297423887588,
+    "false_alarm_warn_ci": [
+      0.06088992974238876,
+      0.117096018735363
+    ],
+    "median_earliness_turns": 2.0,
+    "pause_by_first_ask_turn": 0.6896551724137931
+  },
+  "S1_bank_kyc": {
+    "n_scam": 30,
+    "n_genuine": 427,
+    "recall_pause": 0.9,
+    "recall_pause_ci": [
+      0.7666666666666667,
+      1.0
+    ],
+    "recall_warn": 0.9,
+    "recall_warn_ci": [
+      0.7666666666666667,
+      1.0
+    ],
+    "false_alarm_pause": 0.06557377049180328,
+    "false_alarm_pause_ci": [
+      0.04443793911007026,
+      0.08899297423887588
+    ],
+    "false_alarm_warn": 0.08196721311475409,
+    "false_alarm_warn_ci": [
+      0.05620608899297424,
+      0.11007025761124122
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.7
+  },
+  "S2_digital_arrest": {
+    "n_scam": 30,
+    "n_genuine": 427,
+    "recall_pause": 1.0,
+    "recall_pause_ci": [
+      1.0,
+      1.0
+    ],
+    "recall_warn": 1.0,
+    "recall_warn_ci": [
+      1.0,
+      1.0
+    ],
+    "false_alarm_pause": 0.06323185011709602,
+    "false_alarm_pause_ci": [
+      0.03981264637002342,
+      0.08665105386416862
+    ],
+    "false_alarm_warn": 0.07728337236533958,
+    "false_alarm_warn_ci": [
+      0.05152224824355972,
+      0.10304449648711944
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.8275862068965517
+  },
+  "S3_remote_refund": {
+    "n_scam": 30,
+    "n_genuine": 427,
+    "recall_pause": 1.0,
+    "recall_pause_ci": [
+      1.0,
+      1.0
+    ],
+    "recall_warn": 1.0,
+    "recall_warn_ci": [
+      1.0,
+      1.0
+    ],
+    "false_alarm_pause": 0.06791569086651054,
+    "false_alarm_pause_ci": [
+      0.04449648711943794,
+      0.09133489461358314
+    ],
+    "false_alarm_warn": 0.07259953161592506,
+    "false_alarm_warn_ci": [
+      0.04918032786885246,
+      0.09836065573770492
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.7666666666666667
+  },
+  "S4_utility": {
+    "n_scam": 30,
+    "n_genuine": 427,
+    "recall_pause": 0.9,
+    "recall_pause_ci": [
+      0.7666666666666667,
+      1.0
+    ],
+    "recall_warn": 1.0,
+    "recall_warn_ci": [
+      1.0,
+      1.0
+    ],
+    "false_alarm_pause": 0.06557377049180328,
+    "false_alarm_pause_ci": [
+      0.04443793911007026,
+      0.08899297423887588
+    ],
+    "false_alarm_warn": 0.07494145199063232,
+    "false_alarm_warn_ci": [
+      0.05152224824355972,
+      0.1007611241217798
+    ],
+    "median_earliness_turns": 2.0,
+    "pause_by_first_ask_turn": 0.43333333333333335
+  },
+  "S5_sim_aadhaar": {
+    "n_scam": 30,
+    "n_genuine": 427,
+    "recall_pause": 0.9333333333333333,
+    "recall_pause_ci": [
+      0.8333333333333334,
+      1.0
+    ],
+    "recall_warn": 0.9333333333333333,
+    "recall_warn_ci": [
+      0.8333333333333334,
+      1.0
+    ],
+    "false_alarm_pause": 0.06323185011709602,
+    "false_alarm_pause_ci": [
+      0.03981264637002342,
+      0.08665105386416862
+    ],
+    "false_alarm_warn": 0.07259953161592506,
+    "false_alarm_warn_ci": [
+      0.04918032786885246,
+      0.09836065573770492
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.8333333333333334
+  },
+  "S6_card_loan": {
+    "n_scam": 29,
+    "n_genuine": 427,
+    "recall_pause": 0.896551724137931,
+    "recall_pause_ci": [
+      0.7586206896551724,
+      1.0
+    ],
+    "recall_warn": 0.9655172413793104,
+    "recall_warn_ci": [
+      0.896551724137931,
+      1.0
+    ],
+    "false_alarm_pause": 0.06791569086651054,
+    "false_alarm_pause_ci": [
+      0.046779859484777524,
+      0.09133489461358314
+    ],
+    "false_alarm_warn": 0.08430913348946135,
+    "false_alarm_warn_ci": [
+      0.0585480093676815,
+      0.11241217798594848
+    ],
+    "median_earliness_turns": 3.0,
+    "pause_by_first_ask_turn": 0.27586206896551724
+  },
+  "S7_task_investment": {
+    "n_scam": 30,
+    "n_genuine": 427,
+    "recall_pause": 0.7666666666666667,
+    "recall_pause_ci": [
+      0.6,
+      0.9
+    ],
+    "recall_warn": 0.9,
+    "recall_warn_ci": [
+      0.7666666666666667,
+      1.0
+    ],
+    "false_alarm_pause": 0.06557377049180328,
+    "false_alarm_pause_ci": [
+      0.04215456674473068,
+      0.09133489461358314
+    ],
+    "false_alarm_warn": 0.07962529274004684,
+    "false_alarm_warn_ci": [
+      0.05620608899297424,
+      0.10544496487119433
+    ],
+    "median_earliness_turns": 2.0,
+    "pause_by_first_ask_turn": 0.16666666666666666
+  },
+  "S8_prize_lottery": {
+    "n_scam": 30,
+    "n_genuine": 427,
+    "recall_pause": 0.9333333333333333,
+    "recall_pause_ci": [
+      0.8333333333333334,
+      1.0
+    ],
+    "recall_warn": 0.9666666666666667,
+    "recall_warn_ci": [
+      0.9,
+      1.0
+    ],
+    "false_alarm_pause": 0.06323185011709602,
+    "false_alarm_pause_ci": [
+      0.03981264637002342,
+      0.08665105386416862
+    ],
+    "false_alarm_warn": 0.07728337236533958,
+    "false_alarm_warn_ci": [
+      0.05152224824355972,
+      0.10310304449648706
+    ],
+    "median_earliness_turns": 2.0,
+    "pause_by_first_ask_turn": 0.7666666666666667
+  },
+  "S9_tech_support": {
+    "n_scam": 30,
+    "n_genuine": 427,
+    "recall_pause": 0.9,
+    "recall_pause_ci": [
+      0.7991666666666668,
+      1.0
+    ],
+    "recall_warn": 0.9333333333333333,
+    "recall_warn_ci": [
+      0.8333333333333334,
+      1.0
+    ],
+    "false_alarm_pause": 0.06323185011709602,
+    "false_alarm_pause_ci": [
+      0.03981264637002342,
+      0.08665105386416862
+    ],
+    "false_alarm_warn": 0.07259953161592506,
+    "false_alarm_warn_ci": [
+      0.04918032786885246,
+      0.09836065573770492
+    ],
+    "median_earliness_turns": 1.0,
+    "pause_by_first_ask_turn": 0.7666666666666667
+  }
+}

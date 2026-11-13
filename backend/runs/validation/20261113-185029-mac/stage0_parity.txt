@@ -1,0 +1,4 @@
+proba cases 204, max |diff| = 3.33e-16
+tactic cases 204, mismatches = 0
+stream turns 7, max |diff| = 2.78e-17
+PARITY OK

@@ -1,5 +1,8 @@
 # BOSC detector — results
 
+This is the original Stage 0 report. See [Stages 1–4](stages_1_4.md) for the new
+available-data experiment, which uses different splits and retains failed gates.
+
 Model hash `149a802e5a947291` · window=4 caller utterances · C=0.5 · tactic weight=0.3
 Thresholds (picked on dev so genuine-call false alarms ≤2% PAUSE / ≤5% WARN): WARN=0.341, PAUSE=0.380
 

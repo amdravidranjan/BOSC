@@ -1,0 +1,9 @@
+{
+  "device": "Mac CPU",
+  "batch_size": 1,
+  "n": 50,
+  "encoder_only_ms": {
+    "median": 8.257541514467448,
+    "p95": 17.087399860611185
+  }
+}

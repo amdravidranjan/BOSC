@@ -1,5 +1,10 @@
 # Backend / ML: complete guide
 
+The [Mac available-data implementation](TRAINING.md) runs the stages below using
+the supplied public/template data. Its [measured results](../data-eval/results/stages_1_4.md)
+include failed quality gates. This implementation does not complete the full
+LLM-data, ASR, human-lockbox, real-audio, or research benchmark requirements below.
+
 Goal: replace the current Stage 0 detector (TF-IDF + logistic regression) with the plan's Stage 1→4 pipeline. The final small model runs **inside the phone's browser**, and every stage is measured honestly on data it never saw. **English only** (Indian context).
 
 Contents

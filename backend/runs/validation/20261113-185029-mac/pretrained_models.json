@@ -1,0 +1,14 @@
+{
+  "minilm": {
+    "repo": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+  },
+  "teacher": {
+    "repo": "microsoft/deberta-v3-small",
+    "revision": "a36c739020e01763fe789b4b85e2df55d6180012"
+  },
+  "student": {
+    "repo": "sentence-transformers/paraphrase-MiniLM-L3-v2",
+    "revision": "4ca70771034acceecb2e72475f72050fcdde4ddc"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "baseline": "C_embeddings_lr",
+  "width": 4,
+  "C": 1.0,
+  "git_commit": "f804dc45a0402614cc0f489eb35447e27bae41ae",
+  "data_sha256": {
+    "train": "912726fec2711a406e96217a9d7e5d41419af17650f4f815ee863847789cf732",
+    "calib": "b8e79b04e776a37634dcc3163bfd70675224090259a7210f0f3e0cf4280d2024",
+    "dev": "e4e6f74cd8ff2ca31fdbbca0b37f04da9ecb41904d5813202dd497eea2245af6",
+    "test_synth": "58f963fef968af198d8fd46ae490bb171dd6a153e4cd66e02fc66950dfcc6b13"
+  },
+  "source_sha256": {
+    "backend/bosc_core.py": "9b017368fe51960b03e0613503e7137cda81c89804f62ae06461527aea1a9c21",
+    "backend/check_scripts.py": "f212bcd4fee77a213d22f656b1e5bbba02fb719a2e6918c0827953c85f74b754",
+    "backend/common.py": "5ff5bd7873991ab82542ffbb1f78c8ab635ce06711151180faf3ab598c711b93",
+    "backend/data_build_splits.py": "96c1bfa8409ebbbfe6653af4d716834a513ed28cb53eefdf292d518b6b72b4c8",
+    "backend/download_models.py": "72cec3c7dd352b108cf946385c7cc931ca5a23a7e184f011ae7d253a5335c1db",
+    "backend/download_teacher.py": "dbe680f24e7870e370af114ac5eeba2c97e4066431ce9bcf9a75030c91de1431",
+    "backend/evaluate_all.py": "2f0439a465171a9d662e9d4adb0b92cffe09f7ef016eefbc8e77e9c971b95b6b",
+    "backend/gen_calls.py": "ffd76853b1f01179b1c609cb6ff8bc7ba1ce1f9a134ced51ca1be43a2e908dc7",
+    "backend/neural.py": "c73010d15874752af2ad2bf913b7492105728f2d64b2f5ba23af9bb7cf974f64",
+    "backend/run_remaining.py": "a7fe360c775f56b8154628c74105efede29fb09f045bf4422d9cf88d70e4e87b",
+    "backend/stage0_available.py": "cc2099421fa6de17a2d8ebc351bf299b7eb8a7caceff882e44132f4b4487f3cb",
+    "backend/stage1_embeddings.py": "73aecb605cf3e0d5462f2624b378bee84efd26ea454a7df5b159887c9d59e226",
+    "backend/stage1_loto.py": "5d50df1c92810425383238e2c1c6a07f68fb1f46522b31c2941a1a8be4352446",
+    "backend/stage2_teacher.py": "ac4f60f5643ea75236d63a68db415d08e74c2d4ecdd9e45afc82e3d64356a2d1",
+    "backend/stage3_stream.py": "a75379ec748c6ec86988093d8a25f2723f9e8e8eea72b8f8a53e44cc29d906a6",
+    "backend/stage4_distill.py": "feeaf266b4d0738544c62d55f194591c6dd73a4c82bfc02fa8ab1de7a2179e7f",
+    "backend/stage4_export.py": "ba77fc01bf7f3d0cfd8dcaf795f65cd86db095b079307d18089059c21789e7bb",
+    "backend/test_pipeline.py": "fac3df97b6aa9d43f76efc1f5117392687d0f1189b82b0092f560c5d8cb0ca65",
+    "backend/train.py": "0cb23b0e18fbc4b553d901abd004e864df74d41fcfde141acf6e878c8beaa018"
+  },
+  "scope": "Synthetic available-data experiment; no LLM/ASR/human lockbox data"
+}

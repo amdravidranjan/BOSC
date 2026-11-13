@@ -1,0 +1,161 @@
+{
+  "seed": 13,
+  "counts": {
+    "test_synth": {
+      "calls": 885,
+      "sources": {
+        "hf": 319,
+        "gen": 566
+      },
+      "types": {
+        "hf_ssn": 40,
+        "hf_refund": 40,
+        "hf_support": 40,
+        "hf_reward": 40,
+        "hf_delivery": 40,
+        "hf_insurance": 40,
+        "hf_telemarketing": 40,
+        "hf_wrong": 39,
+        "G2_bank_emi_reminder": 34,
+        "G4_police_verification": 27,
+        "G1_delivery_otp": 32,
+        "S9_tech_support": 30,
+        "S7_task_investment": 30,
+        "S5_sim_aadhaar": 30,
+        "S6_card_loan": 29,
+        "S4_utility": 30,
+        "S10_family_emergency": 29,
+        "G9_support_genuine": 29,
+        "G8_scam_aware": 28,
+        "G3_bank_fraud_check": 34,
+        "S1_bank_kyc": 30,
+        "S8_prize_lottery": 30,
+        "G7_everyday": 29,
+        "G5_family_money": 26,
+        "G6_telemarketing": 29,
+        "S2_digital_arrest": 30,
+        "S3_remote_refund": 30
+      }
+    },
+    "dev": {
+      "calls": 751,
+      "sources": {
+        "hf": 192,
+        "gen": 559
+      },
+      "types": {
+        "hf_ssn": 24,
+        "hf_refund": 24,
+        "hf_telemarketing": 24,
+        "hf_wrong": 24,
+        "hf_delivery": 24,
+        "hf_insurance": 24,
+        "hf_support": 24,
+        "hf_reward": 24,
+        "S3_remote_refund": 30,
+        "S10_family_emergency": 30,
+        "S2_digital_arrest": 30,
+        "S9_tech_support": 30,
+        "G4_police_verification": 24,
+        "G2_bank_emi_reminder": 32,
+        "S4_utility": 30,
+        "G7_everyday": 25,
+        "G5_family_money": 32,
+        "S1_bank_kyc": 30,
+        "G6_telemarketing": 24,
+        "G9_support_genuine": 33,
+        "G8_scam_aware": 25,
+        "G1_delivery_otp": 30,
+        "S8_prize_lottery": 30,
+        "S6_card_loan": 30,
+        "G3_bank_fraud_check": 34,
+        "S7_task_investment": 30,
+        "S5_sim_aadhaar": 30
+      }
+    },
+    "calib": {
+      "calls": 789,
+      "sources": {
+        "hf": 191,
+        "gen": 598
+      },
+      "types": {
+        "hf_refund": 24,
+        "hf_delivery": 24,
+        "hf_wrong": 24,
+        "hf_reward": 23,
+        "hf_insurance": 24,
+        "hf_telemarketing": 24,
+        "hf_support": 24,
+        "hf_ssn": 24,
+        "G1_delivery_otp": 22,
+        "G7_everyday": 28,
+        "S2_digital_arrest": 28,
+        "S6_card_loan": 27,
+        "S1_bank_kyc": 26,
+        "S7_task_investment": 34,
+        "S4_utility": 27,
+        "G4_police_verification": 37,
+        "S10_family_emergency": 34,
+        "G2_bank_emi_reminder": 33,
+        "G3_bank_fraud_check": 46,
+        "S9_tech_support": 29,
+        "S5_sim_aadhaar": 35,
+        "G6_telemarketing": 36,
+        "S3_remote_refund": 29,
+        "G5_family_money": 30,
+        "G9_support_genuine": 29,
+        "G8_scam_aware": 34,
+        "S8_prize_lottery": 34
+      }
+    },
+    "train": {
+      "calls": 1272,
+      "sources": {
+        "hf": 890,
+        "gen": 382
+      },
+      "types": {
+        "hf_delivery": 112,
+        "hf_support": 112,
+        "hf_refund": 112,
+        "hf_telemarketing": 112,
+        "hf_insurance": 112,
+        "hf_wrong": 106,
+        "hf_reward": 112,
+        "hf_ssn": 112,
+        "G5_family_money": 22,
+        "S1_bank_kyc": 16,
+        "S7_task_investment": 19,
+        "S10_family_emergency": 30,
+        "G7_everyday": 19,
+        "G3_bank_fraud_check": 23,
+        "S5_sim_aadhaar": 18,
+        "S9_tech_support": 34,
+        "S6_card_loan": 19,
+        "S4_utility": 18,
+        "G6_telemarketing": 22,
+        "S2_digital_arrest": 18,
+        "G2_bank_emi_reminder": 25,
+        "S8_prize_lottery": 15,
+        "S3_remote_refund": 19,
+        "G4_police_verification": 17,
+        "G9_support_genuine": 19,
+        "G1_delivery_otp": 18,
+        "G8_scam_aware": 11
+      }
+    }
+  },
+  "duplicates_dropped": {
+    "test_synth": 35,
+    "dev": 41,
+    "calib": 3,
+    "train": 8
+  },
+  "hashes": {
+    "train": "912726fec2711a406e96217a9d7e5d41419af17650f4f815ee863847789cf732",
+    "calib": "b8e79b04e776a37634dcc3163bfd70675224090259a7210f0f3e0cf4280d2024",
+    "dev": "e4e6f74cd8ff2ca31fdbbca0b37f04da9ecb41904d5813202dd497eea2245af6",
+    "test_synth": "58f963fef968af198d8fd46ae490bb171dd6a153e4cd66e02fc66950dfcc6b13"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "C_embeddings_lr.joblib": {
+    "sha256": "81a372902ac6c6fb41ac56c5b27f23aa80c1ff54285db44c8b60d098c1fddd6b",
+    "bytes": 467782
+  },
+  "stream_model_teacher.json": {
+    "sha256": "9aa9c315b441cb3675365e4c85bfe1eaba6af22a26479432c1900f177c9cfd69",
+    "bytes": 725550
+  },
+  "D_embeddings_library.joblib": {
+    "sha256": "3fd9d432479c6e84d0f1ae9759c98b32ec80c0be376fc0f88029cdf61e4f9041",
+    "bytes": 469362
+  },
+  "stage0_available_model.json": {
+    "sha256": "7e3106440b4c5cee73ced94b9b71a6c6641596583a3b11d2b6dde2cf0e916946",
+    "bytes": 393753
+  },
+  "stage1_latency.json": {
+    "sha256": "f3016e4f2d99f38b993354d1c0d0c75c6c4f11f7be535394dc45b7723a2fe02a",
+    "bytes": 147
+  }
+}

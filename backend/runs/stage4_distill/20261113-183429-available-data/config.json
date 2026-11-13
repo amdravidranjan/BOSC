@@ -1,0 +1,41 @@
+{
+  "device": "mps",
+  "seeds": [
+    13,
+    42,
+    1234
+  ],
+  "epochs": 5,
+  "model": "student",
+  "length": 128,
+  "git_commit": "f804dc45a0402614cc0f489eb35447e27bae41ae",
+  "data_sha256": {
+    "train": "912726fec2711a406e96217a9d7e5d41419af17650f4f815ee863847789cf732",
+    "calib": "b8e79b04e776a37634dcc3163bfd70675224090259a7210f0f3e0cf4280d2024",
+    "dev": "e4e6f74cd8ff2ca31fdbbca0b37f04da9ecb41904d5813202dd497eea2245af6",
+    "test_synth": "58f963fef968af198d8fd46ae490bb171dd6a153e4cd66e02fc66950dfcc6b13"
+  },
+  "source_sha256": {
+    "backend/archive_validation.py": "243d0c13909ac8f27d0a279532c7960bbbe060eb6d33920b982ae3ce09f3b210",
+    "backend/bosc_core.py": "9b017368fe51960b03e0613503e7137cda81c89804f62ae06461527aea1a9c21",
+    "backend/check_scripts.py": "f212bcd4fee77a213d22f656b1e5bbba02fb719a2e6918c0827953c85f74b754",
+    "backend/common.py": "5ff5bd7873991ab82542ffbb1f78c8ab635ce06711151180faf3ab598c711b93",
+    "backend/data_build_splits.py": "75a2b28420a4f9034b52021d4d8ea7c2ac4c0029eebdd44c0dd5086d6d0a2b0b",
+    "backend/download_models.py": "be3a72582f48671bf51b98185364b1678b27e44d0daf21f21e2b188184cde16d",
+    "backend/download_teacher.py": "0b481f103de1312765544982aeaea64078426ca7868fef610b6bce87a3b9c518",
+    "backend/evaluate_all.py": "de0d9669b0a43745de9c2b38e1d416b74e9f2016b4d3cb565841e7c2ee55c3fe",
+    "backend/gen_calls.py": "ffd76853b1f01179b1c609cb6ff8bc7ba1ce1f9a134ced51ca1be43a2e908dc7",
+    "backend/neural.py": "d6a78e8b68d3b12515ff5ffaef0c3ffd9cc1cbfb3065e2450dd618f0676dcdc2",
+    "backend/run_remaining.py": "e15269f26ee395e3c0ec965bec0727f1c4818088fa6b0e8ebc8c786da4159c66",
+    "backend/stage0_available.py": "cc2099421fa6de17a2d8ebc351bf299b7eb8a7caceff882e44132f4b4487f3cb",
+    "backend/stage1_embeddings.py": "73aecb605cf3e0d5462f2624b378bee84efd26ea454a7df5b159887c9d59e226",
+    "backend/stage1_loto.py": "5d50df1c92810425383238e2c1c6a07f68fb1f46522b31c2941a1a8be4352446",
+    "backend/stage2_teacher.py": "fb7d44ddde91e2bf85ba48d47551da1d80c311d4ead7c0b1019b57cea914a0c5",
+    "backend/stage3_stream.py": "a66e36e9d6c43769ea1ad151e9fd0d74d6bf5a1d00ca66cd41ec6cf26bbb539d",
+    "backend/stage4_distill.py": "feeaf266b4d0738544c62d55f194591c6dd73a4c82bfc02fa8ab1de7a2179e7f",
+    "backend/stage4_export.py": "e32d22a88a60d504ca50bfe72f7dba40a63ce756808c8e9772049626127e63b9",
+    "backend/test_pipeline.py": "fac3df97b6aa9d43f76efc1f5117392687d0f1189b82b0092f560c5d8cb0ca65",
+    "backend/train.py": "0cb23b0e18fbc4b553d901abd004e864df74d41fcfde141acf6e878c8beaa018"
+  },
+  "scope": "Synthetic available-data experiment; no LLM/ASR/human lockbox data"
+}

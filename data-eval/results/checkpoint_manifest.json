@@ -1,0 +1,38 @@
+{
+  "backend/artifacts/teacher/42/model.safetensors": {
+    "sha256": "5395d00e56b775c2871bb37dd40ce571f04819bf6816e7902cac0c9f644f7b07",
+    "bytes": 567620084
+  },
+  "backend/artifacts/teacher/1234/model.safetensors": {
+    "sha256": "e8fdcec3c2a5509f0233f648be1cc60ad2e9a2f292c8ef0df63305b8b31f1c11",
+    "bytes": 567620084
+  },
+  "backend/artifacts/teacher/13/model.safetensors": {
+    "sha256": "6ae90c86658391eaefd872242c9bf187db80ad570dc0e70f6ee0cc4d2ad08e02",
+    "bytes": 567620084
+  },
+  "backend/artifacts/student/42/model.safetensors": {
+    "sha256": "2532b5c2ea1146bacc5cb0277d32a6762af430adb3e7c76cc4fa9e7a33679cb6",
+    "bytes": 69579612
+  },
+  "backend/artifacts/student/1234/model.safetensors": {
+    "sha256": "6c7d6731c0d5c3b93b3a7165a0a80fe46d151c113a30993c7cde02d02c587cf8",
+    "bytes": 69579612
+  },
+  "backend/artifacts/student/13/model.safetensors": {
+    "sha256": "2aa323c75fcd3b9b06e8e9fc456cf15cee8c4550610d8589c5ba406ed43baeaa",
+    "bytes": 69579612
+  },
+  "backend/artifacts/student_l6/42/model.safetensors": {
+    "sha256": "11aa67d5da3d410922c0088d55efa69234ffb00659bbf1c41754691dd268fd4e",
+    "bytes": 90878732
+  },
+  "backend/artifacts/student_l6/1234/model.safetensors": {
+    "sha256": "df2bfac669b8cbd477e40c1c53ef346c2a2ac18b411d7149658e036ddf02b8a5",
+    "bytes": 90878732
+  },
+  "backend/artifacts/student_l6/13/model.safetensors": {
+    "sha256": "0ed7156bc2d05174264165208039a3766a3335dcfed2e7e5acb50a177039f166",
+    "bytes": 90878732
+  }
+}

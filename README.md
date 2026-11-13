@@ -2,6 +2,13 @@
 
 On-device scam-call detection that pauses a payment made under pressure. Hackathon build: one web app, English only.
 
+Stages 1–4 now have an [available-data training workflow](backend/TRAINING.md) and
+[synthetic evaluation report](data-eval/results/stages_1_4.md). The run uses
+BothBosu/scam-dialogue plus the repository's templates, rather than the full
+dataset collection described in the roadmap. The student missed the release F1
+gate, so Stage 0 remains the active browser detector; trained artifacts and
+failed gates are retained for review.
+
 ## Repository layout: three teams, three folders
 
 | Folder | Team | What's inside | Guide |

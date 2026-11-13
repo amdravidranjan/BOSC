@@ -1,0 +1,1 @@
+SCORER TESTS OK: ordered pushes, latched PAUSE, reset cancels stale inference

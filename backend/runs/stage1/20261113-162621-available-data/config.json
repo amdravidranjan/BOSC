@@ -1,0 +1,11 @@
+{
+  "device": "mps",
+  "git_commit": "f804dc45a0402614cc0f489eb35447e27bae41ae",
+  "data_sha256": {
+    "train": "912726fec2711a406e96217a9d7e5d41419af17650f4f815ee863847789cf732",
+    "calib": "b8e79b04e776a37634dcc3163bfd70675224090259a7210f0f3e0cf4280d2024",
+    "dev": "e4e6f74cd8ff2ca31fdbbca0b37f04da9ecb41904d5813202dd497eea2245af6",
+    "test_synth": "58f963fef968af198d8fd46ae490bb171dd6a153e4cd66e02fc66950dfcc6b13"
+  },
+  "scope": "Synthetic available-data experiment; no LLM/ASR/human lockbox data"
+}
