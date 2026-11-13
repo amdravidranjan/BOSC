@@ -9,6 +9,7 @@ On-device scam-call detection that pauses a payment made under pressure. Hackath
 | [`frontend/`](frontend/README.md) | **Frontend** | The web app (deploy root): caller + BOSC phone, WebRTC call, in-browser Whisper, risk meter, PayFast payment pause | [frontend/README.md](frontend/README.md) |
 | [`backend/`](backend/README.md) | **Backend / ML** | Detector training, data pipelines, Stage 0→4 models, export to the browser, parity tests | [backend/README.md](backend/README.md) |
 | [`data-eval/`](data-eval/README.md) | **Data & Evaluation** | Datasets, human-written lockbox, real-audio tests, results, slides material | [data-eval/README.md](data-eval/README.md) |
+| [`android/`](android/README.md) | **Android** | Native app: real phone-to-phone calls on Wi-Fi, on-device Whisper, the team's Stage 0 model ported to Kotlin (parity-tested), PayFast + payment SDK | [android/README.md](android/README.md) |
 
 Who owns what (to avoid merge conflicts):
 - **Frontend** owns everything in `frontend/` **except** `frontend/model/` and `frontend/js/bosc-core.js` (and later `frontend/js/detector-onnx.js`), which **Backend** writes.

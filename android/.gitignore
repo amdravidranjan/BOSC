@@ -1,0 +1,10 @@
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+# Large speech files: fetched by scripts/fetch_models.sh, never committed
+app/libs/*.aar
+app/src/main/assets/whisper-tiny.en/
+app/src/main/assets/model-en-in/

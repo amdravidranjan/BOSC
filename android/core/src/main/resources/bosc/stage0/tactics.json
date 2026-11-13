@@ -1,0 +1,77 @@
+{
+  "_note": "Pressure-tactic patterns. Used for explanation (chips + highlights) in the app and as an optional feature in the scorer. Patterns must be valid in both Python re and JavaScript RegExp (case-insensitive). Keep them simple: no lookbehind, no named groups.",
+  "tactics": {
+    "authority_claim": {
+      "label": "Fake authority",
+      "patterns": [
+        "\\b(cbi|ncb|enforcement directorate|crime branch|cyber ?crime|cyber cell|narcotics|customs (department|officer|office)|income tax (department|officer)|trai|rbi|reserve bank|supreme court|high court|magistrate)\\b",
+        "\\b(police|inspector|officer|sub inspector|dcp|ips)\\b",
+        "\\b(calling from|i am from|this is from|speaking from) (the )?(\\w+ )?(bank|sbi|hdfc|icici|axis|police|department|telecom|electricity)\\b",
+        "\\b(badge|employee) (id|number)\\b"
+      ]
+    },
+    "threat": {
+      "label": "Threat",
+      "patterns": [
+        "\\b(arrest(ed)?|warrant|fir|case (has been|is) (registered|filed)|legal action|jail|prison|police (will|are) (come|coming)|seized)\\b",
+        "\\b(account|card|sim|number|connection|aadhaar|aadhar|pan) (will|is going to|would) be (blocked|frozen|suspended|deactivated|disconnected|cancelled|closed)\\b",
+        "\\b(block|freeze|suspend|deactivate|disconnect)(ed)? (your|the) (account|card|sim|number|connection|aadhaar|aadhar)\\b",
+        "\\b(money laundering|drugs? (were|was) found|illegal (parcel|package|activity)|involved in (a )?(case|fraud|crime))\\b",
+        "\\b(penalty|fine) of\\b"
+      ]
+    },
+    "urgency": {
+      "label": "Urgency",
+      "patterns": [
+        "\\b(immediately|right now|right away|urgent(ly)?|as soon as possible|asap)\\b",
+        "\\b(within|in the next|only) (num|one|two|five|ten|fifteen|thirty|\\d+) (minutes?|hours?|mins?)\\b",
+        "\\b(last chance|final (notice|warning)|before (today|tonight|midnight)|no time|hurry|quickly)\\b",
+        "\\b(today itself|this is your last)\\b"
+      ]
+    },
+    "secrecy_isolation": {
+      "label": "Secrecy",
+      "patterns": [
+        "\\b(don'?t|do not|dont) (tell|inform|share this with|discuss this with|mention this to) (anyone|anybody|your (family|wife|husband|son|daughter|bank|friends?))\\b",
+        "\\b(confidential|secret) (matter|investigation|case)|\\bkeep (this|it) (confidential|secret|between us)\\b",
+        "\\b(national security|gag order|do not involve (anyone|your family))\\b",
+        "\\b(go to|stay in|lock yourself in) (a|an|your) (separate |private |empty )?(room|place)\\b"
+      ]
+    },
+    "credential_request": {
+      "label": "OTP / PIN request",
+      "patterns": [
+        "\\b(tell|read|share|give|send|say|provide|confirm|forward) (me )?(the |your |that )?(otp|one time password|pin|upi pin|cvv|password|verification code|six digit code|code)\\b",
+        "\\b(otp|code|pin|cvv) (that|which) (you )?(just )?(received|got|came)\\b",
+        "\\b(card number|cvv|expiry date|net ?banking (password|login)|upi pin)\\b"
+      ]
+    },
+    "remote_access": {
+      "label": "Screen-share app",
+      "patterns": [
+        "\\b(any ?desk|anydesk|any disk|team ?viewer|quick ?support|rust ?desk|airdroid|ultraviewer)\\b",
+        "\\b(screen ?shar(e|ing)|share (your|the) screen|remote (access|support|app))\\b",
+        "\\b(install|download) (this|the|an|one) (app|application|apk|software)\\b"
+      ]
+    },
+    "payment_instruction": {
+      "label": "Payment instruction",
+      "patterns": [
+        "\\b(transfer|send|pay|deposit|move) (the |your |an? )?(money|amount|funds|rs|rupees|num|balance|fees?|charges?|savings)\\b",
+        "\\b(safe|secure|verification|rbi|government|escrow) account\\b",
+        "\\b(scan|scanning) (the|this|my) (qr|code)|\\bqr code\\b",
+        "\\b(upi id|gpay|google pay|phonepe|paytm|net banking|neft|imps|rtgs)\\b",
+        "\\b(processing|clearance|registration|refundable) (fee|charge|amount)\\b"
+      ]
+    },
+    "stay_on_line": {
+      "label": "Keep you on call",
+      "patterns": [
+        "\\b(don'?t|do not|dont) (disconnect|hang up|cut (the|this) call|end (the|this) call|put (the )?phone down)\\b",
+        "\\b(stay|remain|be) (on|in) (the |this )?(call|line|video call)\\b",
+        "\\b(keep|stay) (your )?(camera|video) on\\b",
+        "\\b(digital(ly)? arrest|under (digital )?surveillance)\\b"
+      ]
+    }
+  }
+}
