@@ -1,0 +1,7 @@
+WARN=0.341 PAUSE=0.380
+digital_arrest     scam     risk: 0.02S 0.10S 0.30S 0.52P 0.79P 0.91P 0.96P   | p: 0.04 0.11 0.51 0.74 0.96 1.00 1.00
+kyc_otp            scam     risk: 0.01S 0.32S 0.52P 0.70P 0.86P   | p: 0.02 0.64 0.72 0.84 0.95
+polite_refund      scam     risk: 0.01S 0.07S 0.27S 0.44P   | p: 0.02 0.17 0.47 0.67
+delivery_otp       genuine  risk: 0.01S 0.06S 0.08S 0.09S   | p: 0.02 0.02 0.03 0.04
+bank_fraud_alert   genuine  risk: 0.00S 0.01S 0.07S 0.09S   | p: 0.01 0.01 0.04 0.05
+clinic             genuine  risk: 0.01S 0.01S 0.01S 0.01S   | p: 0.02 0.02 0.02 0.02
