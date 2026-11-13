@@ -5,11 +5,19 @@ import { $, $$, toast, esc } from "./util.js";
 import { settings, saveSettings, applyLargeText } from "./settings.js";
 import { state, PEER_PREFIX, scriptsReady, LEVEL_WORD, display, logEvent } from "./state.js";
 import { go } from "./router.js";
+import { detectVictim, victimLevel, victimAdvice, VICTIM_CUES } from "./victim-cues.js";
+import { initVoiceCheck, loadVoiceCheck, checkVoice, clearVoiceQueue } from "./voice-check.js";
 
 // libMax (similarity to a known scam script) above this shows "matches a known scam script".
 // Placeholder until Backend gives the real threshold.
 const LIB_MATCH = 0.8;
 const ADVANCED_TIMEOUT_MS = 30000;
+// Voice check: mean "fake" score over at least VOICE_MIN_CLIPS clips at or above this -> "may be AI-generated".
+const VOICE_FAKE = 0.7, VOICE_MIN_CLIPS = 2;
+// The current model is NOT reliable (tested: Windows TTS scored 9/100 "real", a real 1961 JFK recording 79/100 "fake";
+// it was trained on replayed speech, ASVspoof 2021 PA). So it is display-only and never raises the risk.
+// Set to true only after a model passes a real test set (human vs cloned voices).
+const VOICE_RAISES_RISK = false;
 
 let worker = null, asrReady = false, asrBusy = false;
 let pending = [];          // audio chunks waiting for ASR
@@ -35,6 +43,14 @@ export async function initBosc() {
   scriptsReady.then(() => {
     $("#b-script").innerHTML = state.scripts.map((s) => `<option value="${esc(s.id)}">${esc(s.title)}</option>`).join("");
   });
+  // whose voice we listen to: the caller's (web call / speaker) or the victim's own (Android mode)
+  $$("#b-side button").forEach((b) => (b.onclick = () => {
+    settings.side = b.dataset.side;
+    saveSettings();
+    renderSide();
+  }));
+  renderSide();
+  initVoiceCheck({ onResult: onVoiceResult, onStatus: onVoiceStatus });
   $("#b-mic-start").onclick = startMic;
   $("#b-file").onchange = (e) => e.target.files[0] && startFile(e.target.files[0]);
   $("#b-script-start").onclick = startScript;
@@ -138,6 +154,7 @@ function openSettings() {
   $("#set-speak").checked = !!settings.speak;
   $("#set-sound").checked = !!settings.sound;
   $("#set-large").checked = !!settings.large;
+  $("#set-voice").checked = !!settings.voiceCheck;
   $("#settings").hidden = false;
 }
 function closeSettings() {
@@ -148,6 +165,7 @@ function closeSettings() {
   settings.speak = $("#set-speak").checked;
   settings.sound = $("#set-sound").checked;
   settings.large = $("#set-large").checked;
+  settings.voiceCheck = $("#set-voice").checked;
   settings.setupDone = true;
   saveSettings();
   applyLargeText();
@@ -197,6 +215,8 @@ function loadAsr() {
   worker.postMessage({ type: "load", model: settings.model, forceWasm: settings.forceWasm });
 }
 function onChunk(audio) {
+  const s = state.session;
+  if (s && s.side === "caller" && settings.voiceCheck && audio.length >= 16000 * 1.5) checkVoice(audio.slice());
   pending.push(audio);
   // never keep more than ~30 s of audio waiting
   let total = pending.reduce((s, a) => s + a.length, 0);
@@ -259,13 +279,16 @@ function startSession(source, stop = () => {}) {
   if (state.session) endSession("replaced", true);
   state.core.scorer.reset();
   spokenLevels = new Set();
-  state.session = { source, start: Date.now(), stop, log: [] };
-  $("#b-transcript").innerHTML = `<div class="empty">Listening… the caller's words will appear here.</div>`;
+  const side = (source === "call" || source === "mic") ? settings.side : "caller";
+  state.session = { source, side, start: Date.now(), stop, log: [], victimSeen: new Set(), voice: { n: 0, sum: 0, flagged: false } };
+  $("#b-transcript").innerHTML = `<div class="empty">Listening… ${side === "me" ? "your own words (Android mode)" : "the caller's words"} will appear here.</div>`;
   $("#b-idle").hidden = true;
   $("#b-lib").hidden = true;
+  $("#b-voice").hidden = true;
+  if (side === "caller" && settings.voiceCheck && (source === "call" || source === "mic" || source === "file")) loadVoiceCheck();
   renderRisk();
   const names = { call: "In call", mic: "Listening (mic)", file: "Replaying file", script: "Demo script", typed: "Typed test" };
-  setBState(names[source] || "Active", true);
+  setBState((names[source] || "Active") + (side === "me" ? " · Android mode" : ""), true);
   setListen(source === "script" || source === "typed" ? "text input" : "listening");
   $("#b-privacy").textContent = source === "script" || source === "typed"
     ? "Text-only demo. No audio is used."
@@ -280,6 +303,7 @@ function endSession(reason, silent = false) {
   try { s.stop(); } catch {}
   if (chunker) chunker.detach();
   pending = [];
+  clearVoiceQueue();
   releaseWake();
   const sc = state.core.scorer;
   state.lastSession = { ...s, end: Date.now(), history: sc.history.slice(), seen: [...sc.seen],
@@ -354,6 +378,12 @@ async function acceptCall() {
   });
   const name = callerName(call);
   if (name) logEvent("caller_name", { name });
+  const androidMode = state.session.side === "me";
+  if (androidMode) {
+    // Android mode: like a real Android app, we only get this phone's microphone (the victim's voice)
+    if (micStream) chunker.attach(ctx, ctx.createMediaStreamSource(micStream));
+    else toast("Android mode needs the microphone. Allow it to let BOSC hear your replies.");
+  }
   let attached = false;
   call.on("stream", (remote) => {
     if (attached) return; // PeerJS can fire "stream" once per track
@@ -362,7 +392,7 @@ async function acceptCall() {
     const a = $("#b-remote");
     a.srcObject = remote;
     a.play().catch(() => {});
-    chunker.attach(ctx, ctx.createMediaStreamSource(remote));
+    if (!androidMode) chunker.attach(ctx, ctx.createMediaStreamSource(remote));
   });
   call.on("close", () => endSession("remote-hangup"));
   call.on("error", () => endSession("error"));
@@ -453,7 +483,8 @@ function renderRisk() {
   const on = Math.round(d * 10);
   const cls = lvl === "PAUSE" ? "d" : lvl === "WARN" ? "w" : "s";
   $$("#b-meter i").forEach((el, i) => { el.className = i < on ? "on " + cls : ""; });
-  $("#b-warning").textContent = advice(sc.seen, lvl);
+  const vs = state.session?.victimSeen;
+  $("#b-warning").textContent = (vs && vs.size && lvl !== "SAFE") ? victimAdvice(vs) : advice(sc.seen, lvl);
   $$("#b-chips .chip").forEach((c) => c.classList.toggle("on", sc.seen.has(c.dataset.t)));
 }
 function highlight(text, tactics) {
@@ -479,6 +510,7 @@ export function addUtterance(text, meta = {}) {
 }
 async function scoreOne(sess, text, meta) {
   if (state.session !== sess) return;      // the session ended while this line waited
+  if (sess.side === "me") return scoreVictim(sess, text, meta);
   const sc = state.core.scorer;
   const prev = sc.level();
   const r = await sc.push(text);           // sync for Stage 0, a Promise for the ONNX detector
@@ -507,6 +539,78 @@ async function scoreOne(sess, text, meta) {
   if (rank[r.level] > rank[prev] && !spokenLevels.has(r.level)) {
     spokenLevels.add(r.level);
     escalate(r.level);
+  }
+}
+
+// ---------------------------------------------------------------- Android mode: the victim's own words
+function scoreVictim(sess, text, meta) {
+  const sc = state.core.scorer;
+  const prev = sc.level();
+  const found = detectVictim(text);
+  for (const f of found) sess.victimSeen.add(f);
+  const r = sc.raiseTo(victimLevel(sess.victimSeen), text, "me");
+  sess.log.push({ t: Date.now() - sess.start, side: "me", text, risk: +r.risk.toFixed(4), level: r.level, cues: found, ...meta });
+  const box = $("#b-transcript");
+  box.querySelector(".empty")?.remove();
+  const el = document.createElement("div");
+  el.className = "utt me";
+  el.dataset.level = r.level;
+  const lat = meta.asrMs ? ` · speech-to-text ${meta.asrMs} ms for ${meta.dur.toFixed(1)} s` : "";
+  const cueText = found.map((f) => VICTIM_CUES[f].label).join(" · ");
+  el.innerHTML = `<span class="who">You said</span> ${found.length ? "<mark>" + esc(text) + "</mark>" : esc(text)}` +
+    `<div class="meta">${cueText ? esc(cueText) + " · " : ""}risk ${Math.round(display(r.risk) * 100)}${lat}</div>`;
+  box.appendChild(el);
+  box.scrollTop = box.scrollHeight;
+  renderRisk();
+  const rank = { SAFE: 0, WARN: 1, PAUSE: 2 };
+  if (rank[r.level] > rank[prev] && !spokenLevels.has(r.level)) { spokenLevels.add(r.level); escalate(r.level); }
+}
+
+function renderSide() {
+  $$("#b-side button").forEach((x) => x.classList.toggle("on", x.dataset.side === settings.side));
+  $("#b-side-note").textContent = settings.side === "me"
+    ? "Android mode: Android doesn't let apps hear the other side of a phone call, so BOSC listens only to your voice. It warns you if you start reading out an OTP, agree to pay, promise to keep it secret, or install a screen-sharing app."
+    : "Listens to the caller's words (our web call, or a call on speaker) and checks whether the voice sounds AI-generated.";
+}
+
+// ---------------------------------------------------------------- voice check (experimental)
+function onVoiceStatus(status, frac = 0, message = "") {
+  const s = state.session;
+  if (!s || s.side !== "caller" || s.voice.n) return;
+  const el = $("#b-voice");
+  el.hidden = false;
+  el.dataset.flag = "";
+  el.textContent = status === "loading" ? `Voice check: loading model… ${Math.round(frac * 100)}%`
+    : status === "ready" ? "Voice check: listening…"
+    : `Voice check unavailable (${message.slice(0, 80)})`;
+}
+function onVoiceResult(fake, ms) {
+  const s = state.session;
+  if (!s || s.side !== "caller") return;
+  const v = s.voice;
+  v.n += 1;
+  v.sum += fake;
+  const mean = v.sum / v.n;
+  s.log.push({ t: Date.now() - s.start, event: "voice_check", fake: +fake.toFixed(3), ms });
+  const el = $("#b-voice");
+  el.hidden = false;
+  if (v.n >= VOICE_MIN_CLIPS && mean >= VOICE_FAKE) {
+    el.dataset.flag = "1";
+    el.textContent = `Voice check (experimental, not reliable yet): unusual voice, score ${Math.round(mean * 100)}/100.`;
+    if (!v.flagged && !VOICE_RAISES_RISK) { v.flagged = true; logEvent("voice_unusual", { mean: +mean.toFixed(3), clips: v.n }); }
+    if (!v.flagged) {
+      v.flagged = true;
+      const sc = state.core.scorer;
+      const prev = sc.level();
+      const r = sc.raiseTo("WARN", "[voice check: voice may be AI-generated]", "voice");
+      logEvent("voice_synthetic", { mean: +mean.toFixed(3), clips: v.n });
+      renderRisk();
+      const rank = { SAFE: 0, WARN: 1, PAUSE: 2 };
+      if (rank[r.level] > rank[prev] && !spokenLevels.has(r.level)) { spokenLevels.add(r.level); escalate(r.level); }
+    }
+  } else if (!v.flagged) {
+    el.dataset.flag = "";
+    el.textContent = `Voice check (experimental, not reliable yet): score ${Math.round(mean * 100)}/100 over ${v.n} clip${v.n > 1 ? "s" : ""}.`;
   }
 }
 

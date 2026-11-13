@@ -143,6 +143,15 @@ export class StreamingScorer {
     this.history.push({ t: Date.now(), text, ...out });
     return out;
   }
+  // Raise the call's risk to at least WARN / PAUSE from a signal outside the caller's words
+  // (the victim's own replies in Android mode, or the voice check). null = just record the line.
+  raiseTo(level, text = "", side = "me") {
+    if (level === "PAUSE") this.risk = Math.max(this.risk, this.pause);
+    else if (level === "WARN") this.risk = Math.max(this.risk, this.warn);
+    const out = { p: 0, raw: 0, risk: this.risk, tactics: {}, level: this.level(), side };
+    this.history.push({ t: Date.now(), text, ...out });
+    return out;
+  }
 }
 
 export async function loadScorer(base = "model/") {

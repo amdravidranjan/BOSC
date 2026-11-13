@@ -40,6 +40,14 @@ class StudentScorer {
     this.chain = Promise.resolve();
   }
   level(r) { return this.sm.level(r); }
+  // Same as StreamingScorer.raiseTo in bosc-core.js.
+  raiseTo(level, text = "", side = "me") {
+    if (level === "PAUSE") { this.sm.risk = Math.max(this.sm.risk, this.sm.pause); this.sm.latched = true; }
+    else if (level === "WARN") this.sm.risk = Math.max(this.sm.risk, this.sm.warn);
+    const out = { p: 0, raw: 0, risk: this.sm.risk, tactics: {}, level: this.sm.level(), side };
+    this.history.push({ t: Date.now(), text, ...out });
+    return out;
+  }
   infer(text) {
     const id = this.nextId++;
     return new Promise((resolve, reject) => {

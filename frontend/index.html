@@ -71,6 +71,11 @@
 
     <!-- idle panel -->
     <div class="card stack" id="b-idle">
+      <div class="seg" id="b-side" aria-label="Whose voice BOSC listens to">
+        <button data-side="caller">Caller's voice</button>
+        <button data-side="me">My voice (Android mode)</button>
+      </div>
+      <p class="small" id="b-side-note"></p>
       <div class="seg" id="b-src">
         <button data-src="call" class="on">Call</button>
         <button data-src="mic">This mic</button>
@@ -104,6 +109,7 @@
       <div class="meter" id="b-meter"></div>
       <p class="warning" id="b-warning" aria-live="polite">No pressure tactics detected.</p>
       <p class="lib" id="b-lib" hidden></p>
+      <p class="lib voice" id="b-voice" hidden></p>
       <div class="chips" id="b-chips"></div>
     </div>
 
@@ -235,6 +241,7 @@
     <label class="toggle"><input type="checkbox" id="set-speak" checked> Read warnings aloud</label>
     <label class="toggle"><input type="checkbox" id="set-sound" checked> Play a tone with warnings</label>
     <label class="toggle"><input type="checkbox" id="set-large"> Large text</label>
+    <label class="toggle"><input type="checkbox" id="set-voice"> AI-voice check (experimental, not reliable yet, display only, ~90 MB download)</label>
     <div class="row"><div class="spacer"></div><button class="btn-primary" id="set-close">Done</button></div>
   </div>
 </div>

@@ -214,3 +214,9 @@ html.large .linkish { font-size: 16px; }
 html.large .prompter { font-size: 24px; }
 html.large .banner, html.large .inline-warn { font-size: 17px; }
 html.large .toast { font-size: 16px; }
+
+/* Android mode: the victim's own words */
+.utt.me { border-left: 3px solid var(--brand, #4f8cff); }
+.utt.me .who { font-size: .75em; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; opacity: .7; margin-right: .3em; }
+/* voice check line */
+.lib.voice[data-flag="1"] { color: #f6b26b; font-weight: 600; }
