@@ -679,7 +679,10 @@ def train_model(tag, model_id, split, *, epochs, lr, bs, maxlen, seed, teacher_l
     tok = load_tokenizer(model_id)
     model = AutoModelForSequenceClassification.from_pretrained(
         model_id, num_labels=9, problem_type="multi_label_classification", ignore_mismatched_sizes=True,
-        id2label=dict(enumerate(LABEL_ORDER)), label2id={l: i for i, l in enumerate(LABEL_ORDER)}).to(DEVICE)
+        id2label=dict(enumerate(LABEL_ORDER)), label2id={l: i for i, l in enumerate(LABEL_ORDER)})
+    # transformers v5 keeps the checkpoint dtype (fp16 for some hub models). Master weights must be fp32;
+    # autocast handles fp16 compute. Otherwise GradScaler fails with "Attempting to unscale FP16 gradients".
+    model = model.float().to(DEVICE)
     items = S[split]["items"]
     Y = torch.tensor(S[split]["Y"])
     Mk = torch.tensor(S[split]["M"])
@@ -799,7 +802,7 @@ def train_model(tag, model_id, split, *, epochs, lr, bs, maxlen, seed, teacher_l
 def load_best(tag):
     from transformers import AutoModelForSequenceClassification
     d = RUN / tag / "best"
-    return AutoModelForSequenceClassification.from_pretrained(d).to(DEVICE), load_tokenizer(str(d))
+    return AutoModelForSequenceClassification.from_pretrained(d).float().to(DEVICE), load_tokenizer(str(d))
 
 # %% [markdown]
 # ## Stage 2: teacher (row E). Window model with 9 logits: scam + 8 tactics.
@@ -870,7 +873,7 @@ STU_DIR = OUT / "frontend/model/student"
 
 def export_onnx(best_dir, path):
     from transformers import AutoModelForSequenceClassification
-    m = AutoModelForSequenceClassification.from_pretrained(best_dir, attn_implementation="eager").eval().cpu()
+    m = AutoModelForSequenceClassification.from_pretrained(best_dir, attn_implementation="eager").float().eval().cpu()
     tok = load_tokenizer(str(best_dir))
 
     class Wrap(torch.nn.Module):
