@@ -2,7 +2,7 @@
 import { PRESSURE } from "./bosc-core.js";
 import { $, toast, esc } from "./util.js";
 import { settings } from "./settings.js";
-import { state, LEVEL_WORD, display, logEvent } from "./state.js";
+import { state, LEVEL_WORD, logEvent } from "./state.js";
 import { inited, go } from "./router.js";
 import { advice } from "./bosc.js";
 
@@ -27,7 +27,7 @@ function shieldEvaluate() {
   const sc = state.core ? state.core.scorer : null;
   const onCall = !!state.session;
   const callLevel = sc && onCall ? sc.level() : "SAFE";
-  const callRisk = sc && onCall ? display(sc.risk) : 0;
+  const callRisk = sc && onCall ? sc.score() : 0;
   const amount = +$("#p-amt").value || 0;
   const ratio = amount / Math.max(1, +settings.avg || 1500);
   const newPayee = $("#p-newpayee").checked;

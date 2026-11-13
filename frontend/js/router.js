@@ -1,7 +1,7 @@
 // Hash routing: location.hash -> show(view). Each view's init runs once; enter runs every time.
 import { $ } from "./util.js";
 
-const VIEWS = ["home", "caller", "bosc", "pay", "summary"];
+const VIEWS = ["home", "caller", "bosc", "pay", "summary", "guardian"];
 const hooks = {};
 export const inited = new Set();
 
@@ -16,6 +16,7 @@ export function ensureInit(view) {
 export function show(view) {
   if (!VIEWS.includes(view)) view = "home";
   for (const v of VIEWS) $("#v-" + v).hidden = v !== view;
+  document.body.dataset.view = view;
   ensureInit(view);
   hooks[view]?.enter?.();
   window.scrollTo(0, 0);

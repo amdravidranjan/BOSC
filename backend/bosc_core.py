@@ -69,7 +69,7 @@ class Model:
 
 
 ASKS = {"credential_request", "payment_instruction", "remote_access"}
-PRESSURE_ONLY = {"threat", "secrecy_isolation", "urgency", "stay_on_line"}
+PRESSURE_ONLY = {"threat", "secrecy_isolation", "stay_on_line"}   # urgency alone is too common in genuine calls
 
 
 def rule_floor(seen):
@@ -84,6 +84,36 @@ def rule_floor(seen):
     if (auth and asks) or len(asks) >= 2:
         return "WARN"
     return None
+
+
+# Immediate, explainable part of the score (0-1 "display" scale, where 0.5 = WARN and 0.7 = PAUSE):
+# each distinct pressure tactic heard so far adds its weight, so the meter moves on the first suspicious line
+# even before the text model is sure. Tuned on the synthetic dev/test sets (see evaluate_scoring.py).
+TACTIC_WEIGHT = {"authority_claim": 0.12, "urgency": 0.12, "stay_on_line": 0.18, "secrecy_isolation": 0.22,
+                 "threat": 0.22, "credential_request": 0.2, "payment_instruction": 0.2, "remote_access": 0.35}
+BUMP_CAP = 0.95
+FLOOR_SCORE = {"WARN": 0.55, "PAUSE": 0.75}
+EXTRA_SCORE = {"WARN": 0.55, "PAUSE": 0.8}
+WARN_SCORE, PAUSE_SCORE = 0.5, 0.7
+
+
+def display(r, warn, pause):
+    """Model risk -> display scale (WARN threshold -> 0.5, PAUSE threshold -> 0.7). Same as the JS."""
+    if r < warn:
+        return 0.5 * (r / warn)
+    if r < pause:
+        return 0.5 + 0.2 * ((r - warn) / (pause - warn))
+    return min(1.0, 0.7 + 0.3 * ((r - pause) / (1 - pause)) * 1.6)
+
+
+def combine_score(risk, warn, pause, seen, extra=0.0):
+    bump = min(BUMP_CAP, sum(TACTIC_WEIGHT.get(t, 0.0) for t in seen))
+    floor = rule_floor(seen)
+    return min(0.99, max(display(risk, warn, pause), bump, FLOOR_SCORE.get(floor, 0.0), extra))
+
+
+def level_of(score):
+    return "PAUSE" if score >= PAUSE_SCORE else "WARN" if score >= WARN_SCORE else "SAFE"
 
 
 class StreamingScorer:
@@ -101,11 +131,21 @@ class StreamingScorer:
     def reset(self):
         self.utts = []
         self.seen = set()
-        self.risk = 0.0
+        self.risk = 0.0      # model risk (what the parity test checks)
+        self.extra = 0.0     # raised from outside the caller's words (victim cues, voice checks)
+
+    def score(self):
+        return combine_score(self.risk, self.warn, self.pause, self.seen, self.extra)
 
     def level(self, r=None):
-        r = self.risk if r is None else r
-        return "PAUSE" if r >= self.pause else "WARN" if r >= self.warn else "SAFE"
+        if r is not None:
+            return "PAUSE" if r >= self.pause else "WARN" if r >= self.warn else "SAFE"
+        return level_of(self.score())
+
+    def raise_to(self, level, text="", side="me"):
+        if level in EXTRA_SCORE:
+            self.extra = max(self.extra, EXTRA_SCORE[level])
+        return {"p": 0.0, "raw": 0.0, "risk": self.risk, "tactics": {}, "score": self.score(), "level": self.level(), "side": side}
 
     def push(self, text):
         self.utts.append(text)
@@ -117,12 +157,8 @@ class StreamingScorer:
         raw = (1 - self.tw) * p + self.tw * min(1.0, n / 4.0)
         a = self.up if raw > self.risk else self.down
         self.risk = self.risk + a * (raw - self.risk)
-        floor = rule_floor(self.seen)
-        if floor == "PAUSE":
-            self.risk = max(self.risk, self.pause)
-        elif floor == "WARN":
-            self.risk = max(self.risk, self.warn)
-        return {"p": p, "raw": raw, "risk": self.risk, "tactics": tactics, "level": self.level(), "floor": floor}
+        return {"p": p, "raw": raw, "risk": self.risk, "tactics": tactics, "score": self.score(), "level": self.level(),
+                "floor": rule_floor(self.seen)}
 
 
 def load(model_path, tactics_path, cfg_override=None):

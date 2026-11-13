@@ -4,7 +4,7 @@
 //
 // loadStudent(base) resolves to null when the model files are not deployed or fail to load;
 // the app then keeps the Stage 0 detector ("basic detector").
-import { loadScorer as loadBasicScorer, ruleFloor } from "./bosc-core.js";
+import { loadScorer as loadBasicScorer, combineScore, levelOf, extraFor } from "./bosc-core.js";
 import { StreamModel, TACTICS, sigmoid } from "./stream-model.js";
 
 const WINDOW = 4;
@@ -34,17 +34,18 @@ class StudentScorer {
   reset() {
     this.gen++;
     this.utts = [];
-    this.seen = new Set();
+    this.seen = new Set();       // regex tactics (drive the immediate bumps, chips and the rule floor)
+    this.extra = 0;
     this.history = [];
     this.sm.reset();
     this.chain = Promise.resolve();
   }
-  level(r) { return this.sm.level(r); }
+  score() { return combineScore(this.sm.risk, this.sm.pause === this.sm.warn ? this.sm.warn * 0.999 : this.sm.warn, this.sm.pause, this.seen, this.extra); }
+  level(r) { return r !== undefined ? this.sm.level(r) : levelOf(this.score()); }
   // Same as StreamingScorer.raiseTo in bosc-core.js.
   raiseTo(level, text = "", side = "me") {
-    if (level === "PAUSE") { this.sm.risk = Math.max(this.sm.risk, this.sm.pause); this.sm.latched = true; }
-    else if (level === "WARN") this.sm.risk = Math.max(this.sm.risk, this.sm.warn);
-    const out = { p: 0, raw: 0, risk: this.sm.risk, tactics: {}, level: this.sm.level(), side };
+    this.extra = Math.max(this.extra, extraFor(level));
+    const out = { p: 0, raw: 0, risk: this.sm.risk, tactics: {}, score: this.score(), level: this.level(), side };
     this.history.push({ t: Date.now(), text, ...out });
     return out;
   }
@@ -74,14 +75,8 @@ class StudentScorer {
     for (const t of regex) this.seen.add(t);
     TACTICS.forEach((t, k) => { if (probs[k + 1] > 0.5) this.seen.add(t); });
     const o = this.sm.push(probs, regex);
-    // rule floor (see bosc-core.js ruleFloor): applied to the scorer state so the meter, Shield and summary agree
-    const floor = ruleFloor(this.sm.fs.regexSeen);
-    if (floor === "PAUSE") { this.sm.risk = Math.max(this.sm.risk, this.sm.pause); this.sm.latched = true; }
-    else if (floor === "WARN") this.sm.risk = Math.max(this.sm.risk, this.sm.warn);
-    o.risk = this.sm.risk;
-    o.level = this.sm.level();
     const tacticProbs = Object.fromEntries(TACTICS.map((t, k) => [t, probs[k + 1]]));
-    const out = { p: probs[0], raw: o.q, risk: o.risk, tactics, level: o.level, tacticProbs, floor, nlpMs: Math.round(ms) };
+    const out = { p: probs[0], raw: o.q, risk: o.risk, tactics, score: this.score(), level: this.level(), tacticProbs, nlpMs: Math.round(ms) };
     this.history.push({ t: Date.now(), text, ...out });
     return out;
   }

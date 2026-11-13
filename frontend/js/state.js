@@ -1,12 +1,12 @@
-// State shared between the BOSC, Pay (Shield) and Summary screens.
+// State shared between the BOSC, Pay (Shield), Summary and Guardian screens.
 
 export const PEER_PREFIX = "bosc-ait26-";
 
 export const state = {
   core: null,            // {scorer, detector, model} from bosc-core.js or detector-onnx.js
   detectorKind: "basic", // "basic" (Stage 0) | "advanced" (ONNX)
-  session: null,         // {source, start, stop(), log: []}
-  lastSession: null,
+  session: null,         // see startSession() in bosc.js
+  lastSession: null,     // the finished session, with .report
   scripts: [],
 };
 
@@ -15,15 +15,9 @@ export const scriptsReady = fetch("demo/scripts.json")
   .then((j) => (state.scripts = j.scripts))
   .catch(() => (state.scripts = []));
 
-export const LEVEL_WORD = { SAFE: "Safe", WARN: "Caution", PAUSE: "High risk" };
-
-// Map raw risk onto a 0..1 display scale so the meter's bands line up with the thresholds.
-export function display(r) {
-  const { warn, pause } = state.core.scorer;
-  if (r < warn) return 0.5 * (r / warn);
-  if (r < pause) return 0.5 + 0.2 * ((r - warn) / (pause - warn));
-  return Math.min(1, 0.7 + 0.3 * ((r - pause) / (1 - pause)) * 1.6);
-}
+// Words a 67-year-old reads in one glance.
+export const LEVEL_WORD = { SAFE: "Looks fine", WARN: "Be careful", PAUSE: "Likely scam" };
+export const LEVEL_RANK = { SAFE: 0, WARN: 1, PAUSE: 2 };
 
 // Add a non-speech event (pay attempt, override, screen off…) to the current or last session log.
 export function logEvent(event, extra = {}) {

@@ -1,13 +1,13 @@
 {
-  "name": "BOSC · Bane of Scam Calls",
+  "name": "BOSC: Bane of Scam Calls",
   "short_name": "BOSC",
   "description": "On-device scam-call detection that pauses a payment made under pressure.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f5f3ee",
-  "theme_color": "#1f4e5f",
+  "background_color": "#f1f3f5",
+  "theme_color": "#14213d",
   "icons": [
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }

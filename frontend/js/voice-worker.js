@@ -1,45 +1,37 @@
-// Synthetic / cloned voice check (EXPERIMENTAL) in a module Web Worker.
-// Model: ai8shiro/deepfake-audio-wav2vec2-ONNX (wav2vec2 audio classifier, labels real/fake, MIT).
-// Trained on ASVspoof 2021 PA (replayed speech), so it is not proven on modern voice-cloning tools:
-// the app shows it as a hint, never as proof. Audio stays on the device; only the model files are downloaded.
-import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2";
+// Voice analysis in a module Web Worker: synthetic-voice score + voice-print, from acoustic features.
+// No model download: the small logistic model and the voice-print statistics live in model/voice-models.json
+// (trained on Windows/Google TTS vs. real speech; see backend/README.md). Audio never leaves the device.
+import { voiceFeatures, voicePrint, syntheticScore } from "./voice-features.js";
 
-env.allowLocalModels = false;
-env.useBrowserCache = true;
-
-const MODEL = "ai8shiro/deepfake-audio-wav2vec2-ONNX";
-const MAX_SECONDS = 6;
-let clf = null;
+let models = null;
 
 self.onmessage = async (e) => {
   const m = e.data;
   if (m.type === "load") {
     try {
-      const files = {};
-      clf = await pipeline("audio-classification", MODEL, {
-        dtype: "q4", device: "wasm",
-        progress_callback: (p) => {
-          if (p.status === "progress" && p.total) {
-            files[p.file] = [p.loaded, p.total];
-            let l = 0, t = 0;
-            for (const [a, b] of Object.values(files)) { l += a; t += b; }
-            self.postMessage({ type: "progress", loaded: l, total: t });
-          }
-        },
-      });
-      self.postMessage({ type: "ready" });
+      models = await (await fetch(new URL("../model/voice-models.json", import.meta.url))).json();
+      self.postMessage({ type: "ready", threshold: models.synthetic.threshold, note: models.note });
     } catch (err) {
       self.postMessage({ type: "error", message: String(err && err.message || err) });
     }
-  } else if (m.type === "classify") {
+  } else if (m.type === "clip") {
+    const t0 = performance.now();
     try {
-      const audio = m.audio.length > 16000 * MAX_SECONDS ? m.audio.subarray(0, 16000 * MAX_SECONDS) : m.audio;
-      const t0 = performance.now();
-      const out = await clf(audio, { top_k: 2 });
-      const fake = (out.find((o) => o.label.toLowerCase() === "fake") || { score: 0 }).score;
-      self.postMessage({ type: "result", id: m.id, fake, ms: Math.round(performance.now() - t0), sec: audio.length / 16000 });
+      const audio = m.audio.length > 16000 * 12 ? m.audio.subarray(0, 16000 * 12) : m.audio;
+      const feat = voiceFeatures(audio);
+      const synth = feat && models ? syntheticScore(pick(feat), models.synthetic) : null;
+      const print = m.wantPrint === false ? null : voicePrint(audio);
+      self.postMessage({ type: "result", id: m.id, who: m.who, synth, print, sec: audio.length / 16000, ms: Math.round(performance.now() - t0) });
     } catch (err) {
-      self.postMessage({ type: "result", id: m.id, error: String(err && err.message || err) });
+      self.postMessage({ type: "result", id: m.id, who: m.who, error: String(err && err.message || err) });
     }
   }
 };
+
+// voiceFeatures() returns all 21 features; the model uses the channel-robust subset, by name.
+const ALL = ["dur", "voiced_ratio", "f0_mean", "f0_std_rel", "f0_range_rel", "jitter", "shimmer", "clarity_mean", "clarity_std",
+  "centroid_mean", "centroid_std", "flat_mean", "flat_std", "roll_mean", "energy_std_rel", "pause_ratio", "pause_count_ps",
+  "mel_slope", "mel_hf_ratio", "dmel_mean", "f0_jump_rate"];
+function pick(feat) {
+  return models.synthetic.features.map((n) => feat[ALL.indexOf(n)]);
+}
