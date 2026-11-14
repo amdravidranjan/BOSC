@@ -1,4 +1,5 @@
 """Masked multitask transformer training, distillation, and batched prediction."""
+import os
 import random
 import time
 
@@ -88,6 +89,9 @@ def train_one(base, output, seed, device, epochs, lr, max_length, batch=16, teac
     tokenizer.init_kwargs['truncation_side'] = 'left'
     tokenizer.model_max_length = max_length
     ds = {s:windows(calls(s)) for s in SPLITS}
+    select = os.environ.get('BOSC_SELECT', 'all')  # 'asr': pick the epoch on dev Whisper copies only
+    if select == 'asr':
+        ds['dev_sel'] = windows([c for c in calls('dev') if c.get('asr')])
     enc = {s:encode(tokenizer,d[0],max_length) for s,d in ds.items()}
     model = AutoModelForSequenceClassification.from_pretrained(
         base, num_labels=9, problem_type='multi_label_classification',
@@ -143,10 +147,15 @@ def train_one(base, output, seed, device, epochs, lr, max_length, batch=16, teac
         logits=predict(model,enc['dev'],device,batch)
         p=1/(1+np.exp(-logits))
         metrics=window_metrics(ds['dev'][1],p,ds['dev'][2])
+        score=metrics['pr_auc']
+        if select == 'asr':
+            ps=1/(1+np.exp(-predict(model,enc['dev_sel'],device,batch)))
+            metrics['dev_asr']=window_metrics(ds['dev_sel'][1],ps,ds['dev_sel'][2])
+            score=metrics['dev_asr']['pr_auc']
         history.append(dict(epoch=epoch+1,loss=float(np.mean(losses)),seconds=time.perf_counter()-start,**metrics))
         print(history[-1],flush=True)
-        if metrics['pr_auc']>best:
-            best=metrics['pr_auc']
+        if score>best:
+            best=score
             stale=0
             model.save_pretrained(output, safe_serialization=True)
             tokenizer.save_pretrained(output)

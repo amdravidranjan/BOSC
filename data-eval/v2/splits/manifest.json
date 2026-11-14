@@ -1,0 +1,76 @@
+{
+  "counts": {
+    "train": {
+      "calls": 2401,
+      "clean_originals": 1363,
+      "asr_copies": 684,
+      "text_noise_copies": 354,
+      "sources": {
+        "hf": 1572,
+        "gen": 655,
+        "handwritten_ai": 174
+      },
+      "labels": {
+        "0": 1183,
+        "1": 1218
+      },
+      "handwritten_originals_added": 91
+    },
+    "calib": {
+      "calls": 1205,
+      "clean_originals": 805,
+      "asr_copies": 400,
+      "text_noise_copies": 0,
+      "sources": {
+        "hf": 287,
+        "gen": 894,
+        "handwritten_ai": 24
+      },
+      "labels": {
+        "1": 617,
+        "0": 588
+      },
+      "handwritten_originals_added": 16
+    },
+    "dev": {
+      "calls": 1181,
+      "clean_originals": 778,
+      "asr_copies": 403,
+      "text_noise_copies": 0,
+      "sources": {
+        "hf": 293,
+        "gen": 847,
+        "handwritten_ai": 41
+      },
+      "labels": {
+        "1": 618,
+        "0": 563
+      },
+      "handwritten_originals_added": 27
+    },
+    "test_synth": {
+      "calls": 1799,
+      "clean_originals": 911,
+      "asr_copies": 888,
+      "text_noise_copies": 0,
+      "sources": {
+        "hf": 633,
+        "gen": 1118,
+        "handwritten_ai": 48
+      },
+      "labels": {
+        "1": 918,
+        "0": 881
+      },
+      "handwritten_originals_added": 26
+    }
+  },
+  "hashes": {
+    "train": "a3fad71bb7ee511fc1de9ac84dbef1faa7b13afde4820acf22422d64b2585a2b",
+    "calib": "29673ae84cbf8a19ba791e6c82da91696f62ef58b182b1b40beb1757aed2f82e",
+    "dev": "4764a5ab504b8dd2f7de5589f6000909ebfa15ae018fd1fe840d468526b1fdfb",
+    "test_synth": "b235f8470ff045364a1f9021cfaf686f50d07d4fadc1cba9da157f9b045aff86"
+  },
+  "asr": "macOS say (Rishi/Aman/Tara) -> phone path A/B -> Silero VAD -> Whisper tiny.en int8 (phone files)",
+  "lockbox_read": false
+}

@@ -1,0 +1,47 @@
+{
+  "calls": 160,
+  "by_split_label": {
+    "calib/genuine": 5,
+    "calib/scam": 11,
+    "dev/genuine": 11,
+    "dev/scam": 16,
+    "test_synth/genuine": 14,
+    "test_synth/scam": 12,
+    "train/genuine": 50,
+    "train/scam": 41
+  },
+  "by_type": {
+    "G1_delivery_otp": 10,
+    "G2_bank_emi_reminder": 9,
+    "G3_bank_fraud_check": 10,
+    "G4_police_verification": 8,
+    "G5_family_money": 10,
+    "G6_telemarketing": 8,
+    "G7_everyday": 10,
+    "G8_scam_aware": 8,
+    "G9_support_genuine": 7,
+    "S10_family_emergency": 14,
+    "S1_bank_kyc": 14,
+    "S2_digital_arrest": 10,
+    "S3_remote_refund": 8,
+    "S4_utility": 6,
+    "S5_sim_aadhaar": 6,
+    "S6_card_loan": 8,
+    "S7_task_investment": 6,
+    "S8_prize_lottery": 4,
+    "S9_tech_support": 4
+  },
+  "by_language": {
+    "en": 111,
+    "hinglish": 49
+  },
+  "by_style": {
+    "pressure": 29,
+    "slow_build": 26,
+    "friendly_then_threatening": 3,
+    "instant_panic": 2,
+    "polite": 20,
+    "genuine": 80
+  },
+  "author": "Claude (AI), written in-session; not human-written; not lockbox"
+}

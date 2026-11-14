@@ -1,0 +1,300 @@
+# Hand-written calls, batch 3: genuine hard negatives (same format). Written by Claude (AI).
+# Tactics mark manipulation only; a genuine OTP request or reminder is not tagged.
+
+=== G1_delivery_otp | en | genuine
+C: Hello ma'am, Swiggy delivery here. I'm at your gate with the order.
+R: Oh, I'm coming down.
+C: Ma'am, the security guard is asking for the delivery code. Can you tell me the OTP from the app?
+R: Yes, it's four seven two nine.
+C: Thank you ma'am, he's letting me in now. Two minutes.
+R: Okay, thanks.
+
+=== G1_delivery_otp | hinglish | genuine
+C: Hello sir, Amazon se delivery hai, main aapke building ke neeche hoon.
+R: Haan, aa raha hoon.
+C: Sir order pe OTP hai, wo bata dijiye jo SMS pe aaya hai.
+R: Haan, ek minute, teen paanch aath do.
+C: Theek hai sir, order delivered mark kar diya. Thank you.
+R: Thank you.
+
+=== G1_delivery_otp | en | genuine
+C: Hi, I'm calling from Blue Dart courier. I have a parcel for you from your bank, it's a new debit card.
+R: Oh yes, I was expecting it.
+C: Since it's a card, I need to verify with the delivery OTP before handing it over. Are you at home?
+R: Yes, I'm home.
+C: Okay, I'll be there in ten minutes. Please keep your ID ready and the OTP that comes when I reach.
+R: Sure.
+
+=== G1_delivery_otp | en | genuine
+C: Hello sir, Zomato delivery partner. I'm unable to find your flat, which tower is it?
+R: Tower B, fourth floor.
+C: Okay sir. The restaurant marked it as an OTP order, please share the code when I reach.
+R: Fine.
+C: I'm in the lift now. Sorry for the delay, there was rain.
+R: No problem.
+
+=== G1_delivery_otp | hinglish | genuine
+C: Namaste madam, gas cylinder delivery hai. Main gate pe khada hoon.
+R: Accha, aa rahi hoon.
+C: Madam booking ka OTP bata dijiye, naya rule hai, bina OTP ke delivery nahi kar sakte.
+R: Haan, saath do ek nau.
+C: Thik hai madam, cylinder rakh diya. Payment online ho chuka hai.
+R: Theek hai, dhanyavaad.
+
+=== G1_delivery_otp | en | genuine
+C: Good afternoon, this is Ekart logistics. Your Flipkart order is out for delivery today.
+R: Okay, good.
+C: It's a cash on delivery order of one thousand two hundred forty nine. Will you be available after three?
+R: Yes, after three is fine.
+C: Okay. Please keep the exact cash or pay by UPI to me at the door, and the OTP will be needed.
+R: Sure, thank you.
+
+=== G1_delivery_otp | en | genuine
+C: Hi, delivery from the pharmacy. I'm outside your house, should I leave it with the watchman?
+R: No, I'll come and take it.
+C: Okay. It's prepaid, just tell me the OTP from your order confirmation.
+R: It's eight one one six.
+C: Got it, thank you. Get well soon.
+R: Thanks.
+
+=== G1_delivery_otp | hinglish | genuine
+C: Hello sir, Blinkit se hoon, aapka order hai. Location pe pahunch gaya hoon.
+R: Haan, gate number do pe aa jao.
+C: Ok sir. Order pe delivery OTP hai, app mein dekh ke bata dijiye.
+R: Char char saat ek.
+C: Ho gaya sir. Aapka chaar sau tees ka bill hai, prepaid hai.
+R: Theek hai.
+
+=== G1_delivery_otp | en | genuine
+C: Hello ma'am, I'm the technician from the washing machine company for the installation.
+R: Yes, I've been waiting.
+C: I'm reaching in fifteen minutes. At the end, you'll get a service completion OTP, please share it with me then.
+R: Okay.
+C: There's no charge for installation, ma'am, it's covered. Only if you need an extra pipe it's two hundred.
+R: Okay, see you.
+
+=== G1_delivery_otp | en | genuine
+C: Hi, this is from DTDC courier. There's a return pickup scheduled from your address.
+R: Yes, the shoes.
+C: Please keep the item packed. I'll need the pickup OTP that the seller sent you.
+R: I have it.
+C: Great, I'll come between four and six today.
+R: Thank you.
+
+=== G2_bank_emi_reminder | en | genuine
+C: Good morning, this is a reminder call from your bank's loan department.
+R: Yes?
+C: Your home loan EMI of twenty eight thousand four hundred is due on the fifth. Please keep sufficient balance.
+R: Okay, I will.
+C: If the auto debit bounces, there's a penalty, so we're just reminding you. You can also pay through the bank's app.
+R: Thank you for the reminder.
+
+=== G2_bank_emi_reminder | hinglish | genuine
+C: Namaste sir, main aapke bank se reminder call kar rahi hoon.
+R: Haan ji.
+C: Aapke car loan ki EMI is mahine ki baaki hai, saat tareekh tak bhar dijiye.
+R: Accha, bhar dunga.
+C: Late hone pe late fee lag sakti hai. Aap branch mein ya app se bhar sakte hain.
+R: Theek hai, dhanyavaad.
+
+=== G2_bank_emi_reminder | en | genuine
+C: Hello ma'am, I'm calling from the credit card team. Your statement is generated and the minimum due is four thousand.
+R: Okay.
+C: The due date is the twentieth. Paying only the minimum will attract interest, so we suggest paying the full amount if possible.
+R: Got it.
+C: You can pay via net banking or the app. We will never ask for your card details on call.
+R: Thank you.
+
+=== G2_bank_emi_reminder | en | genuine
+C: Hi sir, this is a courtesy call from the bank about your personal loan.
+R: Yes.
+C: Your last EMI bounced due to insufficient balance. There's a bounce charge of five hundred.
+R: Oh, I forgot to transfer money.
+C: Please deposit the EMI amount in your account by Friday, it will be re-presented. You can visit the branch if you want to discuss.
+R: Okay, I'll do it.
+
+=== G2_bank_emi_reminder | hinglish | genuine
+C: Hello madam, main gold loan department se bol raha hoon.
+R: Haan, boliye.
+C: Aapke gold loan ka interest teen mahine se pending hai. Agle mahine tak nahi bhara toh auction notice aa sakta hai.
+R: Accha, main iss hafte branch aa jaungi.
+C: Theek hai madam, branch mein ya app pe hi payment kijiye. Hum phone pe payment nahi lete.
+R: Thik hai.
+
+=== G2_bank_emi_reminder | en | genuine
+C: Good afternoon, I'm calling from the insurance company. Your policy premium is due next week.
+R: Oh, okay.
+C: The premium is eighteen thousand six hundred. After the grace period, the policy may lapse.
+R: I'll pay it this week.
+C: You can pay on our website or app. Do you want me to send the payment link to your registered email?
+R: Yes, please send it there.
+
+=== G2_bank_emi_reminder | en | genuine
+C: Hello sir, this is from the bank. We're calling about your two wheeler loan which is closing next month.
+R: Oh, nice.
+C: After the last EMI, you'll get a no objection certificate. You'll need it to remove the hypothecation from the RC.
+R: How do I get it?
+C: It will be sent to your registered address, or you can collect it from the branch.
+R: Thank you.
+
+=== G2_bank_emi_reminder | hinglish | genuine
+C: Sir namaste, aapke credit card ka bill due hai, aaj last date hai.
+R: Arre haan, bhool gaya.
+C: Koi baat nahi sir, aaj raat tak app se bhar dijiye, late fee nahi lagegi.
+R: Thik hai, abhi karta hoon.
+C: Thank you sir. Aur haan, hum kabhi card details ya OTP phone pe nahi maangte.
+R: Ji.
+
+=== G2_bank_emi_reminder | en | genuine
+C: Hello ma'am, this is the school fee loan team. Your EMI date is changing from next month due to the system upgrade.
+R: Changing to what?
+C: From the fifth to the tenth of every month. No action is needed from your side.
+R: Okay.
+C: You'll get an SMS confirmation. If you have doubts, please call the number printed on your loan documents.
+R: Sure, thanks.
+
+=== G3_bank_fraud_check | en | genuine
+C: Hello, this is the fraud monitoring team from your bank. We noticed a transaction of thirty two thousand at an electronics store.
+R: No! I didn't make that.
+C: Thank you for confirming. We have declined it and temporarily blocked the card for your safety.
+R: What do I do now?
+C: A replacement card will be sent to your address. Please never share your OTP or PIN with anyone, the bank will never ask.
+R: Okay, thank you.
+
+=== G3_bank_fraud_check | hinglish | genuine
+C: Namaste sir, aapke bank ki fraud prevention team se bol rahe hain.
+R: Haan?
+C: Aapke card se abhi ek international transaction try hua, kya aapne kiya?
+R: Nahi, maine nahi kiya.
+C: Theek hai, humne usko rok diya hai aur card block kar diya hai. Naya card aapke ghar aa jayega.
+R: Accha, thank you.
+C: Aur sir, koi bhi aapse OTP ya PIN maange toh mat batana, bank kabhi nahi maangta.
+R: Ji, samajh gaya.
+
+=== G3_bank_fraud_check | en | genuine
+C: Hi ma'am, I'm calling from your credit card company to confirm a purchase. Did you just buy a flight ticket for fifty one thousand?
+R: Yes, that was me.
+C: Thank you ma'am, we've approved it. It was flagged only because it's higher than your usual spend.
+R: Okay.
+C: No action is needed. Have a great trip.
+R: Thanks.
+
+=== G3_bank_fraud_check | en | genuine
+C: Hello sir, this is the bank's security team. Someone attempted to log into your net banking from a new device.
+R: That wasn't me.
+C: We have locked the net banking access for now. To unlock it, please visit the branch or reset it on the official app using your own registered number.
+R: Okay.
+C: Please don't share any codes with callers, including us. We will not ask for them.
+R: Got it, thank you.
+
+=== G3_bank_fraud_check | en | genuine
+C: Good evening, I'm calling from your bank. We sent you an alert about a UPI collect request from an unknown account.
+R: Yes, I saw it.
+C: Please decline it. Approving a collect request takes money out of your account; you never need to approve a request to receive money.
+R: Okay, I declined it.
+C: Good. If you lost money, call the cybercrime helpline nineteen thirty immediately.
+R: Thank you.
+
+=== G3_bank_fraud_check | hinglish | genuine
+C: Hello madam, bank se bol rahi hoon. Aapke account mein do din se kuch unusual transactions dikh rahe hain.
+R: Kaun se?
+C: Teen chhote transactions ek naye merchant ko. Kya aapne kiye?
+R: Haan, wo maine subscription liya tha.
+C: Theek hai madam, confirm karne ke liye shukriya. Aage se koi problem ho toh card ke peeche wale number pe call kijiye.
+R: Thik hai.
+
+=== G3_bank_fraud_check | en | genuine
+C: Hello, this is your bank. Your debit card was used at an ATM in another city ten minutes ago. Was that you?
+R: No, my card is with me.
+C: It may be a cloned card. We've blocked it right away. Please change your PIN on the app and visit the branch for a new card.
+R: Will I get the money back?
+C: We've raised a dispute. You'll get an SMS with the reference number. Please also file a complaint on the cybercrime portal.
+R: Okay, I will.
+
+=== G3_bank_fraud_check | en | genuine
+C: Hi sir, I'm from the bank's customer care, you had called us about a failed transfer.
+R: Yes, the money got debited but didn't reach.
+C: I checked, it's stuck at the beneficiary bank. It will reverse automatically within three working days.
+R: Is there anything I need to do?
+C: No sir. Please don't share any details if someone else calls you about this. We already have your complaint number.
+R: Okay, thanks.
+
+=== G3_bank_fraud_check | en | genuine
+C: Good morning ma'am, calling from the bank about the dispute you raised for the online purchase.
+R: Yes, any update?
+C: The merchant has accepted the refund. You'll see the credit in your account within five days.
+R: Great.
+C: Is there anything else I can help with today?
+R: No, thank you.
+
+=== G3_bank_fraud_check | hinglish | genuine
+C: Sir namaste, bank se bol raha hoon. Aapke account ka mobile number change karne ki request aayi hai, kya aapne di?
+R: Nahi, maine koi request nahi di.
+C: Theek hai sir, humne request reject kar di hai. Aap branch aakar apna KYC update kar lijiye.
+R: Koi khatra toh nahi?
+C: Abhi account safe hai sir. Bas kisi ko OTP ya password mat batana.
+R: Thik hai, dhanyavaad.
+
+=== G4_police_verification | en | genuine
+C: Good morning, this is Constable Yadav from the local police station, for your passport verification.
+R: Yes, I applied last month.
+C: I'll come to your address tomorrow between ten and twelve. Please keep your Aadhaar and address proof ready.
+R: Sure, I'll be home.
+C: There's no fee for verification. If anyone asks you for money, please inform the station.
+R: Okay, thank you.
+
+=== G4_police_verification | hinglish | genuine
+C: Namaste ji, thane se bol raha hoon. Aapke kiraayedaar ki police verification ke liye.
+R: Haan ji, form bhara tha.
+C: Kal shaam ko unhe ID proof leke thane bhej dijiye. Aapka signature bhi chahiye hoga.
+R: Theek hai, bhej dunga.
+C: Koi fees nahi hai, bas documents le aana.
+R: Dhanyavaad.
+
+=== G4_police_verification | en | genuine
+C: Hello, this is the traffic police control room. Your vehicle was involved in a minor accident report filed by another driver.
+R: Yes, someone scratched my car yesterday.
+C: The other party has filed a complaint. Please come to the traffic police station with your licence and RC to give a statement.
+R: Can I come on Saturday?
+C: Yes, Saturday is fine. Ask for the duty officer. There's no payment involved.
+R: Okay.
+
+=== G4_police_verification | en | genuine
+C: Good afternoon sir, I'm calling from the court registry regarding your hearing date.
+R: For the property case?
+C: Yes sir. The hearing has been moved to the twentieth. Your lawyer has been informed as well.
+R: Okay, thanks for letting me know.
+C: You can check the status on the court website with your case number.
+R: Will do.
+
+=== G4_police_verification | en | genuine
+C: Hi, this is the cyber crime police station. You had filed a complaint about an online fraud last week.
+R: Yes, I lost eighteen thousand.
+C: We've traced part of it and requested the bank to freeze the receiving account. We need you to come and sign a statement.
+R: When should I come?
+C: Any weekday before five. Bring your bank statement. We will never ask you to pay anything to recover money.
+R: Okay, thank you.
+
+=== G4_police_verification | hinglish | genuine
+C: Hello madam, main beat constable bol raha hoon. Aapke mohalle mein kal raat chori hui thi.
+R: Haan, suna maine.
+C: Hum sabke ghar pe CCTV footage check kar rahe hain. Aapke gate ka camera chalu hai?
+R: Haan, hai.
+C: Kal subah team aayegi footage dekhne. Aapko kuch dena nahi hai, bas camera ka access chahiye.
+R: Theek hai.
+
+=== G4_police_verification | en | genuine
+C: Hello, I'm calling from the regional passport office. There's a discrepancy in your date of birth on the application.
+R: Oh, what's wrong?
+C: It doesn't match your school certificate. Please book an appointment online and bring the original documents.
+R: Okay.
+C: Don't pay any agent. The appointment and correction are done only through the official portal.
+R: Thank you.
+
+=== G4_police_verification | en | genuine
+C: Good evening, this is the police station. We found a wallet with your driving licence in it.
+R: Oh wow, I lost it on Monday!
+C: You can collect it from the station tomorrow with another ID proof.
+R: Is there any charge?
+C: No charge at all. Just ask for the duty officer at the front desk.
+R: Thank you so much.

@@ -10,6 +10,7 @@ def main():
     ap.add_argument('--device',default='cpu')
     ap.add_argument('--seeds',type=int,nargs='+',default=[13,42,1234])
     ap.add_argument('--epochs',type=int,default=3)
+    ap.add_argument('--loss',choices=['v1','v2'],default='v1')
     args=ap.parse_args()
     results={}
     for seed in args.seeds:
@@ -19,7 +20,7 @@ def main():
             results[str(seed)]=json.loads((output/'metrics.json').read_text())
         else:
             results[str(seed)]=train_one(str(ART/'pretrained/teacher'),output,seed,args.device,
-                                       args.epochs,3e-5,192,batch=16)
+                                       args.epochs,3e-5,192,batch=16,loss_version=args.loss)
             write_json(output/'metrics.json',results[str(seed)])
     # Select seed using dev only. Mean/std still report every independent run.
     best=max(args.seeds,key=lambda s:results[str(s)]['dev']['pr_auc'])

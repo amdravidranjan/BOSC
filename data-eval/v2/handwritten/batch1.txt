@@ -1,0 +1,464 @@
+# Hand-written calls, batch 1. Format:
+# === TYPE | language(en|hinglish) | style
+# caller lines start with "C:" and may end with "##CODES" (U urgency, T threat, S secrecy_isolation,
+# A authority_claim, C credential_request, R remote_access, P payment_instruction, L stay_on_line);
+# receiver lines start with "R:". Calls alternate caller/receiver, caller first.
+# Written by Claude (AI) for the BOSC v2 experiment; not human-written, not lockbox data.
+
+=== S10_family_emergency | en | pressure
+C: Hello? Mummy? It's me, Rohan. I'm calling from my friend's phone, mine fell in the water.
+R: Rohan? Your voice sounds a bit different, beta.
+C: It's this phone only, the network is bad. Mummy listen, I'm in big trouble. ##U
+R: What happened? Are you okay?
+C: There was an accident with my friend's bike and the other man is in hospital. Police are saying they will file a case. ##T
+R: Oh god. What do you need?
+C: I need forty thousand rupees right now to settle it. Please don't tell papa, he'll shout at me. ##U S P
+R: Okay, okay. How should I send it?
+C: Send it on this number's GPay, it's the lawyer's UPI. Please hurry and don't cut the call. ##P U L
+R: I'm opening the app now.
+
+=== S10_family_emergency | en | slow_build
+C: Hi aunty, it's Neha, Priya's friend from hostel. Sorry to call so late.
+R: Neha? Is Priya okay?
+C: She's okay, don't panic, but she had a fall during the trip and she's in the emergency ward.
+R: Oh my god, which hospital?
+C: A small private hospital near the highway. They're not starting the treatment without a deposit. ##U
+R: How much do they want?
+C: Twenty five thousand as advance, aunty. Priya said please don't tell uncle, he has a heart problem. ##P S
+R: I can send it. Where?
+C: You can send it to my UPI, I'm standing at the counter. Please do it in the next five minutes. ##P U
+R: Give me the UPI ID.
+
+=== S10_family_emergency | hinglish | pressure
+C: Papa, main bol raha hoon, Aman. Mera phone kho gaya, dost ke phone se call kar raha hoon.
+R: Aman? Kya hua, sab theek hai?
+C: Papa, police ne pakad liya hai, galti se ek gaadi ko takkar lag gayi. ##T
+R: Kya? Kaun se thane mein ho?
+C: Inspector saab keh rahe hain abhi pachaas hazaar de do toh case nahi banega. ##A P U
+R: Itne paise? Main aa jaata hoon wahan.
+C: Nahi papa, aap mat aao, aur mummy ko bilkul mat batana. Bas jaldi bhej do. ##S U
+R: Kahan bhejun?
+C: Main inspector ka UPI bhej raha hoon, abhi turant transfer kar do, phone mat kaatna. ##P U L
+R: Ruko, dekh raha hoon.
+
+=== S10_family_emergency | en | friendly_then_threatening
+C: Hello uncle, Kunal here, your nephew. Remember me from Jaipur?
+R: Kunal? Arre, how are you?
+C: I'm fine uncle, I'm in Dubai now for work. Actually I have a small problem.
+R: What problem?
+C: My company salary is stuck and the airport people are not letting me fly without paying the visa fine. ##T
+R: That's serious. How much?
+C: Only sixty thousand, uncle. I'll return it next week. Please don't discuss with the family, it's embarrassing. ##P S
+R: Hmm, I should ask your father first.
+C: No uncle please, there's no time, the flight is in two hours. Just send it to my friend's account now. ##U P S
+R: Let me think.
+
+=== S10_family_emergency | en | instant_panic
+C: Didi! Didi it's me, Tanya, I'm in trouble, please listen! ##U
+R: Tanya? What's wrong?
+C: Some men took my bag at the station, my phone, my cards, everything. ##T
+R: Are you hurt? Where are you?
+C: I'm okay, I'm using a stranger's phone. I need money for a cab and to block my cards, right now. ##U P
+R: Okay, I'll come.
+C: No, no time, just send ten thousand to this number on PhonePe, the auntie here is helping me. ##P U
+R: Wait, let me call mummy also.
+C: Don't call mummy, she'll panic. Just send it fast, the auntie has to leave. ##S U
+R: Okay, sending.
+
+=== S10_family_emergency | hinglish | slow_build
+C: Namaste bhabhi, main Sunil bol raha hoon, Vikram bhaiya ka office colleague.
+R: Haan, boliye?
+C: Bhaiya ki tabiyat achanak kharab ho gayi office mein, hum unko hospital laaye hain.
+R: Kya hua unko? Main aa rahi hoon.
+C: Doctor bol rahe hain operation turant karna padega, aur pehle deposit chahiye. ##U P
+R: Kitna?
+C: Abhi ke liye pachattar hazaar. Bhaiya ka phone mere paas hai, wo baat nahi kar sakte. ##P
+R: Main unke bhai ko phone karti hoon.
+C: Abhi kisi ko phone karne ka time nahi hai bhabhi, aap seedha hospital ke account mein daal do. ##S U P
+R: Account number bhejiye.
+
+=== S10_family_emergency | en | pressure
+C: Grandpa, it's me, Arjun. Please don't tell anyone I called you. ##S
+R: Arjun? Is everything alright?
+C: I got into a fight at college and the police took me to the station. ##T
+R: Oh no. Should I come there?
+C: No, the officer says if I pay the fine today it won't go on my record. ##A P U
+R: How much is the fine?
+C: Thirty thousand. Please send it on the officer's UPI ID, I'll message it. ##P
+R: Your father should know about this.
+C: Please grandpa, papa will stop my studies. Just send it quietly before six o'clock. ##S U P
+R: Alright, send me the ID.
+
+=== S10_family_emergency | en | polite
+C: Good evening ma'am, I'm calling from City Care Hospital, emergency desk.
+R: Yes, what is it?
+C: Your son Siddharth has been brought in after a road accident. He is stable, please don't worry. ##T
+R: Oh god, is he badly hurt?
+C: He has a leg fracture. The surgeon needs consent and an advance before the procedure.
+R: I'll come immediately.
+C: Of course ma'am. Meanwhile, kindly transfer the admission deposit of forty thousand so we can start. ##P U
+R: Can I pay at the hospital?
+C: It's faster on UPI, ma'am. I'll share the hospital collection ID. Please do it within ten minutes. ##P U
+R: Okay, please send it.
+
+=== S10_family_emergency | hinglish | instant_panic
+C: Mummy, jaldi suno, main bahut musibat mein hoon! ##U
+R: Beta kya hua? Kahan ho tum?
+C: Mera accident ho gaya hai, ek aadmi ko chot lagi hai aur log mujhe chhod nahi rahe. ##T
+R: Hai bhagwan! Main papa ko bulati hoon.
+C: Papa ko mat batao mummy, please. Bas abhi bees hazaar bhej do, settle karna hai. ##S P U
+R: Kahan bhejun?
+C: Is number pe Google Pay kar do, ye bhaiya ka hai jo meri madad kar rahe hain. ##P
+R: Thik hai, bhejti hoon.
+
+=== S10_family_emergency | en | slow_build
+C: Hello, is this Mr Mehta? I'm calling about your daughter Isha.
+R: Yes, I'm her father. Who is this?
+C: I'm her hostel warden. Isha fainted in the mess and we have admitted her to a nursing home.
+R: Is she okay? Can I talk to her?
+C: She's under observation, she can't talk right now. The nursing home needs payment for the tests. ##P
+R: How much do they need?
+C: Eighteen thousand. They are asking for it right away or they will shift her to a government hospital. ##U T
+R: I'll pay when I reach.
+C: Sir, please don't delay, just send it to my UPI and I will pay the counter immediately. ##P U
+R: Let me check.
+
+=== S10_family_emergency | en | pressure
+C: Hey bro, it's me, Karan. New number. Listen, I'm stuck.
+R: Karan? Which Karan?
+C: Come on, your cousin Karan from Pune. My phone got stolen.
+R: Oh, okay. What happened?
+C: I'm at the airport and my ticket got cancelled. I need fifteen thousand to rebook right now. ##U P
+R: Can't your parents help?
+C: Don't tell them yaar, they'll make a big drama. Just send it, I'll pay you back tonight. ##S P
+R: Send me your UPI.
+C: Sending. Do it fast, the counter closes in ten minutes. ##U
+R: Okay.
+
+=== S10_family_emergency | hinglish | pressure
+C: Hello chacha ji, main Rinku. Naya number hai, purana kharab ho gaya.
+R: Rinku? Bahut dino baad. Bolo.
+C: Chacha ji, ek emergency hai. Hostel mein fees na bharne pe exam se rok rahe hain. ##T
+R: Kitni fees hai?
+C: Pachpan hazaar. Aaj shaam tak bharna hai warna admit card nahi milega. ##U P
+R: Tumhare papa ko bolo.
+C: Papa ki tabiyat theek nahi hai, unko tension mat do. Aap bhej do, main lauta dunga. ##S P
+R: Kahan bhejna hai?
+C: College ke clerk ka UPI hai, main abhi bhejta hoon. Turant kar dena. ##P U
+R: Accha theek hai.
+
+=== S10_family_emergency | en | friendly_then_threatening
+C: Hello, I'm calling from the Gurgaon traffic police. Is this the mother of Varun?
+R: Yes, I'm his mother. What happened?
+C: Your son was caught driving after drinking and he hit a parked car. He is with us at the station. ##A T
+R: Oh no. Can I speak to him?
+C: He's very upset, he's sitting in the lockup. If you want to avoid a case, settle it today. ##T U
+R: How do I settle it?
+C: Pay thirty five thousand to the department account and I will release him without an FIR. ##P A
+R: Shouldn't I come to the station?
+C: Ma'am, coming here will make it official. Pay now and don't tell anyone, it's for his future. ##P S U
+R: Okay, tell me where.
+
+=== S10_family_emergency | en | slow_build
+C: Hello aunty, I'm Meera's roommate. Meera asked me to call you.
+R: Is everything okay with Meera?
+C: She's okay but she's very scared. She lost her wallet and her rent is due today.
+R: Why didn't she call me herself?
+C: Her phone is with the repair shop. The landlord is shouting and saying he'll throw her stuff out. ##T U
+R: Oh dear. How much is the rent?
+C: Twenty two thousand. Can you send it to my account? I'll give it to the landlord. ##P
+R: I'd rather talk to Meera first.
+C: Aunty there's no time, he's standing at the door. Please just send it now. ##U P
+R: Hmm, let me try her number.
+
+=== S1_bank_kyc | en | polite
+C: Good morning sir, this is Anjali from the customer care team of your bank. ##A
+R: Good morning.
+C: Sir, this is a routine call, we're updating KYC details for all our valued customers.
+R: Okay, what do I need to do?
+C: It's a simple process sir, I just need to verify your debit card number and the expiry date. ##C
+R: Can't I do it at the branch?
+C: You can sir, but this saves you a visit. You'll also receive an OTP now, kindly read it out so I can complete the update. ##C
+R: An OTP? For KYC?
+C: Yes sir, it's only for verification. It's a standard process, nothing to worry about. ##C
+R: I'm not comfortable with this.
+
+=== S1_bank_kyc | en | polite
+C: Hello ma'am, I'm Rahul from the bank's digital services team. How are you today? ##A
+R: I'm fine, thank you.
+C: Ma'am, our records show your mobile banking registration is incomplete.
+R: Oh, I wasn't aware.
+C: No problem ma'am, I'll help you finish it on this call itself. Please share the registered email and date of birth. ##C
+R: Okay, it's on my passbook.
+C: Thank you ma'am. Now you'll get a six digit code on your phone. Kindly tell me the code so the registration is completed. ##C
+R: Is that safe?
+C: Absolutely ma'am, it's the bank's own system. Please read it out before it expires. ##C U
+R: Hold on.
+
+=== S1_bank_kyc | en | pressure
+C: Sir, this call is from your bank's KYC department. Your account will be blocked today. ##A T
+R: Blocked? Why?
+C: Your PAN card is not linked and RBI has given strict orders. ##A T
+R: I linked it last year.
+C: It's not showing in the system, sir. Do it now or all transactions will stop by evening. ##U T
+R: What should I do?
+C: Click on the link I'm sending and enter your net banking login and the OTP. ##C R
+R: Okay, I got the link.
+C: Do it quickly sir, I'll stay on the line and guide you. ##U L
+R: Okay, opening it.
+
+=== S1_bank_kyc | hinglish | pressure
+C: Hello sir, main SBI KYC department se bol rahi hoon. ##A
+R: Haan ji, boliye.
+C: Sir aapka KYC expire ho gaya hai, aaj raat tak update nahi kiya toh account band ho jayega. ##T U
+R: Arre, maine toh kuch suna nahi.
+C: Isliye call kiya hai sir. Main abhi update kar deti hoon, bas jo OTP aaya hai wo bata dijiye. ##C
+R: OTP kyun chahiye?
+C: Verification ke liye sir, jaldi bataiye, system bas paanch minute mein session close kar dega. ##C U
+R: Ek minute.
+
+=== S1_bank_kyc | en | polite
+C: Good afternoon madam, I'm calling from the bank regarding your credit card reward points. ##A
+R: Okay.
+C: You have accumulated eight thousand reward points which will lapse tonight. ##U
+R: Oh, I didn't know.
+C: I can help you redeem them as cash back to your account right now, madam.
+R: That would be nice.
+C: For that I need to confirm the card number and the CVV on the back of your card. ##C
+R: The CVV as well?
+C: Yes madam, it's only for verification. Then you'll receive an OTP, please share that too. ##C
+R: I'll do it from the app instead.
+
+=== S1_bank_kyc | en | slow_build
+C: Hello, is this Mr Rao? I'm calling from your bank's head office. ##A
+R: Yes, speaking.
+C: Sir, we noticed some activity on your account and we want to protect it.
+R: What activity?
+C: Someone tried to change your registered mobile number. We need to secure your account immediately. ##U T
+R: Oh, okay.
+C: I'll send a request, sir. When you get the OTP, read it to me and I'll block the hacker. ##C
+R: Shouldn't I call the bank number?
+C: Sir, I am the bank. If you disconnect, the hacker can take your money. Stay on the line. ##A T L
+R: Hmm.
+
+=== S1_bank_kyc | hinglish | polite
+C: Namaste madam, main HDFC bank customer care se Pooja bol rahi hoon. ##A
+R: Namaste.
+C: Madam, aapka account ek special savings upgrade ke liye select hua hai.
+R: Accha, uske liye kya karna hai?
+C: Bas ek chhota sa verification madam. Aapka debit card number bata dijiye. ##C
+R: Card number kyun?
+C: System mein update karna hai madam. Phir ek OTP aayega, wo bhi share kar dijiye, upgrade ho jayega. ##C
+R: Main branch jaake kar loongi.
+C: Madam offer aaj hi tak hai, abhi kar lete hain please. ##U
+R: Nahi, rehne dijiye.
+
+=== S1_bank_kyc | en | pressure
+C: This is an automated alert from your bank. Your debit card has been suspended due to KYC failure. ##A T
+R: Hello?
+C: Press one to speak to an officer. Connecting you now.
+R: Okay.
+C: Sir, I'm the KYC officer. To reactivate the card, I need the sixteen digit card number and the PIN. ##A C
+R: The PIN?
+C: Yes, this is required to re-verify. Also don't share this with anyone, it's a security procedure. ##C S
+R: I'll go to the branch.
+C: The branch will take seven days and your salary will get stuck. Do it now with me. ##T U
+R: Let me think.
+
+=== S1_bank_kyc | en | polite
+C: Hello sir, good evening. I'm calling from the bank regarding your new Aadhaar based e-KYC. ##A
+R: Okay.
+C: It's mandatory now, sir, but don't worry, it takes just two minutes on call.
+R: Fine.
+C: Kindly confirm your Aadhaar number and the name exactly as printed on it. ##C
+R: Okay, let me get it.
+C: Thank you sir. You will now receive a one time password from UIDAI. Please read it out to complete the e-KYC. ##C A
+R: The message says do not share this OTP with anyone.
+C: That's a standard message sir, it doesn't apply to bank officials. Please go ahead. ##C
+R: I don't think so.
+
+=== S1_bank_kyc | hinglish | pressure
+C: Hello, main bank ke head office se bol raha hoon. Aapka ATM card block ho gaya hai. ##A T
+R: Kyun block hua?
+C: Aapne KYC update nahi kiya. Agar abhi update nahi hua toh account bhi freeze ho jayega. ##T U
+R: Toh kya karna hai?
+C: Main ek link bhej raha hoon, uspe click karke apna UPI PIN daal do. ##R C
+R: UPI PIN daalna safe hai?
+C: Haan bilkul safe hai, aur ye baat kisi ko mat batana, process kharab ho jayega. ##S
+R: Accha.
+
+=== S1_bank_kyc | en | polite
+C: Good morning ma'am, I'm from the bank's senior citizen services desk. ##A
+R: Good morning.
+C: We're helping senior citizens link their pension account with the new system.
+R: Oh, that's good.
+C: I'll do everything from my side ma'am. You just need to tell me the code that comes on your phone. ##C
+R: What code?
+C: A short verification code ma'am, it will come in a moment. Please read it slowly for me. ##C
+R: Okay, it came.
+C: Please read it out, ma'am, and also the second code that will come after that. ##C
+R: Let me ask my son first.
+
+=== S1_bank_kyc | en | slow_build
+C: Hi, I'm calling from the bank's fraud prevention cell. ##A
+R: Yes?
+C: Ma'am, there's a transaction of forty nine thousand pending on your card at an online store.
+R: I didn't make any purchase!
+C: Don't worry ma'am, I can cancel it. For cancellation, I need the OTP that you will receive now. ##C
+R: Okay.
+C: Ma'am the message might say it's for a payment, but it is for the reversal. Read it quickly before the transaction completes. ##C U
+R: It says payment of forty nine thousand.
+C: Yes, that is the reversal code. Please read it, otherwise the money will go. ##C T U
+R: That doesn't sound right.
+
+=== S1_bank_kyc | hinglish | slow_build
+C: Hello sir, main Paytm KYC team se bol raha hoon. ##A
+R: Haan.
+C: Sir aapka wallet KYC pending hai, warna wallet ka balance freeze ho sakta hai. ##T
+R: Kitna time hai?
+C: Aaj raat bara baje tak sir. Main help kar deta hoon. ##U
+R: Theek hai.
+C: Aap play store se ek app download karo, naam main batata hoon, phir mujhe code bata dena. ##R C
+R: Kaun sa app?
+C: Quick support wala app sir, usse main aapka KYC remotely kar dunga. ##R
+R: Nahi, mujhe ye theek nahi lag raha.
+
+=== S1_bank_kyc | en | pressure
+C: Sir, final reminder from the bank. Your account will be frozen in thirty minutes. ##A T U
+R: What? Why?
+C: Your KYC documents are rejected by RBI. To avoid freezing, verify now. ##A T
+R: How?
+C: Tell me the OTP and your net banking password, I will update it from the backend. ##C
+R: Password? Banks never ask for that.
+C: Sir, this is a special case. If you don't cooperate, legal action will be taken. ##T
+R: I'm going to call my branch.
+
+=== S6_card_loan | en | polite
+C: Good afternoon sir, congratulations! You have been pre-approved for a personal loan of five lakh rupees.
+R: Oh really? I didn't apply.
+C: It's a special offer for our existing customers, sir, at a very low interest rate.
+R: What's the process?
+C: Very simple sir. There's a one time processing fee of two thousand nine hundred, refundable. ##P
+R: I have to pay first?
+C: Yes sir, it's standard. Please pay it to the verification account and the loan will be credited in an hour. ##P
+R: Can it be deducted from the loan amount?
+C: Unfortunately not sir, the system needs it before disbursal. Kindly do it today, the offer expires tonight. ##P U
+R: I'll think about it.
+
+=== S6_card_loan | en | polite
+C: Hello ma'am, I'm calling from the credit card division. You've been selected for a lifetime free platinum card.
+R: Okay, what's the catch?
+C: No catch ma'am, no annual fee at all. I just need to complete the upgrade on call.
+R: Fine.
+C: Please confirm your existing card number and the expiry date. ##C
+R: Alright.
+C: Thank you. You'll get an OTP for upgrade activation. Kindly share it so the new card is dispatched today. ##C
+R: Hmm, the OTP message says it's for a transaction.
+C: That's the activation charge of one rupee ma'am, it will be refunded. Please read the code. ##C P
+R: I'm not doing this.
+
+=== S6_card_loan | hinglish | polite
+C: Namaste sir, main Bajaj loans se bol raha hoon. Aapke liye instant loan approve hua hai.
+R: Accha, kitna?
+C: Teen lakh sir, sirf documents verify karne hain. Bas file charge ke liye pandrah sau rupaye bhejne honge. ##P
+R: Pehle paise kyun?
+C: Sir ye standard charge hai, loan ke saath wapas mil jayega. Main UPI ID bhej raha hoon. ##P
+R: Thik hai, main dekhta hoon.
+C: Aaj hi kar dijiye sir, kal ye offer khatam ho jayega. ##U
+R: Hmm.
+
+=== S6_card_loan | en | slow_build
+C: Hi, this is Neeraj from QuickCash loans. You had checked a loan on our app last week.
+R: Yes, I had seen it.
+C: Your loan of two lakh is approved, sir. We just need a small insurance payment before disbursal. ##P
+R: How much?
+C: Only four thousand one hundred. It is fully refundable after the first EMI. ##P
+R: Can I pay it from the app?
+C: The app has a technical issue today sir. Please pay on my UPI and I'll update it manually. ##P
+R: That seems odd.
+C: Sir, if you don't pay within the hour the approval will be cancelled and your CIBIL score will be affected. ##U T
+R: I'll check with the app support.
+
+=== S6_card_loan | en | polite
+C: Hello sir, I'm calling from the card services team about your credit limit increase.
+R: Okay.
+C: Your limit can be increased to three lakh without any documents, sir.
+R: Sounds good.
+C: I'll just do a quick verification. Please confirm the CVV of your current card. ##C
+R: The CVV?
+C: Yes sir, it is needed for the limit enhancement request. Then you'll get an OTP, please read it as well. ##C
+R: I think I'll do it through the app.
+C: Sir, the app doesn't have this offer. It's only through this call. ##U
+R: No thanks.
+
+=== S6_card_loan | hinglish | slow_build
+C: Hello ma'am, aapke credit card pe ek annual charge lag raha hai, main wo hatane ke liye call kar rahi hoon.
+R: Kaun sa charge?
+C: Pacchis sau ka annual fee ma'am. Main isko waive kar sakti hoon aaj.
+R: Accha, kar dijiye.
+C: Uske liye card ka number aur peeche wala teen digit ka code bataiye. ##C
+R: Code bhi?
+C: Haan ma'am, verification ke liye. Phir OTP aayega, wo bhi bata dena, charge hat jayega. ##C
+R: Main customer care pe khud call karungi.
+
+=== S6_card_loan | en | polite
+C: Good evening sir, I'm from the loan department. Your existing loan can be transferred at a lower interest rate.
+R: Oh, how much lower?
+C: Almost three percent lower, sir. You'll save a lot on EMIs.
+R: What do I need to do?
+C: I'll process it now. Kindly install the verification app I'm sending, it will scan your documents. ##R
+R: Which app is it?
+C: It's a support app, sir. Once installed, please tell me the nine digit code shown on the screen. ##R C
+R: I'll visit the branch instead.
+
+=== S6_card_loan | en | pressure
+C: Sir, this is a call from the card department. Your credit card EMI conversion is pending.
+R: I didn't ask for EMI conversion.
+C: Sir, a transaction of sixty thousand was converted. If you don't cancel now, interest will be charged. ##T U
+R: Cancel it then.
+C: To cancel, I need the OTP that will come now. Please read it immediately. ##C U
+R: The OTP says it's for a payment.
+C: Sir, that's how the cancellation works. Read it fast, the window will close. ##C U
+R: No, I'll call the bank.
+
+=== S8_prize_lottery | en | polite
+C: Congratulations ma'am! Your number has won the lucky draw of an electronics store. You've won a car!
+R: Really? I never entered any draw.
+C: It was automatic for all customers ma'am. The car worth twelve lakh will be delivered to your home.
+R: Wow.
+C: There's just a registration and GST charge of twelve thousand five hundred, ma'am. ##P
+R: Why should I pay for a prize?
+C: It's a government tax ma'am, compulsory for all winners. Please pay today to confirm. ##P U
+R: I'll think about it.
+
+=== S8_prize_lottery | hinglish | pressure
+C: Hello, main KBC ke office se bol raha hoon. Aapka pacchis lakh ka lottery laga hai. ##A
+R: Kya? Sach mein?
+C: Haan ji, aapka number select hua hai. Prize claim karne ke liye processing fee bharni hogi. ##P
+R: Kitni fee?
+C: Saadhe aath hazaar. Aaj hi bharna hoga warna prize kisi aur ko chala jayega. ##P U
+R: Itna paisa pehle?
+C: Haan, aur ye baat kisi ko mat batana, warna tax department pakad lega. ##S T
+R: Main soch ke batata hoon.
+
+=== S8_prize_lottery | en | slow_build
+C: Hello sir, I'm calling from the telecom company's customer appreciation team.
+R: Okay.
+C: You've been chosen as our loyal customer of the year. You've won a free smartphone and cash prize.
+R: That's nice.
+C: To release the cash prize of fifty thousand, we need to verify your bank account.
+R: How?
+C: Please share your account number and the OTP you will receive for verification. ##C
+R: I don't share OTPs.
+C: Sir, without verification the prize will expire tonight. ##U
+R: Then let it expire.
+
+=== S8_prize_lottery | en | pressure
+C: Madam, your international parcel has a gift of a gold necklace and two thousand pounds from your friend.
+R: My friend? Who?
+C: The sender is from London. But customs has stopped it, you have to pay clearance fees. ##A P
+R: How much?
+C: Thirty five thousand, madam. If you don't pay today, the parcel will be seized and you may face a case. ##P T U
+R: I didn't expect any parcel.
+C: Madam, pay now to the customs account I am sending, and keep this confidential. ##P S
+R: I'm going to hang up.

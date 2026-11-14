@@ -1,0 +1,453 @@
+# Hand-written calls, batch 2 (same format as batch1.txt). Written by Claude (AI).
+
+=== S2_digital_arrest | en | slow_build
+C: Hello, this is a call from the courier company. A parcel booked in your name has been held at Mumbai airport.
+R: A parcel? I didn't send anything.
+C: Sir, it was booked using your Aadhaar. Customs found five passports and some drugs inside. ##A T
+R: That's impossible.
+C: I'm transferring your call to the Mumbai cyber crime branch. Please stay on the line. ##A L
+R: Okay.
+C: This is Sub Inspector Pawar. A money laundering case is registered against your Aadhaar number. ##A T
+R: I have nothing to do with this.
+C: Then you must cooperate. This is a confidential investigation, don't discuss it with anyone. ##S
+R: What should I do?
+C: We need to verify your funds. Transfer your savings to the RBI verification account; it will be returned in twenty four hours. ##P A
+R: I need to talk to a lawyer.
+
+=== S2_digital_arrest | en | pressure
+C: This is the CBI. You are under digital arrest. Do not disconnect this video call. ##A T L
+R: What? Why?
+C: Your bank account was used for illegal transactions linked to a terror funding case. ##T
+R: There must be a mistake.
+C: Keep your camera on and go to a closed room. Nobody else should be with you. ##L S
+R: My wife is at home.
+C: Don't tell your wife. If you tell anyone, we'll issue a non bailable warrant. ##S T
+R: Please, what do you want?
+C: To clear your name, deposit your fixed deposits into the government escrow account today. ##P U A
+R: I'm scared.
+
+=== S2_digital_arrest | hinglish | pressure
+C: Hello, main narcotics bureau se Inspector Rathore bol raha hoon. ##A
+R: Haan ji?
+C: Aapke naam se ek parcel pakda gaya hai jisme MDMA drugs hain. Aap pe case ban gaya hai. ##T
+R: Maine koi parcel nahi bheja.
+C: Toh verification karwana padega. Video call pe raho, phone bilkul mat kaatna. ##L
+R: Theek hai.
+C: Ye national security ka matter hai, ghar walon ko kuch mat batana. ##S
+R: Ji.
+C: Apne saare paise is safe account mein transfer karo, jaanch ke baad wapas mil jayenge. ##P
+R: Saare paise?
+
+=== S2_digital_arrest | en | polite
+C: Good afternoon ma'am. I'm calling from the Telecom Regulatory Authority regarding your mobile number. ##A
+R: Yes?
+C: Ma'am, a complaint has been filed in Mumbai that your number was used to send harassing messages. ##T
+R: That's not possible.
+C: I understand ma'am. I'll connect you to the Mumbai police so you can give a statement and clear it. ##A
+R: Okay.
+C: Good afternoon ma'am, Inspector Desai here. Please stay on the call while we verify. It's a sensitive matter, please keep it to yourself. ##A L S
+R: Alright.
+C: For verification, we need to check your bank balance is legitimate. Kindly move it to the verification account for a few hours. ##P
+R: Why should I move my money?
+
+=== S2_digital_arrest | en | friendly_then_threatening
+C: Hello sir, I'm from the FedEx customer team. Just calling to confirm an international shipment.
+R: I don't have any shipment.
+C: Sir, it shows your name and number. It contains laptops and some restricted items.
+R: That's strange.
+C: Customs has flagged it. Your Aadhaar is linked to three bank accounts used for money laundering. ##A T
+R: What should I do?
+C: I'll connect you to the cyber police on Skype. Keep your video on and don't leave the room. ##A L
+R: Is this real?
+C: Sir, an arrest warrant is ready. Only if you cooperate fully can we stop it. ##T
+R: Okay, okay.
+C: Transfer the amount in your account to the verification account; after clearance it will be refunded. ##P
+R: How much?
+
+=== S2_digital_arrest | hinglish | slow_build
+C: Namaste, main Delhi crime branch se bol raha hoon. ##A
+R: Ji, kya baat hai?
+C: Aapke Aadhaar se ek SIM card nikla hai jo fraud mein use ho raha hai. ##T
+R: Mujhe pata nahi tha.
+C: Koi baat nahi, isliye hum verify kar rahe hain. Aap ghar pe akele ho? ##S
+R: Haan.
+C: Accha hai. Ye case confidential hai, kisi ko mat batana. Video call on rakho. ##S L
+R: Theek hai.
+C: Aapke account ki jaanch hogi. Paise RBI ke verification account mein daal do, kal wapas aa jayenge. ##P A
+R: Ye toh ajeeb lag raha hai.
+
+=== S2_digital_arrest | en | pressure
+C: This is Officer Sharma from the Enforcement Directorate. You are a suspect in a money laundering case. ##A T
+R: Me? I'm a retired teacher.
+C: Many retired people are being used. Your account received black money. ##T
+R: I don't know anything about it.
+C: You'll be arrested within two hours unless you cooperate with the investigation. ##T U
+R: Please don't arrest me.
+C: Stay on this call. Don't speak to your son or anyone. They may also be involved. ##L S
+R: Okay.
+C: Liquidate your mutual funds and send the money to the RBI safe account for verification. ##P A
+R: All of it?
+
+=== S2_digital_arrest | en | slow_build
+C: Hello ma'am, I'm calling from the customs department at Delhi airport. ##A
+R: Yes?
+C: A gift parcel addressed to you from abroad contains foreign currency above the legal limit. ##T
+R: I don't know who sent it.
+C: That's what we need to clarify. Otherwise it becomes a case under the customs act. ##T
+R: What do I do?
+C: Pay the customs duty and penalty of eighty five thousand now and the parcel will be released. ##P U
+R: But I don't want the parcel.
+C: Ma'am, the case is already registered. Pay the penalty to close it, and don't involve anyone else. ##P S T
+R: Let me check with my family.
+
+=== S2_digital_arrest | hinglish | pressure
+C: Hello, cyber cell se bol rahe hain. Aapka number cyber crime mein use hua hai. ##A T
+R: Kya?
+C: Do ghante mein aapka number band ho jayega aur police ghar aayegi. ##T U
+R: Main kya karoon?
+C: Hamare senior officer se baat karo. Line pe raho, phone mat rakhna. ##L A
+R: Theek hai.
+C: Sir bol rahe hain ki pehle security deposit bharna padega, pachaas hazaar. ##P
+R: Itna?
+C: Haan, aur ye baat kisi ko mat batana, warna case aur bada ho jayega. ##S T
+R: Ruko zara.
+
+=== S2_digital_arrest | en | polite
+C: Good morning sir, this is the Supreme Court registry. There's a notice issued in your name. ##A
+R: A court notice?
+C: Yes sir, regarding a financial fraud investigation. Don't worry, you can resolve it on this call.
+R: How?
+C: The investigating officer will join. Please remain on the line and keep the matter private. ##L S
+R: Okay.
+C: Sir, the court requires a refundable surety deposit before your name can be cleared. ##P A
+R: How much?
+C: Two lakh, sir. Kindly transfer it today, the notice will be withdrawn by evening. ##P U
+R: I'll speak to my lawyer first.
+
+=== S3_remote_refund | en | polite
+C: Hello ma'am, I'm calling from the online shopping site regarding your refund of one thousand nine hundred rupees.
+R: Oh yes, I returned a dress.
+C: The refund failed due to a bank server issue. I'll help you process it now, ma'am.
+R: Okay, thank you.
+C: Please install the AnyDesk app from the play store, it lets our team assist you. ##R
+R: Okay, it's installing.
+C: Thank you ma'am. Please tell me the nine digit code on the screen and press allow. ##R C
+R: Okay, I pressed allow.
+C: Now open your UPI app and enter the amount I tell you and your PIN; the refund will come to you. ##P C
+R: Shouldn't I receive money, not pay?
+
+=== S3_remote_refund | en | slow_build
+C: Hi, this is from the airline customer service. Your flight was cancelled and you're eligible for a refund.
+R: Yes, I was waiting for it.
+C: Sorry for the delay. The refund needs your bank verification on our portal.
+R: How do I do that?
+C: I'll share my screen with you. Please download the TeamViewer QuickSupport app. ##R
+R: Downloading it.
+C: Read me the ID and password shown, so I can guide you. ##R C
+R: Okay, it's showing.
+C: Now log into your net banking while I watch, and approve the request that comes. ##C P
+R: Is this the right process?
+
+=== S3_remote_refund | hinglish | polite
+C: Namaste sir, main electricity board ki refund team se bol raha hoon. ##A
+R: Haan?
+C: Aapka extra bill payment hua tha, uska teen hazaar refund pending hai.
+R: Accha, kaise milega?
+C: Aap ek app install kar lijiye, screen share wala, main aapko step by step bataunga. ##R
+R: Kaun sa app?
+C: Rust desk naam ka app hai sir, uska code mujhe bata dijiye. ##R C
+R: Thik hai.
+C: Ab apna UPI app khol ke ek rupaye ka verification payment kijiye. ##P
+R: Ek rupaya kyun?
+
+=== S3_remote_refund | en | pressure
+C: Sir, this is from the gas agency. Your subsidy refund of twelve hundred is stuck and will lapse today. ##U
+R: Oh.
+C: To release it, you have to install the support app and give us access. ##R
+R: Which app?
+C: AnyDesk sir. Quickly please, the server closes at five. ##R U
+R: Okay, installed.
+C: Tell me the code and accept the permissions. Don't close the app or the refund will fail. ##R C
+R: Done.
+C: Now enter your UPI PIN when the screen shows. It's for receiving the refund. ##C P
+R: I need to think.
+
+=== S3_remote_refund | en | polite
+C: Hello sir, good evening. I'm calling from the insurance company. Your policy has a bonus of twenty thousand that is due.
+R: Oh nice.
+C: To credit it, we need to verify your bank account. I'll do it on screen share for your safety.
+R: Okay.
+C: Please install the screen sharing app from the link I'm sending. ##R
+R: Okay.
+C: Now open your bank app and type the amount I say, then the PIN, so the bonus gets linked. ##P C
+R: Why would I type my PIN?
+C: It's just to link sir, no money will go. Please do it before the session times out. ##C U
+R: I'm not comfortable.
+
+=== S3_remote_refund | hinglish | pressure
+C: Hello madam, Flipkart se bol raha hoon. Aapka order cancel hua tha, refund nahi aaya na?
+R: Haan, abhi tak nahi aaya.
+C: Madam aapko ek app download karna hoga, main remotely refund daal dunga. ##R
+R: Kaun sa app?
+C: Any desk. Jaldi kijiye, aaj ke baad refund expire ho jayega. ##R U
+R: Install ho gaya.
+C: Ab jo nau number ka code dikh raha hai wo bataiye. ##R C
+R: Bata diya.
+C: Ab Paytm kholo aur jo amount main bolun wo daal ke PIN dalo. ##P C
+R: Paise toh mujhe milne chahiye, main kyun daloon?
+
+=== S3_remote_refund | en | slow_build
+C: Hello, this is the telecom company. You were charged twice for your recharge last month.
+R: Really?
+C: Yes sir, we'll refund the extra four hundred ninety nine. I need to connect to your phone to process it.
+R: Connect how?
+C: Install the support app, it's safe and official. Give me the code that appears. ##R C
+R: Okay.
+C: Now I can see your screen. Please open your bank app and log in. ##C
+R: Okay.
+C: Approve the collect request that has come. That is the refund confirmation. ##P
+R: It says pay four thousand nine hundred ninety.
+C: That's the refund amount sir, just approve it quickly. ##P U
+R: That's wrong.
+
+=== S3_remote_refund | en | polite
+C: Good morning ma'am, I'm from the travel website. Your hotel booking refund is ready.
+R: Okay.
+C: The bank needs a verification, ma'am. You'll receive a payment request of one rupee, kindly approve it.
+R: A request to pay?
+C: Yes ma'am, it confirms your account. Then the refund of six thousand will come. ##P
+R: Hmm.
+C: If it's difficult, I can help you through screen share, just install the app I'll send. ##R
+R: No, I'll wait for the refund normally.
+
+=== S4_utility | en | pressure
+C: Dear consumer, your electricity connection will be disconnected tonight at nine thirty because the last bill is not updated. ##T U
+R: But I paid the bill.
+C: It's not updated in our system, sir. Call the electricity officer immediately. ##A U
+R: I'm talking to you.
+C: Yes, I'm the officer. To stop disconnection, pay a small update fee of twelve rupees now. ##P A
+R: Twelve rupees?
+C: Yes sir, through the link I'm sending. Enter your card details there. ##C R
+R: I'll pay on the official website.
+
+=== S4_utility | hinglish | pressure
+C: Hello, bijli vibhag se bol raha hoon. Aaj raat aapki light kat jayegi. ##A T
+R: Kyun? Bill toh bhar diya tha.
+C: Wo update nahi hua hai. Turant das rupaye ka verification payment karo. ##U P
+R: Kaise?
+C: Main link bhejta hoon, usme apna UPI PIN daal dena. ##R C
+R: Theek hai.
+C: Jaldi karo, nau baje ke baad connection kat jayega aur reconnection fee bhi lagegi. ##U T
+R: Ruko, check karta hoon.
+
+=== S4_utility | en | polite
+C: Good evening ma'am, I'm calling from the gas company regarding your KYC for the subsidy.
+R: Okay.
+C: Ma'am, if the KYC isn't done this week, the subsidy will stop and the connection may be suspended. ##T
+R: What should I do?
+C: I can do it for you right now. Please download the app I'm sending; it's our official KYC app. ##R
+R: Is there no other way?
+C: It's the quickest way ma'am. After installing, tell me the code and I'll finish it. ##R C
+R: I'll visit the agency.
+
+=== S4_utility | en | slow_build
+C: Hello sir, this is the water board. We're calling about a pending bill on your account.
+R: I thought I paid it.
+C: There's an old arrear of three thousand two hundred. If not cleared today, supply will be cut tomorrow morning. ##T U
+R: I'll check.
+C: Sir, to avoid the cut, pay directly to my UPI, I'll update it on the spot. ##P
+R: Can I pay at the office?
+C: The office is closed today. Only this option is available. ##U
+R: I'll wait till Monday.
+
+=== S4_utility | hinglish | slow_build
+C: Namaste ji, main mobile company se bol rahi hoon. Aapka number kal se band ho jayega. ##T
+R: Kyun?
+C: Aapka KYC verify nahi hua hai. Main abhi online kar deti hoon.
+R: Theek hai.
+C: Bas aapke phone pe ek OTP aayega, wo bata dijiye. ##C
+R: Kis cheez ka OTP?
+C: KYC ka hi hai ji. Jaldi bataiye warna kal se calls band. ##C U T
+R: Main store jaake kar loonga.
+
+=== S4_utility | en | pressure
+C: This is the electricity department. Your meter has been tampered with and there is a penalty. ##A T
+R: Tampered? No one touched it.
+C: The system shows it. If you don't pay the penalty, an FIR will be filed. ##T
+R: How much is the penalty?
+C: Fifteen thousand. Pay within one hour to settle it without a case. ##P U
+R: I want to see a notice.
+C: The notice will come later. Pay now to my account and the matter will be closed. ##P U
+R: I'll go to the office.
+
+=== S5_sim_aadhaar | en | pressure
+C: This is a call from the telecom regulatory authority. Your number will be blocked in two hours. ##A T U
+R: Why?
+C: Your Aadhaar was used to issue another SIM that is involved in illegal activity. ##T
+R: I didn't get any other SIM.
+C: Then you have to verify. Press nine to talk to the police officer. ##A
+R: Okay.
+C: Sir, this is a serious case. Don't tell anyone, keep your phone with you and stay on the line. ##S L
+R: Okay.
+C: To prove the money in your account is clean, transfer it for verification to the account I give. ##P
+R: I don't think that's right.
+
+=== S5_sim_aadhaar | hinglish | slow_build
+C: Hello, main UIDAI office se bol raha hoon. ##A
+R: Haan ji.
+C: Aapka Aadhaar card misuse ho raha hai, isliye usko suspend karna padega. ##T
+R: Arre, kya karoon?
+C: Main verification kar deta hoon. Aapke phone pe OTP aayega, wo bataiye. ##C
+R: Kis cheez ka OTP?
+C: Aadhaar verification ka. Jaldi bataiye, warna aaj hi card cancel ho jayega. ##C U T
+R: Main centre jaake check karunga.
+
+=== S5_sim_aadhaar | en | polite
+C: Hello sir, I'm calling from your mobile operator. We're upgrading all SIM cards to the new eSIM network.
+R: Okay.
+C: It's free, sir. I'll just send an SMS, please reply with the code I tell you.
+R: What will that do?
+C: It will activate your eSIM sir. Then you'll receive an OTP, kindly read it out to me. ##C
+R: Will my old SIM stop?
+C: Only for a few minutes sir. Please do it now so your number doesn't get disconnected tonight. ##U T
+R: I'll go to the store instead.
+
+=== S5_sim_aadhaar | en | pressure
+C: Sir, your SIM card KYC has expired. Your number will be deactivated in the next thirty minutes. ##T U
+R: What should I do?
+C: Download the KYC update app from this link and fill your details. ##R
+R: Okay.
+C: It will ask for a ten rupee payment and your card details, that's for verification. ##P C
+R: Card details for a SIM?
+C: Yes sir, it is new government rule. Do it fast. ##U A
+R: I'll check with customer care.
+
+=== S5_sim_aadhaar | hinglish | pressure
+C: Sir aapka sim band hone wala hai. Main Jio office se bol raha hoon. ##T A
+R: Kyun band hoga?
+C: Aapke naam pe illegal activity ki complaint hai. Police complaint bhi ho sakti hai. ##T
+R: Maine kuch nahi kiya.
+C: Toh verify kara lijiye. Jo OTP aaya hai wo bata dijiye aur kisi ko mat bataiye. ##C S
+R: OTP toh nahi bataunga.
+C: Phir aapka number aaj hi band kar diya jayega. ##T U
+R: Kar do band.
+
+=== S5_sim_aadhaar | en | slow_build
+C: Hello ma'am, this is the Aadhaar seva kendra. Your biometric data needs to be updated.
+R: Oh, okay.
+C: Otherwise your Aadhaar will be locked and bank accounts linked to it will stop working. ##T
+R: That's worrying.
+C: I can update it now. Please share your Aadhaar number and the OTP you'll receive. ##C
+R: Can't I do it at the centre?
+C: The centre has a long queue ma'am. This is quicker. Please read the OTP now. ##C U
+R: I'll go to the centre.
+
+=== S7_task_investment | en | polite
+C: Hi, I'm Riya from a digital marketing company. We're hiring part time workers from home.
+R: What's the work?
+C: Very simple. You like YouTube videos and send us screenshots. Each like pays fifty rupees.
+R: That sounds easy.
+C: Yes. Join our Telegram group, you'll get the first tasks and payment today itself.
+R: Okay, I joined.
+C: Great. For the premium tasks, you need to deposit five thousand. You'll get back eight thousand. ##P
+R: Deposit?
+C: Yes, it's a prepaid task. Everyone in the group is earning. Please do it today, the slots are limited. ##P U
+R: I'm not sure.
+
+=== S7_task_investment | hinglish | pressure
+C: Hello sir, main ek trading group se bol raha hoon. Hamara stock tip guaranteed profit deta hai.
+R: Guaranteed?
+C: Haan sir, har hafte bees percent return. Aapko bas hamare app pe invest karna hai. ##R
+R: Kaun sa app?
+C: Link bhejta hoon, wahan account banao aur pachaas hazaar se start karo. ##R P
+R: Itna paisa?
+C: Sir ye offer aaj ke liye hai, kal se minimum ek lakh ho jayega. Jaldi karo. ##U P
+R: Main soch ke bataunga.
+
+=== S7_task_investment | en | slow_build
+C: Hello, I'm calling from a crypto investment platform. Our members are doubling their money in a month.
+R: Hmm.
+C: You can start with just ten thousand. We'll show you the profit on our dashboard.
+R: How do I start?
+C: Install our app from this link and transfer the amount to the wallet shown. ##R P
+R: Is it registered?
+C: Of course sir. But don't tell your bank about it, they don't like crypto and may block your account. ##S
+R: That's suspicious.
+C: Sir, the bonus offer ends tonight. Invest now to get a free extra five thousand. ##U P
+R: No thanks.
+
+=== S7_task_investment | en | polite
+C: Good evening ma'am, I'm calling from a hotel review company. We pay people to rate hotels online.
+R: How does that work?
+C: You rate five hotels and get two hundred rupees each. We already sent your first payment as a trial.
+R: Oh, I did get some money.
+C: That's right. Now there's a merchant task where you pay first and get commission back. ##P
+R: How much do I pay?
+C: Only three thousand for this round, and you'll receive four thousand five hundred. ##P
+R: And then?
+C: The next round is twenty thousand. Please complete it today or your earnings will be frozen. ##P U T
+R: I'll stop here.
+
+=== S7_task_investment | hinglish | polite
+C: Namaste ma'am, ghar baithe kamaai ka mauka hai. Bas Instagram posts like karne hain.
+R: Accha, kaise?
+C: Aapko Telegram group mein add karenge, wahan task milega. Pehle task ka paisa turant milega.
+R: Theek hai.
+C: Ab ek VIP task hai ma'am, usme do hazaar lagana hoga, teen hazaar wapas aayega. ##P
+R: Pehle paise lagane honge?
+C: Haan ma'am, sab log kar rahe hain. Jaldi kijiye, ye task das minute mein close ho jayega. ##P U
+R: Nahi, rehne dijiye.
+
+=== S7_task_investment | en | pressure
+C: Sir, your investment account shows a profit of two lakh. To withdraw, you must pay the tax first. ##P
+R: Tax? Can't you deduct it?
+C: No sir, the system doesn't allow it. Pay twenty thousand tax to release the funds. ##P
+R: That's a lot.
+C: If you don't pay within twenty four hours, the account will be frozen and you'll lose everything. ##T U
+R: I want to talk to a manager.
+C: I am the manager. Pay to this account and keep it confidential, it's a VIP account. ##P S
+R: I'm going to report this.
+
+=== S9_tech_support | en | slow_build
+C: Hello, I'm calling from Microsoft technical support. Your computer is sending error reports to us. ##A
+R: My computer?
+C: Yes ma'am, it's infected with a virus that can steal your bank details. ##T
+R: Oh no.
+C: Don't worry, I'll fix it. Please go to the website I tell you and download our support tool. ##R
+R: Okay.
+C: Give me the code shown and allow access. I'll remove the virus. ##R C
+R: Okay, done.
+C: The cleaning service costs nine thousand nine hundred. Please log into your bank so I can process it. ##P C
+R: That's expensive.
+
+=== S9_tech_support | hinglish | pressure
+C: Hello, main Google security team se bol raha hoon. Aapka phone hack ho gaya hai. ##A T
+R: Kya? Kaise?
+C: Aapke phone mein virus hai, aapke bank ke paise chori ho sakte hain. ##T
+R: Ab kya karoon?
+C: Main theek kar dunga. Ek app install karo jo main link bhej raha hoon. ##R
+R: Kar diya.
+C: Ab usme jo code aaya hai wo batao aur permission allow karo. ##R C
+R: Thik hai.
+C: Ab jaldi se apna bank app kholo, main check karunga paise safe hain ya nahi. ##C U
+R: Ruko, ye theek nahi lag raha.
+
+=== S9_tech_support | en | polite
+C: Good morning sir, I'm from your internet provider's technical team. We noticed your router is compromised.
+R: Really?
+C: Yes sir, someone is using your connection. For your security, we'll fix it remotely.
+R: Okay.
+C: Please install the remote support app and share the session code. ##R C
+R: Is this necessary?
+C: It's recommended sir, it takes five minutes. After that there's a small security charge of one thousand nine hundred. ##P
+R: I'll call your official number.
+
+=== S9_tech_support | en | pressure
+C: This is the antivirus company. Your subscription auto renewed for twenty four thousand. ##T
+R: I didn't renew anything!
+C: If you want a refund, I can help you right now. Install the support app and give me access. ##R
+R: Okay.
+C: I'll process the refund on your bank site. Log in while I'm connected. ##C
+R: Okay.
+C: Oh no, I accidentally refunded two lakh. You must send back the extra immediately or I'll lose my job. ##P U
+R: Let me check my balance first.

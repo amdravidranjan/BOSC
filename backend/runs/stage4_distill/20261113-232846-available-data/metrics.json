@@ -1,0 +1,57 @@
+{
+  "seeds": {
+    "13": {
+      "dev": {
+        "pr_auc": 0.9809688694588846,
+        "roc_auc": 0.9806681573643113,
+        "f1": 0.9403389830508475,
+        "n_windows": 5918,
+        "tactic_macro_f1": 0.2484446743487726,
+        "tactic_f1": {
+          "urgency": 0.20280112044817927,
+          "threat": 0.25754985754985754,
+          "secrecy_isolation": 0.15121630506245892,
+          "authority_claim": 0.3753056234718826,
+          "credential_request": 0.2248947684906795,
+          "remote_access": 0.20801033591731266,
+          "payment_instruction": 0.45393721049922797,
+          "stay_on_line": 0.11384217335058215
+        }
+      },
+      "test_synth": {
+        "pr_auc": 0.9745145557979149,
+        "roc_auc": 0.9806919701150553,
+        "f1": 0.9452133135079492,
+        "n_windows": 8706,
+        "tactic_macro_f1": 0.2441761815214236,
+        "tactic_f1": {
+          "urgency": 0.2208,
+          "threat": 0.24305177111716622,
+          "secrecy_isolation": 0.14312856238125396,
+          "authority_claim": 0.38172715894868586,
+          "credential_request": 0.2303724928366762,
+          "remote_access": 0.2199017199017199,
+          "payment_instruction": 0.4186046511627907,
+          "stay_on_line": 0.09582309582309582
+        }
+      }
+    }
+  },
+  "selected_seed": 13,
+  "student_f1_gate_passed": false,
+  "teacher_dev_f1": 0.9531934516947198,
+  "dev_mean_std": {
+    "pr_auc": {
+      "mean": 0.9809688694588846,
+      "std": 0.0
+    },
+    "f1": {
+      "mean": 0.9403389830508475,
+      "std": 0.0
+    },
+    "tactic_macro_f1": {
+      "mean": 0.2484446743487726,
+      "std": 0.0
+    }
+  }
+}

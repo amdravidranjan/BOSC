@@ -1,0 +1,345 @@
+# Hand-written calls, batch 4: genuine calls (same format). Written by Claude (AI).
+
+=== G5_family_money | en | genuine
+C: Hi papa, it's Ananya. How are you?
+R: Hi beta, all good. How's college?
+C: Good papa. The semester fee notice came, it's sixty two thousand, due by the fifteenth.
+R: Okay, send me the fee portal details.
+C: I'll send the link from the college website. No hurry, you can do it this week.
+R: Sure, I'll pay it on the weekend.
+
+=== G5_family_money | hinglish | genuine
+C: Mummy, Rahul bol raha hoon. Ghar pe sab theek?
+R: Haan beta, sab theek. Tu bata.
+C: Mummy is mahine hostel ka mess bill thoda zyada aaya hai, teen hazaar extra chahiye.
+R: Theek hai, kal bhej dungi.
+C: Koi jaldi nahi hai mummy, Sunday tak chalega. Papa ko bhi bata dena.
+R: Haan, bata dungi.
+
+=== G5_family_money | en | genuine
+C: Hey bhaiya, it's Sneha. Can I borrow five thousand till my salary on the first?
+R: Sure, what happened?
+C: My laptop charger died and I need a new one for work. I'll return it on the first.
+R: No problem, I'll send it on your usual UPI.
+C: Thanks bhaiya! Tell bhabhi I said hi.
+R: Will do.
+
+=== G5_family_money | hinglish | genuine
+C: Haan dada ji, main Vinay. Aapki dawai khatam ho gayi kya?
+R: Haan beta, kal se nahi hai.
+C: Main medical store pe hoon, chaar sau ki aa rahi hai. Main de deta hoon, aap baad mein de dena.
+R: Accha beta, shukriya.
+C: Koi baat nahi. Shaam ko ghar pe deke jaata hoon.
+R: Theek hai.
+
+=== G5_family_money | en | genuine
+C: Hi ma, it's me. The landlord said the rent goes up by two thousand from next month.
+R: Oh, okay. Can you manage?
+C: Mostly, but can you add it to the monthly transfer? Only if it's okay.
+R: Yes, I'll increase it from next month.
+C: Thanks ma. I'll call on Sunday as usual.
+R: Okay, take care.
+
+=== G5_family_money | en | genuine
+C: Hello Mrs Gupta, it's Kavya, your neighbour. I paid the society maintenance for both of us since you were travelling.
+R: Oh, that's so kind of you.
+C: It was two thousand four hundred for your flat. Send it whenever you're back, no rush.
+R: I'll send it tonight on UPI.
+C: Sure, no problem. Hope the trip was good!
+R: It was, thank you.
+
+=== G5_family_money | hinglish | genuine
+C: Bhai, Ravi bol raha hoon. Goa trip ka booking ho gaya, tera share aath hazaar hai.
+R: Accha, kab tak dena hai?
+C: Agle hafte tak de dena. Main sabko spreadsheet bhej raha hoon.
+R: Theek hai, salary aate hi bhejta hoon.
+C: Haan bhai, koi tension nahi.
+R: Done.
+
+=== G5_family_money | en | genuine
+C: Hi beta, it's your mother. I need a small help, can you pay my electricity bill on your app? The website is not opening for me.
+R: Sure ma, how much is it?
+C: One thousand eight hundred. The consumer number is on the bill, I'll send a photo on WhatsApp.
+R: Okay, send it, I'll pay.
+C: Thank you beta. I'll give you the money when you come home.
+R: Don't worry about it.
+
+=== G5_family_money | en | genuine
+C: Hey, it's Aditya. The cricket club annual fee is due, fifteen hundred each.
+R: Okay, who do I pay?
+C: Pay the club treasurer directly, his UPI is on the group. Deadline is the end of the month.
+R: Got it.
+C: See you at practice on Saturday.
+R: See you.
+
+=== G5_family_money | hinglish | genuine
+C: Papa, Priya bol rahi hoon. Coaching ki fees ka message aaya, baarah hazaar.
+R: Accha beta, last date kab hai?
+C: Pandrah tareekh. Main receipt WhatsApp kar dungi, aap online bhar dena.
+R: Theek hai, kar dunga.
+C: Thank you papa. Mummy ko bolna main raat ko call karungi.
+R: Haan, bata dunga.
+
+=== G6_telemarketing | en | genuine
+C: Hello sir, I'm calling from a broadband company. We have a new fibre plan in your area at five ninety nine per month.
+R: I already have a connection.
+C: No problem sir. This plan has double the speed and free installation if you switch this month.
+R: I'm happy with my current plan.
+C: Sure sir, I'll note that. Thank you for your time.
+R: Thanks.
+
+=== G6_telemarketing | hinglish | genuine
+C: Hello madam, main ek real estate company se bol raha hoon. Hamare naye project mein two BHK flat available hain.
+R: Mujhe abhi zaroorat nahi hai.
+C: Madam bas ek baar site visit kar lijiye, iss mahine booking pe discount hai.
+R: Nahi, thank you.
+C: Koi baat nahi madam, agar kabhi interest ho toh hamari website dekh lijiye.
+R: Theek hai.
+
+=== G6_telemarketing | en | genuine
+C: Good evening ma'am, I'm calling from a health insurance company. Do you have a family floater policy?
+R: Yes, through my office.
+C: Office policies sometimes have low cover, ma'am. We have a top up plan for just a few hundred a month.
+R: I'll think about it.
+C: Sure ma'am, can I email you the brochure?
+R: Okay, send it.
+
+=== G6_telemarketing | en | genuine
+C: Hi sir, I'm calling from a credit card company. You're eligible for a new card with airport lounge access.
+R: I already have two cards.
+C: This one has no joining fee for the first year, sir. You can apply on our website if you're interested.
+R: Not interested right now.
+C: No problem sir, have a good day.
+R: You too.
+
+=== G6_telemarketing | hinglish | genuine
+C: Sir namaste, hum ek mutual fund company se hain. SIP ke baare mein jaankari dena chahte the.
+R: Main pehle se SIP karta hoon.
+C: Bahut accha sir. Hamari bhi kuch nayi schemes hain, aap chahein toh advisor se meeting set kar dete hain.
+R: Abhi nahi, shukriya.
+C: Theek hai sir, dhanyavaad.
+R: Ji.
+
+=== G6_telemarketing | en | genuine
+C: Hello ma'am, I'm calling from a solar panel company. The government subsidy for rooftop solar is available this year.
+R: Oh, how much is the subsidy?
+C: It depends on the capacity, ma'am. Our engineer can do a free site survey and explain.
+R: Maybe next month.
+C: Sure ma'am, I'll call next month. You can also check the official subsidy portal.
+R: Okay.
+
+=== G6_telemarketing | en | genuine
+C: Hi, this is from an online learning platform. You had downloaded our app. Are you interested in the data science course?
+R: Maybe, what's the fee?
+C: Forty five thousand, with EMI options. The batch starts next month, and early registration gets a discount.
+R: I'll check the syllabus first.
+C: Sure, I'll send it on email. No obligation.
+R: Okay.
+
+=== G6_telemarketing | hinglish | genuine
+C: Hello sir, car service center se bol rahe hain. Aapki gaadi ki service due hai.
+R: Haan, pata hai.
+C: Is hafte booking karenge toh free car wash milega. Kaun sa din theek rahega?
+R: Shanivaar ko kar do.
+C: Theek hai sir, shanivaar das baje book kar diya. Payment service ke baad hogi.
+R: Thik hai.
+
+=== G7_everyday | en | genuine
+C: Hello, this is the clinic. Your appointment with Dr Rao is tomorrow at eleven.
+R: Yes, I'll be there.
+C: Please come fifteen minutes early and bring your previous reports.
+R: Okay.
+C: If you need to reschedule, just call us back on this number.
+R: Thank you.
+
+=== G7_everyday | hinglish | genuine
+C: Haan madam, plumber Ramesh bol raha hoon. Main thoda late ho jaunga, traffic hai.
+R: Accha, kitna time?
+C: Aadha ghanta. Tab tak main valve band kar dijiye taaki paani na bahe.
+R: Theek hai, kar diya.
+C: Bas aa raha hoon. Payment kaam ke baad de dena.
+R: Thik hai.
+
+=== G7_everyday | en | genuine
+C: Hello, I'm calling from your son's school. This is his class teacher.
+R: Yes ma'am, is everything okay?
+C: Yes, he's fine. We have a parent teacher meeting on Saturday at ten, I wanted to make sure you can come.
+R: Yes, we'll be there.
+C: Also, the annual day fee of five hundred can be paid at the school office.
+R: Okay, thank you.
+
+=== G7_everyday | en | genuine
+C: Hi, this is the landlord. The plumber will come on Wednesday to fix the leak in your bathroom.
+R: Great, what time?
+C: Around four. Please be home or leave the key with the watchman.
+R: I'll leave the key.
+C: Okay, thanks. Also the rent for next month is the same, no change.
+R: Okay.
+
+=== G7_everyday | hinglish | genuine
+C: Namaste sir, main society ka secretary bol raha hoon. Kal subah paani band rahega, tank ki safai hai.
+R: Accha, kitne baje tak?
+C: Subah aath se dopahar do baje tak. Pehle se paani bhar ke rakh lijiye.
+R: Theek hai, bataane ke liye shukriya.
+C: Koi baat nahi sir.
+R: Ji.
+
+=== G7_everyday | en | genuine
+C: Hello, this is the AC repair shop. The technician found that the compressor needs replacement.
+R: Oh no, how much will it cost?
+C: About nine thousand with the part. It's under warranty for six months after repair.
+R: Let me think and call you back.
+C: Sure, take your time. We'll keep the unit here till you decide.
+R: Okay.
+
+=== G7_everyday | en | genuine
+C: Hi, it's the hospital lab. Your blood test reports are ready.
+R: Okay, can you send them?
+C: They're on the app and we've emailed them too. The doctor wants you to come for a follow up this week.
+R: Is anything serious?
+C: Nothing urgent, just a routine review. You can book through the app.
+R: Thank you.
+
+=== G7_everyday | hinglish | genuine
+C: Hello bhaiya, cab driver bol raha hoon. Main aapke building ke gate pe hoon.
+R: Do minute mein aata hoon.
+C: Theek hai sir. Ride ka OTP bata dena jab aaoge.
+R: Haan, bata dunga.
+C: Main white car mein hoon, number plate pe last digits do ek do.
+R: Ok, aa raha hoon.
+
+=== G7_everyday | en | genuine
+C: Hello, this is the gym. Your membership expires next week.
+R: Oh, okay.
+C: You can renew it at the front desk or on the app. There's a ten percent discount on annual plans this month.
+R: I'll renew at the desk.
+C: Great, see you there.
+R: Bye.
+
+=== G7_everyday | en | genuine
+C: Hi, this is the vet clinic. Bruno's vaccination is due on Monday.
+R: Oh right, thanks for reminding.
+C: Can you bring him at five in the evening?
+R: Yes, five works.
+C: Great, see you on Monday. Please bring his vaccination card.
+R: Will do.
+
+=== G8_scam_aware | en | genuine
+C: Hey, did you hear about Meena aunty? Someone called her pretending to be from the bank and she shared her OTP.
+R: Oh no! Did she lose money?
+C: Almost forty thousand. The caller said her account would be blocked if she didn't verify.
+R: That's terrible.
+C: Please tell your parents too, banks never ask for OTP on call. If anyone does, just hang up.
+R: I'll tell them today.
+
+=== G8_scam_aware | hinglish | genuine
+C: Yaar, mere chacha ko kal ek call aaya tha, bol rahe the CBI se hain aur digital arrest kar diya hai.
+R: Kya? Phir?
+C: Unhone bola kisi ko mat batao aur paise safe account mein daalo. Chacha bahut dar gaye the.
+R: Paise diye kya?
+C: Nahi, meri behen ne dekh liya aur call kat diya. Police aise phone pe arrest nahi karti.
+R: Sahi kiya. Main bhi ghar pe bataunga.
+
+=== G8_scam_aware | en | genuine
+C: Hi ma, I'm sending you a video about the new scam where they ask you to install AnyDesk for a refund.
+R: Oh, what happens?
+C: Once you install it, they can see your screen and take money from your bank app.
+R: Scary.
+C: So if anyone says install this app or share the screen, just cut the call and call me.
+R: Okay beta.
+
+=== G8_scam_aware | en | genuine
+C: Hello sir, this is the bank's awareness team. We're informing customers about fake KYC calls.
+R: Okay.
+C: Fraudsters say your account will be frozen and ask for OTP or card details. The bank never does that.
+R: Good to know.
+C: If you get such a call, report it at nineteen thirty or on the cybercrime portal. Thank you for your time.
+R: Thank you.
+
+=== G8_scam_aware | hinglish | genuine
+C: Bhai sun, office group pe ek message aaya hai, task wala scam chal raha hai.
+R: Kaun sa task?
+C: YouTube like karne ke paise dete hain, phir bolte hain premium task ke liye paise jama karo.
+R: Haan maine bhi suna hai.
+C: Kabhi bhi pehle paise mat dena. Sab ko bata dena.
+R: Haan bhai, zaroor.
+
+=== G8_scam_aware | en | genuine
+C: Hey, my cousin got a call saying a parcel in his name had drugs and he must transfer money to clear his name.
+R: That's the digital arrest scam!
+C: Exactly. They even made a video call with a fake police uniform.
+R: Did he pay?
+C: No, he called the real police station and they told him it's fake. Real police never ask for money on video call.
+R: Glad he checked.
+
+=== G8_scam_aware | en | genuine
+C: Hi dad, quick thing. If someone calls saying I'm in trouble and need money, call me first on my number.
+R: Why, did something happen?
+C: No, it's a scam going around. They pretend to be your son from a new number and ask for urgent money.
+R: Okay, I'll always call you first.
+C: Also ask a question only I would know. Love you.
+R: Love you too.
+
+=== G8_scam_aware | hinglish | genuine
+C: Aunty ji, main Pooja. Aapko koi bijli vibhag se call aaye ki aaj raat light kat jayegi toh mat ghabrana.
+R: Kyun beta?
+C: Wo fraud hai, link bhej ke paise le lete hain. Bill hamesha official app se hi bharna.
+R: Accha, theek hai.
+C: Koi bhi doubt ho toh mujhe call kar lena.
+R: Haan beta, shukriya.
+
+=== G9_support_genuine | en | genuine
+C: Thank you for calling customer care, this is Ravi. How can I help you?
+R: My UPI payment failed but money was debited.
+C: I'm sorry about that. Can you confirm your registered mobile number? I won't need your PIN or OTP.
+R: Sure, it ends with four two one.
+C: Thank you. The amount will be auto reversed within forty eight hours. Here's your complaint reference.
+R: Okay, thanks.
+
+=== G9_support_genuine | hinglish | genuine
+C: Namaste, telecom customer care mein aapka swagat hai. Main aapki kya madad kar sakti hoon?
+R: Mera internet nahi chal raha.
+C: Main check karti hoon. Aapke area mein maintenance chal raha hai, do ghante mein theek ho jayega.
+R: Accha.
+C: Koi aur samasya ho toh app pe complaint daal sakte hain. Dhanyavaad.
+R: Thik hai.
+
+=== G9_support_genuine | en | genuine
+C: Hello, this is the electricity board helpline, returning your call about the high bill.
+R: Yes, it's double this month.
+C: I checked your meter reading. There was an estimated reading last month, so this month includes the difference.
+R: Oh, that explains it.
+C: You can pay it in two instalments through the official app if you want.
+R: That helps, thank you.
+
+=== G9_support_genuine | en | genuine
+C: Hi, you've reached the airline's support desk. How can I help?
+R: I need to cancel my flight next week.
+C: I can help. For security, please confirm the booking reference and your name. We'll never ask for card details.
+R: It's on my email, let me read it.
+C: Got it. The cancellation refund will go back to the original payment method in seven days.
+R: Okay, please cancel it.
+
+=== G9_support_genuine | hinglish | genuine
+C: Hello sir, aapne online store pe return ki complaint daali thi, main uske baare mein call kar raha hoon.
+R: Haan, jootey chhote the.
+C: Pickup kal ho jayega sir. Pickup ke time delivery boy aapse OTP maangega, wo de dena.
+R: Accha. Refund kab aayega?
+C: Pickup ke baad paanch din mein, original payment method mein. Aapko kuch install ya pay nahi karna hai.
+R: Thik hai, dhanyavaad.
+
+=== G9_support_genuine | en | genuine
+C: Hello, I'm calling from the bank's call centre, regarding the cheque book request you placed.
+R: Yes, I asked for a new one.
+C: It has been dispatched and should reach in five working days.
+R: Great.
+C: Is there anything else I can help you with? Remember, the bank never asks for OTP or PIN.
+R: No, that's all.
+
+=== G9_support_genuine | en | genuine
+C: Hi, this is support from the food delivery app. You had complained about a missing item.
+R: Yes, the dessert was missing.
+C: Sorry about that. We've refunded one hundred eighty rupees to your app wallet.
+R: Okay, thank you.
+C: You don't need to share any details. The refund is already done.
+R: Great.

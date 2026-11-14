@@ -1,0 +1,9 @@
+{
+  "model_sha256": "57476d678bb1505511f9bd2059bd57f03f3a261736e9fb46c0108125bec381ef",
+  "warn": 0.37629000330722356,
+  "pause": 0.40238686326797785,
+  "genuine_dev_calls": 563,
+  "train_calls": 2401,
+  "vocab": 6000,
+  "seconds": 0.6
+}

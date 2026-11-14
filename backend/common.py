@@ -1,5 +1,6 @@
 """Shared, caller-only data and evaluation for the available-data experiment."""
 import hashlib
+import os
 import json
 import random
 import subprocess
@@ -14,7 +15,8 @@ from train import caller_utts, call_metrics, load_hf, load_jsonl, summarize
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / 'backend/artifacts'
-DATA = ROOT / 'data-eval/v1'
+# BOSC_DATA selects the split folder (default v1 keeps the original runs reproducible).
+DATA = Path(os.environ.get('BOSC_DATA', ROOT / 'data-eval/v1'))
 LABELS = ['scam', 'urgency', 'threat', 'secrecy_isolation', 'authority_claim',
           'credential_request', 'remote_access', 'payment_instruction', 'stay_on_line']
 SPLITS = ['train', 'calib', 'dev', 'test_synth']
@@ -37,7 +39,7 @@ def record(stage, config, metrics):
         ['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
         data_sha256={s: digest(DATA / (s + '.jsonl')) for s in SPLITS},
         source_sha256={str(p.relative_to(ROOT)):digest(p) for p in sorted((ROOT/'backend').glob('*.py'))},
-        scope='Synthetic available-data experiment; no LLM/ASR/human lockbox data')
+        scope=os.environ.get('BOSC_SCOPE','Synthetic available-data experiment; no LLM/ASR/human lockbox data'))
     write_json(path / 'config.json', config)
     write_json(path / 'metrics.json', metrics)
     write_json(ART / (stage + '_metrics.json'), metrics)

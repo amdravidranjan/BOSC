@@ -1,0 +1,99 @@
+{
+  "train": {
+    "pr_auc": 0.9983020738898263,
+    "roc_auc": 0.9985121084538097,
+    "f1": 0.9907856119036244,
+    "n_windows": 14011,
+    "tactic_macro_f1": 0.7725347517325234,
+    "tactic_f1": {
+      "urgency": 0.6563706563706564,
+      "threat": 0.6441558441558441,
+      "secrecy_isolation": 0.7972972972972973,
+      "authority_claim": 0.9764309764309764,
+      "credential_request": 0.8711943793911007,
+      "remote_access": 0.9177057356608479,
+      "payment_instruction": 0.8736842105263158,
+      "stay_on_line": 0.4434389140271493
+    }
+  },
+  "calib": {
+    "pr_auc": 0.9886641865679424,
+    "roc_auc": 0.9909640171858217,
+    "f1": 0.9778678830883595,
+    "n_windows": 6006,
+    "tactic_macro_f1": 0.7640326670303936,
+    "tactic_f1": {
+      "urgency": 0.6470588235294118,
+      "threat": 0.620199146514936,
+      "secrecy_isolation": 0.7831325301204819,
+      "authority_claim": 0.9538950715421304,
+      "credential_request": 0.8278867102396514,
+      "remote_access": 0.9264305177111717,
+      "payment_instruction": 0.8536585365853658,
+      "stay_on_line": 0.5
+    }
+  },
+  "dev": {
+    "pr_auc": 0.9874466811274613,
+    "roc_auc": 0.987063241122971,
+    "f1": 0.953117123172576,
+    "n_windows": 5918,
+    "tactic_macro_f1": 0.6209011597477142,
+    "tactic_f1": {
+      "urgency": 0.4686299615877081,
+      "threat": 0.5714285714285714,
+      "secrecy_isolation": 0.5495750708215298,
+      "authority_claim": 0.6678082191780822,
+      "credential_request": 0.5626072041166381,
+      "remote_access": 0.8311688311688312,
+      "payment_instruction": 0.7736185383244206,
+      "stay_on_line": 0.5423728813559322
+    }
+  },
+  "fp32_dev": {
+    "pr_auc": 0.9882205217778572,
+    "roc_auc": 0.987902929223156,
+    "f1": 0.9514433505756716,
+    "n_windows": 5918,
+    "tactic_macro_f1": 0.643707081002016,
+    "tactic_f1": {
+      "urgency": 0.5222772277227723,
+      "threat": 0.5364705882352941,
+      "secrecy_isolation": 0.5670731707317073,
+      "authority_claim": 0.6481802426343154,
+      "credential_request": 0.6344086021505376,
+      "remote_access": 0.8876404494382022,
+      "payment_instruction": 0.7891891891891892,
+      "stay_on_line": 0.5644171779141104
+    }
+  },
+  "int8_max_logit_error": 7.046025276184082,
+  "quantization_f1_drop": -0.001673772596904377,
+  "quantization_gate_passed": true,
+  "torch_onnx_max_logit_error": 5.245208740234375e-06,
+  "cpu_ms_window": {
+    "median": 46.537271002307534,
+    "p95": 48.83171858382411
+  },
+  "test_synth": {
+    "pr_auc": 0.9787363725395418,
+    "roc_auc": 0.9834920531141206,
+    "f1": 0.9473202015574896,
+    "n_windows": 8706,
+    "tactic_macro_f1": 0.6269856310897906,
+    "tactic_f1": {
+      "urgency": 0.45381984036488027,
+      "threat": 0.49382716049382713,
+      "secrecy_isolation": 0.5857142857142857,
+      "authority_claim": 0.7611202635914333,
+      "credential_request": 0.7127659574468085,
+      "remote_access": 0.8160377358490566,
+      "payment_instruction": 0.7925998052580331,
+      "stay_on_line": 0.4
+    }
+  },
+  "onnx_bytes": 22926099,
+  "quantization": "int8 matrix/embedding weights via QDQ; float32 activations",
+  "quantized_matrices": 41,
+  "onnx_sha256": "51c73e00dcc6549c5fafc056e48354158c698b965336c65341887036303a82a1"
+}
