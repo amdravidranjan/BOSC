@@ -24,6 +24,8 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -90,8 +92,24 @@ fun BoscTheme(statusBar: Color = Ink.Paper, lightIcons: Boolean = true, content:
             bodyMedium = TextStyle(fontSize = 15.sp, lineHeight = 22.sp),
             bodySmall = TextStyle(fontSize = 13.sp, lineHeight = 19.sp, color = Ink.Muted),
         ),
-        content = content,
+        content = {
+            // Large text (Settings): +15% on every sp size, like the web app's html.large.
+            val d = androidx.compose.ui.platform.LocalDensity.current
+            val scaled = if (UiPrefs.largeText) androidx.compose.ui.unit.Density(d.density, d.fontScale * 1.15f) else d
+            // Default text colour for the dark theme. Without this, Text() with no colour falls back to black
+            // (LocalContentColor is only set inside a Surface) and is invisible on the dark background.
+            androidx.compose.runtime.CompositionLocalProvider(
+                androidx.compose.ui.platform.LocalDensity provides scaled,
+                androidx.compose.material3.LocalContentColor provides Ink.Text,
+                content = content,
+            )
+        },
     )
+}
+
+/** UI settings that must recompose the app when changed. */
+object UiPrefs {
+    var largeText by androidx.compose.runtime.mutableStateOf(false)
 }
 
 @Composable
@@ -188,7 +206,7 @@ fun TranscriptLine(speaker: Speaker, text: String, spans: List<Span>, showSpeake
 
 /** Risk over time: one ink line, faint dashed thresholds. */
 @Composable
-fun RiskGraph(points: List<Float>, warn: Float, pause: Float, modifier: Modifier = Modifier) {
+fun RiskGraph(points: List<Float>, warn: Float, pause: Float, modifier: Modifier = Modifier, marks: List<Int> = emptyList()) {
     Canvas(modifier) {
         val w = size.width; val h = size.height
         fun y(v: Float) = h - v * h
@@ -200,6 +218,11 @@ fun RiskGraph(points: List<Float>, warn: Float, pause: Float, modifier: Modifier
         val step = if (points.size > 1) w / (points.size - 1) else 0f
         for (i in 1 until points.size) {
             drawLine(Ink.Text, Offset((i - 1) * step, y(points[i - 1])), Offset(i * step, y(points[i])), 4f, cap = StrokeCap.Round)
+        }
+        // "Pay tapped" markers (web app item 9): dashed vertical line at the turn when Pay was tapped.
+        marks.forEach { m ->
+            val x = ((m - 1).coerceIn(0, points.size - 1)) * step
+            drawLine(Ink.Caution, Offset(x, 0f), Offset(x, h), 3f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 8f)))
         }
         val last = points.last()
         drawCircle(if (last >= pause) Ink.Danger else if (last >= warn) Ink.Caution else Ink.Safe, 7f, Offset((points.size - 1) * step, y(last)))

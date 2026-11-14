@@ -63,11 +63,13 @@ interface CallDetector {
 
 /** The detectors the app can run. */
 enum class DetectorKind(val label: String) {
-    COMBINED("Trained model + rules"),
+    ENSEMBLE("Stage 0 + MiniLM student (best)"),
+    COMBINED("Stage 0 + keyword rules"),
     STAGE0("Trained model only (team Stage 0)"),
     RULES("Keyword rules only");
 
     fun create(): CallDetector = when (this) {
+        ENSEMBLE -> EnsembleDetector()
         COMBINED -> CombinedDetector(Stage0Detector(), StreamingRiskEngine())
         STAGE0 -> Stage0Detector()
         RULES -> StreamingRiskEngine()

@@ -1,6 +1,12 @@
 # BOSC for Android: real calls, on-device scam detection, payment pause
 
-Native Android version of BOSC. Two phones on the same Wi-Fi place a **real two-way voice call inside the Bosc app**. The receiving phone transcribes the caller **on the device** with Whisper, scores the conversation with the **team's trained Stage 0 model** plus multilingual rules, and stops a payment made under pressure. Audio never leaves the phone.
+Native Android version of BOSC. Two phones on the same Wi-Fi place a **real two-way voice call inside the Bosc app**. The receiving phone transcribes the caller **on the device** with Whisper, scores the conversation with **Stage 0 v2 (TF-IDF + logistic regression) and a MiniLM transformer student, combined**, and stops a payment made under pressure. Audio never leaves the phone.
+
+## What's new in this version
+
+- **Detector: Stage 0 v2 + MiniLM student (default).** Both models were retrained on a Mac from `radha-v2`: v1 data, 160 AI-written Indian calls, Whisper transcripts of synthetic calls (macOS voices → phone audio paths → the phone's own Whisper), and text noise. The two scores are combined as evaluated in Python (`backend/v2_android_export.py`); the multilingual rules add tactic labels and highlights only.
+- **Exact parity with Python** (`StudentParityTest`): WordPiece ids on 1,888 windows (0 mismatches), int8 ONNX logits (identical, onnxruntime 1.19.2), streaming model, and the ensemble end to end (0 level mismatches).
+- **Team frontend features, built natively:** Radha's dark theme; caller display name shown as "not verified"; caller teleprompter from `frontend/demo/scripts.json`; first-run setup (trusted contact, usual payment); the team's warning copy; WARN/PAUSE buzz and tone patterns; large text; a "Pay tapped" marker on the call summary chart (PayFast reports pay attempts to Bosc); detector and speech-model status line.
 
 ## Why the call runs inside Bosc
 
@@ -18,6 +24,19 @@ The payment SDK doesn't need audio at all. It uses device signals (on a SIM or W
 | `core/` | Pure Kotlin: **port of `backend/bosc_core.py`** (Stage 0), multilingual rules, combined detector, streaming risk, evaluator, demo calls |
 
 ## Results so far (honest)
+
+**v2 test split (1,799 calls, synthetic: v1 + AI-written + Whisper copies), Kotlin detectors as shipped.** Cells: scams paused / genuine calls paused. Thresholds were chosen on the dev split (PAUSE ≤ 2% of genuine dev calls).
+
+| Test subset | **Stage 0 v2 + MiniLM (default)** | Stage 0 v2 + rules | Stage 0 v2 only | Rules only |
+|---|---|---|---|---|
+| Clean transcripts (470 scam / 441 genuine) | **99.4% / 4.8%** | 98.7% / 3.4% | 98.1% / 3.2% | 39.4% / 0.2% |
+| Whisper, in-app call audio (224 / 220) | **97.8% / 2.3%** | 96.0% / 3.2% | 96.0% / 1.8% | 34.4% / 1.4% |
+| Whisper, 8 kHz phone-line audio (224 / 220) | **96.4% / 3.6%** | 94.6% / 5.0% | 94.2% / 3.6% | 31.2% / 1.4% |
+| Family-emergency scams, Whisper (11) | **90.9%** | 81.8% | 81.8% | 0% |
+
+Detector speed on the phones (per caller utterance): Galaxy S24 49 ms median, Nothing Phone (2a) 95 ms median; both paused 8/8 demo scams and 0/9 genuine demo calls. **Caveats:** all of this data is synthetic, and part of it was written by an AI (Claude); Hinglish has almost no test calls. The human-written lockbox and real recordings are still the real test.
+
+### Earlier results (v1 model)
 
 **Stage 0 parity with the team's Python model.** `Stage0ParityTest` runs `backend/parity_cases.json`:
 - 204 probabilities: max difference 1.7e-16;
@@ -75,14 +94,17 @@ There's no second phone? Use **Demo tools → Preview on this phone**: it runs t
 - **Speech benchmark:** push `name.wav` + `name.txt` pairs to `Android/data/com.bosc.guardian/files/bench/`, then run `adb shell am start -n com.bosc.guardian/.MainActivity --ez bench true`. WER and real-time factor for Whisper and Vosk go to logcat (`BoscBench`).
 - **Debug audio capture** (Settings, off by default): saves the audio received in a Bosc call as a WAV, for the team's own test calls only. Delete after measuring.
 - **Evidence log:** `Android/data/com.bosc.guardian/files/logs/call_*.jsonl`, one line per utterance in the shared event format `{t, speaker, text, tactics, window_risk, call_risk, level}`. No audio.
-- **Settings:** detector (combined / Stage 0 / rules), speech engine (Whisper / Vosk), call mic mode.
+- **Detector speed benchmark:** `adb shell am start -n com.bosc.guardian/.MainActivity --ez detbench true` (logcat `BoscBench`).
+- **Settings:** detector (Stage 0 + MiniLM / Stage 0 + rules / Stage 0 / rules), speech engine (Whisper / Vosk), call mic mode, tones, large text, usual payment.
 
 ## Known limits
 
 - **Bosc calls only:** Android blocks call audio for third-party apps, so SIM and WhatsApp calls can't be transcribed. In production this would ship inside a phone maker's or carrier's dialer; the payment SDK works today with no audio.
 - **Call quality:** the call audio is plain PCM over TCP on the local network, unencrypted. A product would use Opus and SRTP.
-- **Language:** the Stage 0 model is English-only. The rules add Hinglish, Hindi and Tamil-English patterns. Hindi and Tamil warning text needs a native speaker's check.
+- **Language:** both models are English-first (Whisper tiny.en). The rules add Hinglish, Hindi and Tamil-English patterns. Hindi and Tamil warning text needs a native speaker's check.
 - **Placeholders:** Play Integrity (screen sharing) is mocked. The signed risk token shows the idea only; production needs server-side verification.
 - **Accuracy:** real-audio accuracy isn't measured yet beyond the first test calls.
 
-Third-party components: sherpa-onnx (Apache-2.0), Whisper tiny.en ONNX export by k2-fsa (MIT model), Silero VAD (MIT), Vosk + vosk-model-small-en-in (Apache-2.0).
+Models: `core/src/main/resources/bosc/stage0/` (Stage 0 v2) and `core/src/main/resources/bosc/student/` (MiniLM int8 ONNX, vocab, stream model, ensemble tables); training code on branch `rishi-v2`.
+
+Third-party components: ONNX Runtime (MIT), sentence-transformers/all-MiniLM-L6-v2 (Apache-2.0) fine-tuned by us, sherpa-onnx (Apache-2.0), Whisper tiny.en ONNX export by k2-fsa (MIT model), Silero VAD (MIT), Vosk + vosk-model-small-en-in (Apache-2.0).

@@ -50,10 +50,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Voice.init(this)
+        UiPrefs.largeText = Prefs(this).largeText
         CallManager.init(this)
         if (Prefs(this).asrEngine == "vosk") VoskAsr.load(this) else WhisperAsr.load(this)
         // Developer benchmark: adb shell am start -n com.bosc.guardian/.MainActivity --ez bench true
         if (intent?.getBooleanExtra("bench", false) == true) Bench.runAsync(this)
+        if (intent?.getBooleanExtra("detbench", false) == true) Bench.detectorAsync()
         setContent { BoscRoot() }
     }
 
@@ -97,6 +99,8 @@ fun BoscRoot() {
         Screen.Caller -> CallerScreen(onEnd = { CallerPlayer.end(); screen = Screen.Demo })
         else -> BoscTheme {
             Column(Modifier.fillMaxSize().background(Ink.Paper).statusBarsPadding()) {
+                var setupDone by remember { mutableStateOf(Prefs(context).setupDone || Prefs(context).trustedNumber.isNotBlank()) }
+                if (!setupDone && screen == Screen.Home) { FirstRunSetup { setupDone = true }; return@Column }
                 when (screen) {
                     Screen.Home -> HomeScreen(onSettings = { screen = Screen.Settings }, onDemo = { screen = Screen.Demo })
                     Screen.Settings -> SettingsScreen(onBack = { screen = Screen.Home })
@@ -256,7 +260,11 @@ private fun LastCall(s: SessionState) {
         Spacer(Modifier.height(4.dp))
         Text("Peak ${(peak * 100).toInt()}%  ·  ${secs / 60}m ${secs % 60}s" + if (s.trusted) "  ·  you trusted it" else "", fontSize = 13.sp, color = Ink.Muted)
         Spacer(Modifier.height(16.dp))
-        RiskGraph(s.turns.map { it.callRisk }, s.warnThreshold, s.pauseThreshold, Modifier.fillMaxWidth().height(90.dp))
+        RiskGraph(s.turns.map { it.callRisk }, s.warnThreshold, s.pauseThreshold, Modifier.fillMaxWidth().height(90.dp), s.payMarks.map { it.turn })
+        s.payMarks.forEach { m ->
+            Text("Pay tapped (₹${"%,.0f".format(m.amount)}) at ${m.tMillis / 60000}m ${m.tMillis / 1000 % 60}s · payment app said ${m.level.lowercase()}",
+                fontSize = 13.sp, color = Ink.Caution, modifier = Modifier.padding(top = 6.dp))
+        }
         val seen = Tactic.entries.filter { t -> s.turns.any { (it.tactics[t] ?: 0f) >= 0.5f } }
         if (seen.isNotEmpty()) { Spacer(Modifier.height(12.dp)); Text(tacticLine(seen), fontSize = 13.sp, color = Ink.Muted) }
         if (worst != RiskLevel.LOW) {

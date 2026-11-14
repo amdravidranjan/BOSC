@@ -27,6 +27,8 @@ data class CallPressure(
     val tactics: List<String>,
     val updatedAt: Long,
     val fresh: Boolean,
+    /** The user's usual payment size from the guardian's first-run setup (0 = not set). */
+    val usualPayment: Double = 0.0,
 )
 
 data class Signals(
@@ -38,6 +40,8 @@ data class Signals(
     /** Production: Play Integrity app-access-risk verdict (CAPTURING / CONTROLLING), decoded server-side. Mocked here. */
     val screenCaptureOrControl: Boolean,
     val amountZScore: Float,
+    /** amount / the user's usual payment from the guardian app; null if not set. */
+    val usualRatio: Float? = null,
     val isNewPayee: Boolean,
     val payeeKeyword: String?,
     val nightHour: Boolean,

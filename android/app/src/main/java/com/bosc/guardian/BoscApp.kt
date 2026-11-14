@@ -8,6 +8,14 @@ import android.content.Context
 class BoscApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        // Load the MiniLM student (~23 MB) and the stream model once, off the main thread, so the first call has no delay.
+        Thread({
+            runCatching {
+                val t0 = System.currentTimeMillis()
+                com.bosc.core.StudentBundle.preload()
+                android.util.Log.i("BoscApp", "student ready in ${System.currentTimeMillis() - t0} ms")
+            }.onFailure { android.util.Log.e("BoscApp", "student failed to load", it) }
+        }, "bosc-student-load").start()
         val nm = getSystemService(NotificationManager::class.java)
         nm.createNotificationChannel(NotificationChannel(CH_GUARD, "BOSC is guarding", NotificationManager.IMPORTANCE_LOW))
         nm.createNotificationChannel(NotificationChannel(CH_CALL, "Incoming Bosc calls", NotificationManager.IMPORTANCE_HIGH))
@@ -64,8 +72,8 @@ class Prefs(context: Context) {
 
     /** Which detector scores calls. Default: the team's trained Stage 0 model plus the multilingual rules. */
     var detector: com.bosc.core.DetectorKind
-        get() = runCatching { com.bosc.core.DetectorKind.valueOf(p.getString("detector", "COMBINED")!!) }.getOrDefault(com.bosc.core.DetectorKind.COMBINED)
-        set(v) = p.edit().putString("detector", v.name).apply()
+        get() = runCatching { com.bosc.core.DetectorKind.valueOf(p.getString("detector2", "ENSEMBLE")!!) }.getOrDefault(com.bosc.core.DetectorKind.ENSEMBLE)
+        set(v) = p.edit().putString("detector2", v.name).apply()
 
     /** Speech-to-text for Bosc calls: "whisper" (default, same model family as the web app) or "vosk" (faster, less accurate). */
     var asrEngine: String
@@ -80,6 +88,25 @@ class Prefs(context: Context) {
     var callMicMode: String
         get() = p.getString("call_mic_mode", "call") ?: "call"
         set(v) = p.edit().putString("call_mic_mode", v).apply()
+    /** Name the OTHER phone shows for this phone when it calls (e.g. a caller playing "SBI Customer Care"). Blank = myName. */
+    var showAs: String
+        get() = p.getString("show_as", "") ?: ""
+        set(v) = p.edit().putString("show_as", v.trim().take(40)).apply()
+    /** Bigger text across the app (seniors). */
+    var largeText: Boolean
+        get() = p.getBoolean("large_text", false)
+        set(v) = p.edit().putBoolean("large_text", v).apply()
+    /** Short tones with warnings: WARN rises (two notes), PAUSE falls (three notes). */
+    var playTone: Boolean
+        get() = p.getBoolean("play_tone", true)
+        set(v) = p.edit().putBoolean("play_tone", v).apply()
+    /** The user's usual payment size in rupees (first-run setup); 0 = not set. Shared with payment apps. */
+    var usualPayment: Int
+        get() = p.getInt("usual_payment", 0)
+        set(v) = p.edit().putInt("usual_payment", v.coerceAtLeast(0)).apply()
+    var setupDone: Boolean
+        get() = p.getBoolean("setup_done", false)
+        set(v) = p.edit().putBoolean("setup_done", v).apply()
     /** Debug: save the audio received in Bosc calls to WAV files (own test calls only; off by default). */
     var debugCaptureAudio: Boolean
         get() = p.getBoolean("debug_capture", false)

@@ -1,0 +1,75 @@
+{
+  "_note": "Scripts for the caller teleprompter (Phone A) and the no-second-phone simulation. Written by us for the demo; not used in training.",
+  "scripts": [
+    {
+      "id": "digital_arrest",
+      "title": "Digital arrest (scam)",
+      "kind": "scam",
+      "lines": [
+        "Hello, am I speaking with Mr. Ramesh? This is Inspector Vikram Rathore from Mumbai Cyber Crime cell.",
+        "A parcel booked with your Aadhaar number was seized at Mumbai airport. It had five fake passports and drugs.",
+        "A case has been registered against you for money laundering, and an arrest warrant is issued in your name.",
+        "This is a confidential investigation. Do not tell anyone in your family about this call.",
+        "Stay on the line. If you disconnect, the local police will come to arrest you within two hours.",
+        "To prove you are innocent, you must transfer your savings to the RBI verification account. It will be refunded after the investigation.",
+        "Open your banking app now and send fifty thousand rupees to the account I give you. Do it immediately."
+      ]
+    },
+    {
+      "id": "kyc_otp",
+      "title": "Bank KYC + OTP (scam)",
+      "kind": "scam",
+      "lines": [
+        "Hello sir, I am calling from SBI head office, KYC department.",
+        "Your KYC has expired. If it is not updated today, your account will be blocked.",
+        "I have sent a verification code to your mobile. Please read the OTP to me so I can update your KYC.",
+        "Sir, quickly, the system will block the account in ten minutes.",
+        "Also install AnyDesk from the Play Store so our technician can complete it from our side."
+      ]
+    },
+    {
+      "id": "polite_refund",
+      "title": "Polite refund (scam, no threats)",
+      "kind": "scam",
+      "lines": [
+        "Good evening madam, I am calling from Flipkart customer care regarding your last order.",
+        "You were charged twice, so we would like to refund the extra amount to you.",
+        "For the refund, please download the app called AnyDesk, it is our support tool.",
+        "Now open it and tell me the nine digit number on the screen, and accept the request."
+      ]
+    },
+    {
+      "id": "delivery_otp",
+      "title": "Delivery OTP (genuine)",
+      "kind": "genuine",
+      "lines": [
+        "Hello, I am the Delhivery delivery person, I have reached your apartment gate.",
+        "Your parcel from Amazon is here. Please tell me the delivery OTP that came on your phone.",
+        "It is prepaid, no payment is needed.",
+        "Okay, I am coming up to the third floor now. Thank you."
+      ]
+    },
+    {
+      "id": "bank_fraud_alert",
+      "title": "Real bank fraud alert (genuine)",
+      "kind": "genuine",
+      "lines": [
+        "Hello, this is the fraud monitoring team from HDFC Bank.",
+        "Did you just make a transaction of eighteen thousand rupees at a jewellery store in Delhi?",
+        "We have temporarily blocked the card for your safety. A new card will be sent to your address.",
+        "Please do not share any OTP or PIN with anyone. The bank never asks for it."
+      ]
+    },
+    {
+      "id": "clinic",
+      "title": "Clinic reminder (genuine)",
+      "kind": "genuine",
+      "lines": [
+        "Hello, this is Apollo clinic, calling to confirm your appointment.",
+        "Your appointment with Dr. Meena is tomorrow at 10 am. Please come fifteen minutes early.",
+        "Please bring your old reports and the prescription.",
+        "Okay, see you tomorrow. Thank you."
+      ]
+    }
+  ]
+}

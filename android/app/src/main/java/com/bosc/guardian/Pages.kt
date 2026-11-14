@@ -72,6 +72,7 @@ private fun PageHeader(title: String, onBack: () -> Unit) {
 private fun fieldColors() = OutlinedTextFieldDefaults.colors(
     focusedBorderColor = Ink.Text, unfocusedBorderColor = Ink.Line, focusedLabelColor = Ink.Text, unfocusedLabelColor = Ink.Muted,
     cursorColor = Ink.Text, focusedContainerColor = Ink.Raised, unfocusedContainerColor = Ink.Raised,
+    focusedTextColor = Ink.Text, unfocusedTextColor = Ink.Text,
 )
 
 @Composable
@@ -166,6 +167,16 @@ fun SettingsScreen(onBack: () -> Unit) {
 
         Spacer(Modifier.height(24.dp)); Hairline(); Spacer(Modifier.height(8.dp))
         SettingSwitch("Speak warnings out loud", null, speak) { speak = it; prefs.speakWarnings = it }
+        var tone by remember { mutableStateOf(prefs.playTone) }
+        SettingSwitch("Play a tone with warnings", "Two rising notes for a warning, three falling notes for a pause.", tone) { tone = it; prefs.playTone = it }
+        var large by remember { mutableStateOf(prefs.largeText) }
+        SettingSwitch("Large text", null, large) { large = it; prefs.largeText = it; UiPrefs.largeText = it }
+        var usual by remember { mutableStateOf(if (prefs.usualPayment > 0) prefs.usualPayment.toString() else "") }
+        OutlinedTextField(usual, { v -> usual = v.filter { it.isDigit() }.take(7); prefs.usualPayment = usual.toIntOrNull() ?: 0 },
+            label = { Text("Your usual payment (₹)") }, singleLine = true, colors = fieldColors(), shape = RoundedCornerShape(12.dp),
+            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
+        Text("Payment apps with Bosc compare a payment to this, e.g. \"20× your usual payment\".", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 6.dp))
         SettingSwitch("Use online speech recognition", "Only if this phone has no offline speech pack. Audio is then sent to the recogniser's server.", online) { online = it; prefs.allowOnlineAsr = it }
 
         Spacer(Modifier.height(16.dp)); Hairline(); Spacer(Modifier.height(20.dp))
@@ -305,5 +316,58 @@ fun CallerScreen(onEnd: () -> Unit) {
             }
             Spacer(Modifier.height(36.dp))
         }
+    }
+}
+
+/** First run (web app item 4): two short steps, trusted contact then usual payment size. Skippable. */
+@Composable
+fun FirstRunSetup(onDone: () -> Unit) {
+    val context = LocalContext.current
+    val prefs = remember { Prefs(context) }
+    var step by remember { mutableIntStateOf(0) }
+    var name by remember { mutableStateOf(prefs.trustedName) }
+    var number by remember { mutableStateOf(prefs.trustedNumber) }
+    var usual by remember { mutableStateOf(if (prefs.usualPayment > 0) prefs.usualPayment.toString() else "") }
+    val pick = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+        val uri = res.data?.data ?: return@rememberLauncherForActivityResult
+        context.contentResolver.query(uri, arrayOf(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER), null, null, null)?.use { c ->
+            if (c.moveToFirst()) { name = c.getString(0) ?: ""; number = c.getString(1) ?: "" }
+        }
+    }
+    fun finish() {
+        prefs.trustedName = name.trim(); prefs.trustedNumber = number.trim(); prefs.usualPayment = usual.toIntOrNull() ?: 0
+        prefs.setupDone = true; onDone()
+    }
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp)) {
+        Spacer(Modifier.height(18.dp))
+        Wordmark()
+        Spacer(Modifier.height(36.dp))
+        Label("Step ${step + 1} of 2")
+        Spacer(Modifier.height(12.dp))
+        if (step == 0) {
+            Headline("Who should you call if a call feels wrong?", size = 28)
+            Spacer(Modifier.height(10.dp))
+            Text("Bosc offers one tap to call them when it spots scam pressure.", style = MaterialTheme.typography.bodyLarge, color = Ink.Muted)
+            Spacer(Modifier.height(22.dp))
+            OutlinedTextField(name, { name = it }, label = { Text("Name") }, singleLine = true, colors = fieldColors(), shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth())
+            Spacer(Modifier.height(8.dp))
+            OutlinedTextField(number, { number = it }, label = { Text("Phone number") }, singleLine = true, colors = fieldColors(), shape = RoundedCornerShape(12.dp),
+                keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Phone), modifier = Modifier.fillMaxWidth())
+            TextLink("Choose from contacts", { pick.launch(Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)) })
+            Spacer(Modifier.height(24.dp))
+            PrimaryButton("Next", { step = 1 })
+        } else {
+            Headline("How much do you usually pay at a time?", size = 28)
+            Spacer(Modifier.height(10.dp))
+            Text("A rough number is fine. Payment apps with Bosc slow down payments far above it during a pressured call.", style = MaterialTheme.typography.bodyLarge, color = Ink.Muted)
+            Spacer(Modifier.height(22.dp))
+            OutlinedTextField(usual, { v -> usual = v.filter { it.isDigit() }.take(7) }, label = { Text("Usual payment (₹)") }, singleLine = true, colors = fieldColors(), shape = RoundedCornerShape(12.dp),
+                keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number), modifier = Modifier.fillMaxWidth())
+            Spacer(Modifier.height(24.dp))
+            PrimaryButton("Done", ::finish)
+            TextLink("Back", { step = 0 })
+        }
+        Spacer(Modifier.height(8.dp))
+        TextLink("Skip for now", ::finish, color = Ink.Faint)
     }
 }

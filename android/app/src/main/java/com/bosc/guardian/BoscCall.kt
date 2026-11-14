@@ -43,6 +43,12 @@ enum class CallPhase { IDLE, OUTGOING, INCOMING, ACTIVE, ENDED }
 data class CallUi(
     val phase: CallPhase = CallPhase.IDLE,
     val peerName: String = "",
+    /** This phone placed the call (shows the caller's script prompts). */
+    val outgoing: Boolean = false,
+    /** Incoming: the name was chosen by the caller and is not verified (scammers fake names). */
+    val nameUnverified: Boolean = false,
+    /** Incoming: the saved contact behind a chosen display name, if it differs. */
+    val realName: String = "",
     val startedAt: Long = 0,
     val muted: Boolean = false,
     val speaker: Boolean = false,
@@ -140,16 +146,18 @@ object CallManager {
         }
         if (!msg.startsWith("HELLO|")) { s.close(); return }
         val (name, callerPort) = parseNamePort(msg.removePrefix("HELLO|"))
+        val shownAs = msg.removePrefix("HELLO|").split('|').getOrNull(2)?.trim().orEmpty()
         if (host.isNotBlank()) Contacts.save(app, Peer(name, host, callerPort))
         synchronized(this) {
             if (_ui.value.phase == CallPhase.OUTGOING || _ui.value.phase == CallPhase.INCOMING || _ui.value.phase == CallPhase.ACTIVE) {
                 runCatching { sendOn(o, T_CONTROL, "BUSY".toByteArray()) }; s.close(); return
             }
             socket = s; out = o
-            _ui.value = CallUi(phase = CallPhase.INCOMING, peerName = name)
+            _ui.value = CallUi(phase = CallPhase.INCOMING, peerName = shownAs.ifBlank { name }, nameUnverified = true,
+                realName = if (shownAs.isNotBlank() && shownAs != name) name else "")
         }
-        Log.i(TAG, "incoming call from $name")
-        ring(name)
+        Log.i(TAG, "incoming call from $name as '${shownAs.ifBlank { name }}'")
+        ring(shownAs.ifBlank { name })
         readLoop(input, s)
     }
 
@@ -157,7 +165,7 @@ object CallManager {
 
     fun call(peer: Peer) {
         if (_ui.value.phase == CallPhase.ACTIVE || _ui.value.phase == CallPhase.OUTGOING) return
-        _ui.value = CallUi(phase = CallPhase.OUTGOING, peerName = peer.name)
+        _ui.value = CallUi(phase = CallPhase.OUTGOING, peerName = peer.name, outgoing = true)
         Thread({
             try {
                 val s = Socket()
@@ -165,7 +173,8 @@ object CallManager {
                 s.tcpNoDelay = true
                 val o = DataOutputStream(s.getOutputStream().buffered())
                 synchronized(this) { socket = s; out = o }
-                send(T_CONTROL, "HELLO|${Prefs(app).myName}|$port".toByteArray())
+                val pr = Prefs(app)
+                send(T_CONTROL, "HELLO|${pr.myName}|$port|${pr.showAs.replace('|', ' ')}".toByteArray())
                 readLoop(DataInputStream(s.getInputStream().buffered()), s)
             } catch (e: Exception) {
                 Log.w(TAG, "call failed", e)
@@ -175,8 +184,9 @@ object CallManager {
     }
 
     private fun parseNamePort(v: String): Pair<String, Int> {
-        val name = v.substringBefore('|').ifBlank { "Unknown" }
-        val p = v.substringAfter('|', "").toIntOrNull() ?: DEFAULT_PORT
+        val parts = v.split('|')
+        val name = parts[0].ifBlank { "Unknown" }
+        val p = parts.getOrNull(1)?.trim()?.toIntOrNull() ?: DEFAULT_PORT
         return name to p
     }
 

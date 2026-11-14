@@ -71,6 +71,7 @@ internal class SignalReader(private val context: Context) {
                 tactics = c.getString(c.getColumnIndexOrThrow("tactics")).split('|').filter { it.isNotBlank() },
                 updatedAt = updated,
                 fresh = active || System.currentTimeMillis() - updated <= maxAgeMs,
+                usualPayment = c.getColumnIndex("usual_payment").takeIf { it >= 0 }?.let { c.getDouble(it) } ?: 0.0,
             )
         }
     } catch (e: Exception) {
@@ -79,7 +80,15 @@ internal class SignalReader(private val context: Context) {
         null
     }
 
+    /** Tells the guardian app the user tapped Pay during the call (marks the moment on its call summary). */
+    fun reportPayAttempt(level: String, amount: Double) {
+        runCatching {
+            context.contentResolver.insert(PAY_URI, android.content.ContentValues().apply { put("level", level); put("amount", amount) })
+        }.onFailure { Log.d("BoscSdk", "pay attempt not reported: ${it.message}") }
+    }
+
     companion object {
+        val PAY_URI: Uri = Uri.parse("content://com.bosc.guardian.callpressure/pay_attempt")
         val PRESSURE_URI: Uri = Uri.parse("content://com.bosc.guardian.callpressure/current")
 
         val REMOTE_APP_NAMES = mapOf(

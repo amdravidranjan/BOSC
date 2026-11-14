@@ -6,6 +6,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -63,6 +66,7 @@ fun ContactsSection() {
     val myAddress by Nearby.myAddress.collectAsState()
     var listening by remember { mutableStateOf(prefs.scamListening) }
     var name by remember { mutableStateOf(prefs.myName) }
+    var showAs by remember { mutableStateOf(prefs.showAs) }
     var editingName by remember { mutableStateOf(false) }
     var manual by remember { mutableStateOf(false) }
     var manualIp by remember { mutableStateOf("") }
@@ -111,12 +115,18 @@ fun ContactsSection() {
     Spacer(Modifier.height(10.dp))
     if (editingName) {
         Underlined(name, { name = it }, "Your name")
+        Spacer(Modifier.height(6.dp))
+        Text("Name shown when you call (optional, for the demo caller)", fontSize = 13.sp, color = Ink.Muted)
+        Underlined(showAs, { showAs = it }, "e.g. SBI Customer Care")
         Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
-            TextLink("Save", { prefs.myName = name; editingName = false; CallService.start(context, CallService.ACTION_REFRESH) }, color = Ink.Text)
-            TextLink("Cancel", { name = prefs.myName; editingName = false })
+            TextLink("Save", { prefs.myName = name; prefs.showAs = showAs; editingName = false; CallService.start(context, CallService.ACTION_REFRESH) }, color = Ink.Text)
+            TextLink("Cancel", { name = prefs.myName; showAs = prefs.showAs; editingName = false })
         }
     } else {
-        Text(buildString { append("Others see you as ${prefs.myName}"); if (myAddress.isNotBlank()) append("  ·  $myAddress") },
+        Text(buildString {
+                append("Others see you as ${prefs.myName}")
+                if (prefs.showAs.isNotBlank()) append("  ·  calls show \"${prefs.showAs}\"")
+                if (myAddress.isNotBlank()) append("  ·  $myAddress") },
             fontSize = 13.sp, color = Ink.Faint)
         Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
             TextLink("Change name", { editingName = true })
@@ -175,6 +185,17 @@ fun InCallScreen() {
             Box(Modifier.weight(1f)) { Headline(c.peerName, size = 36) }
             if (c.phase == CallPhase.ACTIVE) SmallToggle(if (c.listening) "Listening" else "Not listening", c.listening) { CallManager.setListening(!c.listening) }
         }
+        if (c.nameUnverified && c.phase != CallPhase.ENDED) {
+            Text(if (c.realName.isNotBlank()) "Name not verified  ·  saved contact: ${c.realName}" else "Name not verified. Scammers can fake caller names.",
+                fontSize = 13.sp, color = Ink.Caution, modifier = Modifier.padding(top = 4.dp))
+        }
+        var prompter by remember { mutableStateOf(false) }
+        if (c.phase == CallPhase.ACTIVE && c.outgoing) {
+            TextLink(if (prompter) "Hide script" else "Read a script (demo caller)", { prompter = !prompter })
+        }
+        if (prompter && c.phase == CallPhase.ACTIVE) {
+            Prompter(Modifier.weight(1f))
+        } else {
 
         if (c.phase == CallPhase.ACTIVE && c.listening && s.active) {
             Spacer(Modifier.height(22.dp))
@@ -205,8 +226,11 @@ fun InCallScreen() {
             }
             val vosk by VoskAsr.status.collectAsState()
             val whisper by WhisperAsr.status.collectAsState()
-            val asr = if (Prefs(LocalContext.current).asrEngine == "vosk") vosk else whisper
+            val prefs = Prefs(LocalContext.current)
+            val asr = if (prefs.asrEngine == "vosk") vosk else whisper
             if (asr != "ready") Text(asr, fontSize = 13.sp, color = Ink.Muted)
+            Text("Detector: ${prefs.detector.label}  ·  speech: ${if (prefs.asrEngine == "vosk") "Vosk" else "Whisper tiny.en"}, on this phone",
+                fontSize = 12.sp, color = Ink.Faint, modifier = Modifier.padding(top = 4.dp))
         } else {
             Spacer(Modifier.weight(1f))
             if (c.phase == CallPhase.ACTIVE) {
@@ -215,6 +239,7 @@ fun InCallScreen() {
             }
             if (c.phase == CallPhase.INCOMING) Text("Bosc call on Wi-Fi", fontSize = 15.sp, color = Ink.Muted)
             Spacer(Modifier.weight(1f))
+        }
         }
 
         Spacer(Modifier.height(16.dp))
@@ -252,4 +277,31 @@ private fun SmallToggle(label: String, on: Boolean, onClick: () -> Unit) {
     Text(label, fontSize = 15.sp, color = if (on) Ink.Paper else Ink.Text,
         modifier = Modifier.background(if (on) Ink.Text else Ink.Raised, RoundedCornerShape(22.dp)).clickable(onClick = onClick)
             .padding(horizontal = 18.dp, vertical = 11.dp))
+}
+
+/** Teleprompter for the phone playing the caller: the team's demo scripts, one line at a time. */
+@Composable
+private fun Prompter(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val scripts = remember { Scripts.all(context) }
+    var pick by remember { mutableStateOf(0) }
+    var line by remember { mutableStateOf(0) }
+    val sc = scripts.getOrNull(pick)
+    Column(modifier.fillMaxWidth().padding(top = 18.dp)) {
+        if (sc == null) { Text("No scripts found.", color = Ink.Muted); return@Column }
+        Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            scripts.forEachIndexed { i, x -> SmallToggle(x.title, i == pick) { pick = i; line = 0 } }
+        }
+        Spacer(Modifier.height(18.dp))
+        Label("Line ${line + 1} of ${sc.lines.size}")
+        Spacer(Modifier.height(10.dp))
+        Text(sc.lines[line], fontFamily = Serif, fontSize = 24.sp, lineHeight = 33.sp, color = Ink.Text,
+            modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()))
+        Text("Read it naturally, then pause before the next line.", fontSize = 13.sp, color = Ink.Muted)
+        Spacer(Modifier.height(10.dp))
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            QuietButton("Previous", { if (line > 0) line-- }, Modifier.weight(1f), height = 48.dp)
+            PrimaryButton(if (line < sc.lines.lastIndex) "Next line" else "Last line", { if (line < sc.lines.lastIndex) line++ }, Modifier.weight(1f), height = 48.dp)
+        }
+    }
 }

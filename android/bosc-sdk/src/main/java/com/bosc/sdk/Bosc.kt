@@ -52,6 +52,7 @@ object Bosc {
         if (s.callPressure?.level == "PAUSE") level = RiskLevel.HIGH
         else if (s.callPressure?.level == "WARN" && level == RiskLevel.LOW) level = RiskLevel.MEDIUM
 
+        if (s.onCall || s.callPressure?.fresh == true) signals.reportPayAttempt(level.name, payment.amount)
         val token = signer.sign(score, level)
         Log.i(TAG, "evaluate amount=${payment.amount} level=$level score=${"%.2f".format(score)} reasons=$reasons")
         return RiskDecision(level, score, reasons, token, s)
@@ -84,6 +85,7 @@ object Bosc {
             accessibilityServices = accessibility,
             screenCaptureOrControl = demo.simulateScreenControl,
             amountZScore = history.amountZScore(p.amount),
+            usualRatio = pressure?.usualPayment?.takeIf { it > 0 }?.let { (p.amount / it).toFloat() },
             isNewPayee = p.isNewPayee ?: !history.isKnownPayee(p.payee),
             payeeKeyword = PaymentHistory.riskyPayeeKeyword(p.payee),
             nightHour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY) in 0..5,
@@ -113,6 +115,10 @@ object Bosc {
         if (s.isNewPayee) { z += W.NEW_PAYEE; reasons += "First payment to this payee" }
         if (s.onCall && s.isNewPayee) z += W.CALL_X_NEW_PAYEE
         if (s.amountZScore > 2f) { z += W.AMOUNT_Z * s.amountZScore.coerceAtMost(4f); reasons += "Much larger than your usual payments" }
+        else s.usualRatio?.takeIf { it >= 5f }?.let { r ->
+            // Same form as the web app's shield: 0.9 * log10(ratio), capped at 3.
+            z += 0.9f * kotlin.math.log10(r).coerceAtMost(3f); reasons += "This is ${r.toInt()}× your usual payment"
+        }
         s.payeeKeyword?.let { z += W.PAYEE_KEYWORD; reasons += "Payee name looks like \"$it\", which real officials never collect" }
         if (s.nightHour) z += W.NIGHT
         if (s.recentPaymentsCount >= 3) { z += W.VELOCITY; reasons += "Several payments in the last 10 minutes" }

@@ -52,6 +52,34 @@ object Bench {
         Log.i(TAG, "BENCH DONE")
     }
 
+    /**
+     * Detector speed on this phone: every demo call through each detector, ms per caller utterance.
+     *   adb shell am start -n com.bosc.guardian/.MainActivity --ez detbench true   (logcat tag BoscBench)
+     */
+    fun detectorAsync() = Thread({
+        try {
+            val t0 = System.nanoTime(); com.bosc.core.StudentBundle.model.probs("warm up")
+            Log.i(TAG, "student load+first inference ${(System.nanoTime() - t0) / 1_000_000} ms")
+            for (kind in com.bosc.core.DetectorKind.entries) {
+                val ms = ArrayList<Double>(); var paused = 0; var scams = 0; var genuinePaused = 0
+                for (c in com.bosc.core.DemoCalls.all) {
+                    val d = kind.create(); var p = false
+                    c.turns.filter { it.first == com.bosc.core.Speaker.CALLER }.forEachIndexed { i, (_, text) ->
+                        val a = System.nanoTime()
+                        val e = d.onUtterance(com.bosc.core.Utterance(i * 3000L, com.bosc.core.Speaker.CALLER, text))
+                        ms += (System.nanoTime() - a) / 1e6
+                        if (e.level == com.bosc.core.RiskLevel.PAUSE) p = true
+                    }
+                    if (c.isScam) { scams++; if (p) paused++ } else if (p) genuinePaused++
+                }
+                ms.sort()
+                Log.i(TAG, "DETECTOR %-9s median %.1f ms  p95 %.1f ms  max %.1f ms  | demo calls: %d/%d scams paused, %d genuine paused".format(
+                    kind.name, ms[ms.size / 2], ms[(ms.size * 95) / 100], ms.last(), paused, scams, genuinePaused))
+            }
+            Log.i(TAG, "DETBENCH DONE")
+        } catch (e: Throwable) { Log.e(TAG, "detector bench failed", e) }
+    }, "bosc-detbench").start()
+
     private fun norm(s: String) = s.lowercase().replace(Regex("[^a-z0-9 ]"), " ").split(Regex("\\s+")).filter { it.isNotBlank() }
 
     /** Word-level edit distance (substitutions + insertions + deletions) and reference length. */

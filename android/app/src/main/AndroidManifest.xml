@@ -3,6 +3,7 @@
 
     <!-- Hear the speakerphone. Only used during a call, after the user arms BOSC. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!-- Know when a call starts and ends. -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -76,6 +77,7 @@
             android:name=".CallPressureProvider"
             android:authorities="com.bosc.guardian.callpressure"
             android:exported="true"
-            android:readPermission="com.bosc.permission.READ_CALL_PRESSURE" />
+            android:readPermission="com.bosc.permission.READ_CALL_PRESSURE"
+            android:writePermission="com.bosc.permission.READ_CALL_PRESSURE" />
     </application>
 </manifest>

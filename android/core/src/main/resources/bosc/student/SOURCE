@@ -1,0 +1,2 @@
+MiniLM-L6 student, round 1 (Mac v2: patience 3, epoch chosen on dev Whisper copies), int8 ONNX.
+From ~/bosc/BOSC-v2/backend/artifacts/v2/release_r1. ensemble.json from v2_android_export.py (Stage 0 v2 sha 57476d678bb15055).

@@ -41,6 +41,9 @@ internal fun similar(a: String, b: String): Boolean {
 
 private const val ECHO_MS = 8000L
 
+/** The user tapped Pay in a payment app during the call; [turn] = number of transcript turns at that moment. */
+data class PayMark(val turn: Int, val level: String, val amount: Double, val tMillis: Long)
+
 data class SessionState(
     val active: Boolean = false,
     /** "call", "manual" (speaker demo without a call) or "simulation: <title>". */
@@ -60,6 +63,7 @@ data class SessionState(
     val detectorName: String = "",
     val warnThreshold: Float = 0.45f,
     val pauseThreshold: Float = 0.70f,
+    val payMarks: List<PayMark> = emptyList(),
 )
 
 /**
@@ -136,6 +140,16 @@ object GuardState {
         if (!score) return
         Log.i(TAG, "turn ${view.index} ${speaker.id} risk=${"%.2f".format(view.callRisk)} level=${view.level} :: $clean")
         if (view.level != before) Alerts.onLevelChange(app, before, view.level, _session.value)
+    }
+
+    @Synchronized
+    fun payAttempt(level: String, amount: Double) {
+        val s = _session.value
+        if (!s.active) return
+        val t = System.currentTimeMillis() - s.startedAt
+        _session.update { it.copy(payMarks = it.payMarks + PayMark(it.turns.size, level, amount, t)) }
+        logFile?.let { f -> runCatching { f.appendText("{\"t\":$t,\"event\":\"pay_attempt\",\"level\":\"$level\",\"amount\":$amount,\"turn\":${s.turns.size}}\n") } }
+        Log.i(TAG, "pay attempt during call: $level ₹$amount at turn ${s.turns.size}")
     }
 
     fun setPartial(text: String) = _session.update { it.copy(partial = text) }

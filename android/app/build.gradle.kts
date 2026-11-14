@@ -16,6 +16,8 @@ android {
         ndk { abiFilters += "arm64-v8a" }
     }
     androidResources { noCompress += listOf("onnx", "txt") }
+    // Phones are arm64 only; sherpa-onnx and onnxruntime-android both carry x86 copies of libonnxruntime.so.
+    packaging { jniLibs { excludes += listOf("lib/x86/**", "lib/x86_64/**", "lib/armeabi-v7a/**") } }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -31,6 +33,7 @@ android {
 }
 dependencies {
     implementation(project(":core"))
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.19.2")
     // Offline speech recognition that accepts raw PCM (needed to transcribe the other side of a Bosc call).
     implementation("com.alphacephei:vosk-android:0.3.47@aar")
     implementation("net.java.dev.jna:jna:5.13.0@aar")

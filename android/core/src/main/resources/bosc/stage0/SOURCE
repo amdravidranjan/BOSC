@@ -1,1 +1,3 @@
-from github.com/amdravidranjan/BOSC frontend/model at commit a8a255f
+Stage 0 v2: trained locally on Mac (BOSC-v2 rishi-v2, v2_stage0.py) on v1 + AI-handwritten Indian calls + Whisper ASR copies + text noise.
+model_sha256 57476d678bb1505511f9bd2059bd57f03f3a261736e9fb46c0108125bec381ef
+v1 backup: ~/bosc/stage0_v1_backup (team frontend/model at commit a8a255f)

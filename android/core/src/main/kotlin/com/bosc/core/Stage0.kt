@@ -145,6 +145,8 @@ class Stage0Detector(private val bundle: Stage0.Bundle = Stage0.bundled) : CallD
     private val tacticById = Tactic.entries.associateBy { it.id }
 
     override val name = "B. TF-IDF + LR (team Stage 0, model ${bundle.modelHash})"
+    /** Full-precision streamed risk (the ensemble's lookup tables are in double precision, as in Python). */
+    val rawRisk: Double get() = scorer.risk
     override val warnThreshold get() = bundle.config.warn.toFloat()
     override val pauseThreshold get() = bundle.config.pause.toFloat()
     override var level = RiskLevel.LOW
