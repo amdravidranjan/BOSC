@@ -8,7 +8,7 @@
   <meta name="description" content="BOSC listens to a phone call on the phone itself, shows the pressure a caller is putting on you, pauses payments made under that pressure, and tells your family.">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
@@ -46,7 +46,7 @@
     </nav>
 
     <div class="install-row">
-      <button class="btn btn-ghost" id="install-btn" hidden>Install BOSC on this phone</button>
+      <button class="btn btn-primary btn-block" id="install-btn">Install BOSC on this phone</button>
       <div class="note" id="install-help" hidden><p id="install-help-text"></p><button class="linkish" id="install-help-close">Close</button></div>
     </div>
 
@@ -62,12 +62,12 @@
   <section id="v-caller" class="view" hidden>
     <div class="topbar"><a class="back" href="#home">Back</a><span class="pill" id="c-state"><span class="dot"></span>Idle</span></div>
     <h2>Call the protected phone</h2>
-    <div class="panel" id="c-dial">
+    <form class="panel" id="c-dial" autocomplete="off">
       <div class="field"><label for="c-code">Code shown on the protected phone</label><input id="c-code" inputmode="numeric" maxlength="4" placeholder="4 digits" autocomplete="off"></div>
-      <div class="field"><label for="c-name">Name to show as the caller (optional)</label><input id="c-name" maxlength="40" placeholder="SBI Customer Care" autocomplete="off"></div>
+      <div class="field"><label for="c-name">Name to show as the caller (optional)</label><input id="c-name" maxlength="40" value="SBI Customer Care" placeholder="SBI Customer Care" autocomplete="off"></div>
       <p class="quiet">Scammers fake caller names too. The protected phone marks this name as unverified.</p>
-      <button class="btn btn-primary btn-block" id="c-call">Call</button>
-    </div>
+      <button type="submit" class="btn btn-primary btn-block" id="c-call">Call</button>
+    </form>
     <div class="panel" id="c-incall" hidden>
       <div class="row"><strong class="timer" id="c-timer">00:00</strong><span class="spacer"></span><button class="btn btn-sm" id="c-mute">Mute</button><button class="btn btn-sm btn-danger" id="c-hang">Hang up</button></div>
     </div>
@@ -233,13 +233,13 @@
   <!-- ================= GUARDIAN PHONE ================= -->
   <section id="v-guardian" class="view" hidden>
     <div class="topbar"><a class="back" href="#home">Back</a><span class="wordmark">Guardian</span><span class="spacer"></span><span class="pill" id="g-status"><span class="dot"></span>Not connected</span></div>
-    <div class="panel" id="g-setup">
+    <form class="panel" id="g-setup" autocomplete="off">
       <h2>Watch over a protected phone</h2>
       <p class="quiet">Enter the 4-digit code shown on their BOSC screen. You will see the call's pressure level live and get a report when it ends. The words of the call stay on their phone.</p>
-      <div class="field"><label for="g-code">Their code</label><input id="g-code" inputmode="numeric" maxlength="4" placeholder="4 digits" autocomplete="off"></div>
-      <div class="field"><label for="g-name">Your name (shown to them)</label><input id="g-name" maxlength="30" placeholder="Priya" autocomplete="off"></div>
-      <button class="btn btn-primary btn-block" id="g-connect">Connect</button>
-    </div>
+      <div class="field"><label for="g-code">Their code</label><input id="g-code" inputmode="numeric" maxlength="4" placeholder="4 digits" autocomplete="off" autofocus></div>
+      <div class="field"><label for="g-name">Your name (shown to them)</label><input id="g-name" maxlength="30" value="Priya" placeholder="Priya" autocomplete="off"></div>
+      <button type="submit" class="btn btn-primary btn-block" id="g-connect">Connect</button>
+    </form>
     <div id="g-watch" class="stack" hidden>
       <section class="alert-card" id="g-alert" data-level="SAFE" hidden>
         <h2 id="g-alert-title"></h2>
@@ -276,21 +276,21 @@
 
 <!-- first-run setup -->
 <div class="overlay" id="setup" hidden>
-  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="setup-title">
+  <form class="sheet" id="setup-form" role="dialog" aria-modal="true" aria-labelledby="setup-title" autocomplete="off">
     <p class="quiet" id="setup-step">Step 1 of 2</p>
     <div id="setup-1" class="stack">
       <h2 id="setup-title">Who should BOSC tell if a call looks wrong?</h2>
       <p class="quiet">Your guardian. BOSC shows a button to call them, and sends them the report of a risky call.</p>
-      <div class="field"><label for="setup-tname">Their name</label><input id="setup-tname" placeholder="Priya" autocomplete="off"></div>
-      <div class="field"><label for="setup-tnum">Their phone number</label><input id="setup-tnum" inputmode="tel" placeholder="+91…" autocomplete="off"></div>
+      <div class="field"><label for="setup-tname">Their name</label><input id="setup-tname" value="Priya" placeholder="Priya" autocomplete="off"></div>
+      <div class="field"><label for="setup-tnum">Their phone number</label><input id="setup-tnum" inputmode="tel" value="+91 98765 43210" placeholder="+91…" autocomplete="off"></div>
     </div>
     <div id="setup-2" class="stack" hidden>
       <h2>How much do you usually pay at one time?</h2>
       <p class="quiet">BOSC takes extra care when a payment is much bigger than this.</p>
       <div class="field"><label for="setup-avg">Usual payment (₹)</label><input id="setup-avg" class="amount" inputmode="numeric" value="1500"></div>
     </div>
-    <div class="row"><button class="btn btn-ghost" id="setup-skip">Skip</button><span class="spacer"></span><button class="btn btn-primary" id="setup-next">Next</button></div>
-  </div>
+    <div class="row"><button type="button" class="btn btn-ghost" id="setup-skip">Skip</button><span class="spacer"></span><button type="submit" class="btn btn-primary" id="setup-next">Next</button></div>
+  </form>
 </div>
 
 <!-- incoming call -->
@@ -328,7 +328,7 @@
   <div class="sheet stack">
     <h2>Settings</h2>
     <h3>You</h3>
-    <div class="field"><label for="set-myname">Your name (shown to the guardian)</label><input id="set-myname" placeholder="Amma"></div>
+    <div class="field"><label for="set-myname">Your name (shown to the guardian)</label><input id="set-myname" placeholder="Amma" value="Amma"></div>
     <div class="field"><label for="set-mynum">Your phone number (so the guardian can call back)</label><input id="set-mynum" inputmode="tel" placeholder="+91…"></div>
     <h3>Guardian</h3>
     <div class="field"><label for="set-tname">Name</label><input id="set-tname" placeholder="Priya"></div>
@@ -337,7 +337,7 @@
     <h3>Family voices</h3>
     <p class="quiet">Save a family member's voice. If a caller claims to be them, BOSC compares the voices.</p>
     <ul class="plain voices" id="set-voices"></ul>
-    <div class="row"><input id="set-voice-name" placeholder="Name" aria-label="Name"><input id="set-voice-rel" placeholder="daughter" aria-label="Relation"></div>
+    <div class="row"><input id="set-voice-name" placeholder="Name" value="Meera" aria-label="Name"><input id="set-voice-rel" placeholder="daughter" value="daughter" aria-label="Relation"></div>
     <div class="row"><button type="button" class="btn btn-sm btn-primary" id="set-voice-rec">Record 8 seconds</button><label class="btn btn-sm btn-ghost">Use a recording<input type="file" id="set-voice-file" accept="audio/*" hidden></label></div>
     <h3>Listening</h3>
     <div class="field"><label for="set-model">Speech model</label>

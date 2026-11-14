@@ -113,7 +113,7 @@ function renderDetector(kind) {
 
 // ---------------------------------------------------------------- first-run setup
 function maybeFirstRun() {
-  if (settings.setupDone || settings.tnum) return;
+  if (settings.setupDone) return;
   let step = 1;
   const render = () => {
     $("#setup-step").textContent = `Step ${step} of 2`;
@@ -122,7 +122,8 @@ function maybeFirstRun() {
   };
   $("#setup-tname").value = settings.tname; $("#setup-tnum").value = settings.tnum; $("#setup-avg").value = settings.avg;
   $("#setup-skip").onclick = () => { settings.setupDone = true; saveSettings(); $("#setup").hidden = true; };
-  $("#setup-next").onclick = () => {
+  $("#setup-form").onsubmit = (e) => {
+    e.preventDefault();
     if (step === 1) { settings.tname = $("#setup-tname").value.trim(); settings.tnum = $("#setup-tnum").value.trim(); step = 2; render(); return; }
     settings.avg = Math.max(1, +$("#setup-avg").value || 1500);
     settings.setupDone = true; saveSettings(); updateTrusted();
@@ -131,12 +132,14 @@ function maybeFirstRun() {
   };
   render();
   $("#setup").hidden = false;
+  setTimeout(() => { try { $("#setup-tname").focus(); $("#setup-tname").select(); } catch {} }, 50);
 }
 
 // ---------------------------------------------------------------- settings
 function openSettings() {
   $("#set-model").value = settings.model; $("#set-wasm").checked = !!settings.forceWasm;
   $("#set-myname").value = settings.myname; $("#set-mynum").value = settings.mynum || "";
+  if (!$("#set-voice-name").value) { $("#set-voice-name").value = "Meera"; $("#set-voice-rel").value = "daughter"; }
   $("#set-tname").value = settings.tname; $("#set-tnum").value = settings.tnum;
   $("#set-avg").value = settings.avg; $("#set-sens").value = String(settings.sens);
   $("#set-speak").checked = !!settings.speak; $("#set-sound").checked = !!settings.sound;

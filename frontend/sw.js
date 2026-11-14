@@ -4,10 +4,10 @@
 // - Everything else (PeerJS signalling, Hugging Face model files) is not touched.
 //   Transformers.js keeps the Whisper model in its own cache ("transformers-cache"), which we never delete.
 // Nothing user-generated (transcripts, logs) is ever cached here.
-const CACHE = "bosc-shell-v2";
+const CACHE = "bosc-shell-v3";
 const CDN = "bosc-cdn-v1";
 const SHELL = [
-  "./", "index.html", "manifest.json", "icon.svg", "css/app.css",
+  "./", "index.html", "manifest.json", "icon.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-192.png", "icons/maskable-512.png", "css/app.css",
   "js/app.js", "js/util.js", "js/settings.js", "js/state.js", "js/router.js",
   "js/caller.js", "js/bosc.js", "js/shield.js", "js/report.js", "js/guardian.js", "js/install.js",
   "js/audio.js", "js/chunk-worklet.js", "js/asr-worker.js", "js/bosc-core.js",

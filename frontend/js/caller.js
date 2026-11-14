@@ -17,8 +17,8 @@ export function initCaller() {
   $("#c-prev").onclick = () => { cLine = Math.max(0, cLine - 1); renderPrompter(); };
   $("#c-next").onclick = () => { cLine++; renderPrompter(); };
   $("#c-code").value = lsGet("bosc-last-code");
-  $("#c-name").value = lsGet("bosc-caller-name");
-  $("#c-call").onclick = callerDial;
+  $("#c-name").value = lsGet("bosc-caller-name") || "SBI Customer Care";
+  $("#c-dial").onsubmit = (e) => { e.preventDefault(); callerDial(); };
   $("#c-hang").onclick = () => callerEnd(true);
   $("#c-mute").onclick = () => {
     if (!cStream) return;

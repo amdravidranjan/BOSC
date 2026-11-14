@@ -57,8 +57,9 @@ const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
 
 export function initGuardianView() {
   $("#g-code").value = lsGet("bosc-guard-code");
-  $("#g-name").value = lsGet("bosc-guard-name");
-  $("#g-connect").onclick = connect;
+  $("#g-name").value = lsGet("bosc-guard-name") || "Priya";
+  $("#g-setup").onsubmit = (e) => { e.preventDefault(); connect(); };
+  setTimeout(() => { try { $("#g-code").focus(); } catch {} }, 50);
   $("#g-disconnect").onclick = () => disconnect(true);
   $("#g-ack").onclick = () => {
     if (wConn && wConn.open) { try { wConn.send({ type: "ack", name: wName }); } catch {} }
