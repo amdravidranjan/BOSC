@@ -15,6 +15,8 @@ import { initGuardianView } from "./guardian.js";
 import { initInstall } from "./install.js";
 
 applyLargeText();
+// every form here is handled in JS; never let a plain submit reload the page
+document.addEventListener("submit", (e) => { if (!e.defaultPrevented) e.preventDefault(); });
 onView("caller", { init: initCaller });
 onView("bosc", { init: initBosc });
 onView("pay", { init: initPay, enter: refreshPay });
